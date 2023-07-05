@@ -7,12 +7,14 @@ import 'package:salmon/theme/salmon_colors.dart';
 import '../helpers/salmon_const.dart';
 
 final class SalmonTheme {
+  SalmonTheme(this.ref);
+  final Ref ref;
+
   static final String? enFontFamily = GoogleFonts.aBeeZee().fontFamily;
   static final String? arFontFamily = GoogleFonts.elMessiri().fontFamily;
 
-  static String? _fontFamily(BuildContext context) =>
-      ProviderContainer().read(asyncL10nProvider).value?.languageCode ==
-              SalmonConst.en
+  String? get _fontFamily =>
+      ref.read(asyncL10nProvider).value?.languageCode == SalmonConst.en
           ? enFontFamily
           : enFontFamily;
 
@@ -48,7 +50,7 @@ final class SalmonTheme {
 
   static const _seedColor = SalmonColors.blue;
 
-  static ThemeData light(BuildContext context) {
+  ThemeData light() {
     return ThemeData.light().copyWith(
       useMaterial3: true,
 
@@ -60,7 +62,7 @@ final class SalmonTheme {
 
       //
       textTheme: ThemeData.light().textTheme.apply(
-            fontFamily: _fontFamily(context),
+            fontFamily: _fontFamily,
             bodyColor: SalmonColors.black,
             displayColor: SalmonColors.black,
             decorationColor: SalmonColors.black,

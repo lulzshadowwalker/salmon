@@ -47,6 +47,10 @@
     <true/>
     <key>UIApplicationSupportsIndirectInputEvents</key>
     <true/>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>permission to access your photo library is needed to enable image attachments and picture uploads</string>
+    <key>NSCameraUsageDescription</key>
+    <string>permission to access your camera is needed to enable image attachments and picture uploads</string>
     <key>CFBundleLocalizations</key>
     <array>
       <string>en</string>

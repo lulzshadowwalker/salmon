@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'l10n_provider.dart';
+part of 'async_l10n_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$asyncL10nHash() => r'188ba91a5f378c66a306941d26014a394bd74c18';
+String _$asyncL10nHash() => r'e3394fe19403c701554a6c9d2a709aa977191619';
 
 /// See also [AsyncL10n].
 @ProviderFor(AsyncL10n)

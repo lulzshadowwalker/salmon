@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:salmon/helpers/salmon_const.dart';
 
-part 'l10n_provider.g.dart';
+part 'async_l10n_provider.g.dart';
 
 @riverpod
 class AsyncL10n extends _$AsyncL10n {
@@ -14,8 +15,8 @@ class AsyncL10n extends _$AsyncL10n {
 
     final langCode = box.read<String>(_storageKey);
     if (langCode == null) {
-      await box.write(_storageKey, 'en');
-      return const Locale('en');
+      await box.write(_storageKey, SalmonConst.en);
+      return const Locale(SalmonConst.en);
     }
 
     return Locale(langCode);
@@ -25,9 +26,9 @@ class AsyncL10n extends _$AsyncL10n {
     state = const AsyncValue.loading();
 
     state = await AsyncValue.guard(() async {
-      await GetStorage().write(_storageKey, 'ar');
+      await GetStorage().write(_storageKey, SalmonConst.ar);
 
-      return const Locale('ar');
+      return const Locale(SalmonConst.ar);
     });
   }
 
@@ -35,9 +36,9 @@ class AsyncL10n extends _$AsyncL10n {
     state = const AsyncValue.loading();
 
     state = await AsyncValue.guard(() async {
-      await GetStorage().write(_storageKey, 'en');
+      await GetStorage().write(_storageKey, SalmonConst.en);
 
-      return const Locale('en');
+      return const Locale(SalmonConst.en);
     });
   }
 }

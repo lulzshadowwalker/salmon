@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/helpers/salmon_const.dart';
 import 'package:salmon/providers/l10n/async_l10n_provider.dart';
-import 'package:salmon/router/salmon_router.dart';
-import 'package:salmon/theme/salmon_theme.dart';
+import 'package:salmon/providers/router/router_provider.dart';
+import 'package:salmon/providers/theme/theme_provider.dart';
 import 'l10n/l10n_imports.dart';
 
 class Salmon extends ConsumerWidget {
@@ -17,14 +17,17 @@ class Salmon extends ConsumerWidget {
           loading: () => const Locale(SalmonConst.en),
         );
 
+    final theme = ref.watch(themeProvider);
+    final router = ref.watch(routerProvider);
+
     return MaterialApp.router(
       title: 'Salmon',
       debugShowCheckedModeBanner: false,
-      localizationsDelegates: SalmonLocalizations.localizationsDelegates,
-      supportedLocales: SalmonLocalizations.supportedLocales,
+      localizationsDelegates: SL.localizationsDelegates,
+      supportedLocales: SL.supportedLocales,
       locale: locale,
-      theme: SalmonTheme.light(context),
-      routerConfig: SalmonRouter.config,
+      theme: theme,
+      routerConfig: router.config,
     );
   }
 }
