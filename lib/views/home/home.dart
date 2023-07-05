@@ -17,6 +17,7 @@ class Home extends ConsumerWidget {
           children: [
             ElevatedButton(
               onPressed: () {
+                NotifController().show(id: 0, title: 'title', body: 'body');
                 NotifController.showPopup(
                   context: context,
                   message: 'Sucess',

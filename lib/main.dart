@@ -4,6 +4,7 @@ import 'package:salmon/salmon.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
 
+import 'controllers/notif/notif_controller.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -14,6 +15,8 @@ void main() async {
   );
 
   await GetStorage.init();
+
+  await NotifController().init();
 
   runApp(
     const ProviderScope(

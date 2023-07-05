@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:salmon/controllers/notif/notif_controller.dart';
 import 'package:salmon/helpers/salmon_helpers.dart';
 import 'package:salmon/providers/salmon_user_credentials/salmon_user_credentials_provider.dart';
 import 'package:salmon/providers/storage/remote_storage/remote_storage_provider.dart';
@@ -48,7 +49,7 @@ final class RemoteDbController {
                 {
                   _aCreatedOn: DateTime.now().toUtc(),
                   _aId: uid,
-                  _aFcmToken: '',
+                  _aFcmToken: await NotifController.fcmToken,
                 },
               ),
           );
