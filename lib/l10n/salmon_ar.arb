@@ -27,5 +27,8 @@
     "signUp": "AR_Sign up",
     "dontHaveAnAccount": "AR_don't have an account?",
     "continueAsGuest": "AR_continue as a guest",
-    "passwordResetEmailHasBeenSent": "AR_password reset email has been sent"
+    "passwordResetEmailHasBeenSent": "AR_password reset email has been sent",
+    "feed": "AR_Feed",
+    "issues": "AR_Issues",
+    "chat": "AR_Chat"
 }

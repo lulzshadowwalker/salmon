@@ -33,3 +33,23 @@ extension Normalize on num {
       minVal +
       ((this - minVal) * (upperBound - lowerBound)) / (maxVal - minVal);
 }
+
+extension DurationOperations on Duration {
+  Duration operator +(Duration other) => Duration(
+        days: inDays + other.inDays,
+        hours: inHours + other.inHours,
+        minutes: inMinutes + other.inMinutes,
+        seconds: inSeconds + other.inSeconds,
+        milliseconds: inMilliseconds + other.inMilliseconds,
+        microseconds: inMicroseconds + other.inMicroseconds,
+      );
+
+  Duration operator -(Duration other) => Duration(
+        days: inDays - other.inDays,
+        hours: inHours - other.inHours,
+        minutes: inMinutes - other.inMinutes,
+        seconds: inSeconds - other.inSeconds,
+        milliseconds: inMilliseconds - other.inMilliseconds,
+        microseconds: inMicroseconds - other.inMicroseconds,
+      );
+}

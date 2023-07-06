@@ -27,5 +27,8 @@
     "signUp": "Sign up",
     "dontHaveAnAccount": "don't have an account?",
     "continueAsGuest": "continue as a guest",
-    "passwordResetEmailHasBeenSent": "password reset email has been sent"
+    "passwordResetEmailHasBeenSent": "password reset email has been sent",
+    "feed": "Feed",
+    "issues": "Issues",
+    "chat": "Chat"
 }

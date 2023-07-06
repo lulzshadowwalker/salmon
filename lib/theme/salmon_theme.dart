@@ -35,6 +35,21 @@ final class SalmonTheme {
     ),
   );
 
+  static final _bottomNavBarTheme = BottomNavigationBarThemeData(
+    backgroundColor: Colors.transparent,
+    elevation: 0,
+    unselectedIconTheme: IconThemeData(
+      color: SalmonColors.mutedLight,
+      size: 30,
+    ),
+    selectedIconTheme: IconThemeData(
+      color: SalmonColors.yellow,
+      size: 30,
+    ),
+    showUnselectedLabels: false,
+    showSelectedLabels: false,
+  );
+
   static final _outlinedButtonTheme = OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
       side: const BorderSide(
@@ -79,6 +94,9 @@ final class SalmonTheme {
 
       //
       outlinedButtonTheme: _outlinedButtonTheme,
+
+      //
+      bottomNavigationBarTheme: _bottomNavBarTheme,
     );
   }
 }

@@ -22,4 +22,13 @@ final class SalmonAnims {
 
   /// https://lottiefiles.com/134878-warning-status
   static const String warning = 'assets/anims/warning.json';
+
+  /// https://lottiefiles.com/96188-chatbot-animation
+  static const String chat = 'assets/anims/chat.json';
+
+  /// https://lottiefiles.com/89433-home-icon-animation
+  static const String home = 'assets/anims/home.json';
+
+  /// https://lottiefiles.com/94242-flag-with-sparkle
+  static const String flag = 'assets/anims/flag.json';
 }

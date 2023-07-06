@@ -7,11 +7,11 @@ final class SalmonColors {
     return Color(int.parse(opacity + color, radix: 16));
   }
 
-  static final Color black = fromHex('0D160B');
+  static const Color black = Color(0xFF1E2832);
   static final Color white = fromHex('F4FAFF');
   static final Color green = fromHex('#59C58F');
   static final Color red = fromHex('#EE4B6A');
-  static final Color yellow = fromHex('#E6BC60');
+  static final Color yellow = fromHex('F5C04E');
   static const Color blue = Color(0xFF1E59C7);
   static const Color lightBlue = Color(0xBD3B6BC4);
   static final Color muted = fromHex('999999');

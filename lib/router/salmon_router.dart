@@ -32,7 +32,6 @@ class SalmonRouter {
         },
         refreshListenable:
             GoRouterRefreshStream(ref.read(a12nProvider).authState),
-        initialLocation: SalmonRoutes.signUp,
         routes: [
           GoRoute(
             name: SalmonRoutes.home,

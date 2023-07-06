@@ -20,10 +20,6 @@ final class SalmonHelpers {
         printer: SalmonLogPrinter(className),
       );
 
-  /// image picking utility for android/iOS/web
-  /// ..
-  /// mobile, gallery / camera
-  /// web, gallery
   static Future<Uint8List?> pickImage(BuildContext context) async {
     try {
       const aborted = SalmonSilentException(
