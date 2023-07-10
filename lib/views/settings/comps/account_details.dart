@@ -1,0 +1,189 @@
+part of './settings_comps.dart';
+
+class AccountDetails extends StatefulHookConsumerWidget {
+  const AccountDetails({super.key});
+
+  @override
+  ConsumerState<AccountDetails> createState() => _AccountDetailsState();
+}
+
+class _AccountDetailsState extends ConsumerState<AccountDetails> {
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    final user = ref.read(salmonUserProvider).value;
+    final userOverride = useState(const SalmonUserCredentials());
+    final nameController = useTextEditingController();
+    final emailController = useTextEditingController();
+    final isEmailModified = useState(false);
+    final isAnyModified = useState(false);
+    final isLoading = useState(false);
+    final isMounted = useIsMounted();
+
+    useEffect(() {
+      void listener() {
+        isAnyModified.value =
+            nameController.text.isNotEmpty || emailController.text.isNotEmpty;
+      }
+
+      nameController.addListener(listener);
+
+      emailController.addListener(() {
+        isEmailModified.value = emailController.text.isNotEmpty;
+        listener();
+      });
+
+      return null;
+    }, const []);
+
+    return SalmonUnfocusableWrapper(
+      child: Scaffold(
+        backgroundColor: SalmonColors.yellow,
+        appBar: AppBar(
+          title: Text(SL.of(context).accountDetails),
+        ),
+        body: SalmonSingleChildScrollView(
+          child: SalmonPageWrapper(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  ImagePickerCircleAvatar(
+                    initialImage: user?.pfp.asCachedNetImg,
+                    onSelected: (image) {
+                      userOverride.value = userOverride.value.copyWith(
+                        pfpRaw: image,
+                      );
+                    },
+                  ),
+                  SalmonFormField(
+                    validator: (val) =>
+                        val.isEmpty ? SL.of(context).whatShouldWeCallYou : null,
+                    prefixIcon: const Icon(FontAwesomeIcons.solidUser),
+                    controller: nameController,
+                    hintText: user?.displayName ?? SL.of(context).name,
+                    onSaved: (name) {
+                      userOverride.value = userOverride.value.copyWith(
+                        displayName: name,
+                      );
+                    },
+                  ),
+                  SalmonEmailField(
+                      onSaved: (email) {
+                        userOverride.value = userOverride.value.copyWith(
+                          email: email,
+                        );
+                      },
+                      controller: emailController,
+                      hintText: user?.email,
+                      validator: (value) {
+                        if (!isEmailModified.value) return null;
+
+                        return isEmail('$value')
+                            ? null
+                            : SL.of(context).enterValidEmail;
+                      }),
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 350),
+                    child: isEmailModified.value
+                        ? SalmonPasswordField(
+                            hintText: SL.of(context).confirmPassword,
+                            onSaved: (password) {
+                              userOverride.value = userOverride.value.copyWith(
+                                password: password,
+                              );
+                            },
+                            validator: (value) {
+                              if (!isEmailModified.value) return null;
+
+                              return value.length >= 8
+                                  ? null
+                                  : SL.of(context).pickStrongPassword;
+                            },
+                          )
+                        : const SizedBox.shrink(),
+                  ),
+                  const Spacer(),
+                  Bounceable(
+                    onTap: () =>
+                        ref.read(a12nProvider).sendPasswordResetEmail(context),
+                    child: _SettingsOption(
+                      margin: const EdgeInsets.only(bottom: 16),
+                      title: Text(SL.of(context).resetPassword),
+                      trailing: const FaIcon(
+                        FontAwesomeIcons.solidCircleQuestion,
+                      ),
+                      isWrapped: true,
+                    ),
+                  ),
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 350),
+                    child: isAnyModified.value
+                        ? isLoading.value
+                            ? const SalmonLoadingIndicator()
+                            : ElevatedButton(
+                                onPressed: () async {
+                                  if (_formKey.currentState == null ||
+                                      !_formKey.currentState!.validate()) {
+                                    return;
+                                  }
+
+                                  _formKey.currentState!.save();
+
+                                  isLoading.value = true;
+                                  if (isEmailModified.value) {
+                                    ref
+                                        .read(salmonUserCredentialsProvider
+                                            .notifier)
+                                        .set(userOverride.value);
+
+                                    try {
+                                      await ref
+                                          .read(a12nProvider)
+                                          .emailSignIn(context);
+                                    } catch (_) {
+                                      if (isMounted()) {
+                                        isLoading.value = false;
+                                      }
+                                      return;
+                                    }
+                                  }
+
+                                  // ignore: use_build_context_synchronously
+                                  await ref.read(remoteDbProvider).updateUser(
+                                        context,
+                                        userOverride.value
+                                            .toMap()
+                                            .map((key, value) {
+                                          if (value.runtimeType != String) {
+                                            return MapEntry(key, value);
+                                          }
+
+                                          return MapEntry(
+                                            key,
+                                            (value as String?).isEmpty
+                                                ? null
+                                                : value,
+                                          );
+                                        }).compact,
+                                      );
+
+                                  if (isMounted()) {
+                                    isLoading.value = false;
+                                    context.pop();
+                                  }
+                                },
+                                child: Text(SL.of(context).update),
+                              )
+                        : const SizedBox.shrink(),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

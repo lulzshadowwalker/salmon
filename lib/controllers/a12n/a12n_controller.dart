@@ -79,6 +79,7 @@ class A12nController {
       _log.v('Signed-in with email and password');
     } catch (e) {
       SalmonHelpers.handleException(context: context, e: e, logger: _log);
+      throw const SalmonSilentException('sign in failed');
     }
   }
 

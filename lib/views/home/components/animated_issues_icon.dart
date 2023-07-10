@@ -40,9 +40,7 @@ class AnimatedIssuesIcon extends HookWidget {
         duration: con.duration!,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: isActive
-              ? SalmonColors.yellow
-              : SalmonColors.yellow.withOpacity(0.6),
+          color: isActive ? SalmonColors.yellow : SalmonColors.lightYellow,
           borderRadius: BorderRadius.circular(15),
         ),
         child: ColorFiltered(

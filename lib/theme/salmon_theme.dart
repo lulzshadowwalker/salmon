@@ -26,7 +26,7 @@ final class SalmonTheme {
 
   static final _elevatedButtonTheme = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      backgroundColor: SalmonColors.blue,
+      backgroundColor: SalmonColors.yellow,
       foregroundColor: SalmonColors.white,
       minimumSize: const Size.fromHeight(42),
       shape: RoundedRectangleBorder(
@@ -52,10 +52,10 @@ final class SalmonTheme {
 
   static final _outlinedButtonTheme = OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
-      side: const BorderSide(
-        color: SalmonColors.blue,
+      side: BorderSide(
+        color: SalmonColors.yellow,
       ),
-      foregroundColor: SalmonColors.blue,
+      foregroundColor: SalmonColors.yellow,
       minimumSize: const Size.fromHeight(42),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
@@ -63,7 +63,7 @@ final class SalmonTheme {
     ),
   );
 
-  static const _seedColor = SalmonColors.blue;
+  static final _seedColor = SalmonColors.yellow;
 
   ThemeData light() {
     return ThemeData.light().copyWith(
@@ -76,6 +76,11 @@ final class SalmonTheme {
       ),
 
       //
+      iconTheme: const IconThemeData(
+        color: SalmonColors.black,
+      ),
+
+      //
       textTheme: ThemeData.light().textTheme.apply(
             fontFamily: _fontFamily,
             bodyColor: SalmonColors.black,
@@ -84,7 +89,61 @@ final class SalmonTheme {
           ),
 
       //
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.transparent,
+        foregroundColor: SalmonColors.black,
+        elevation: 0,
+      ),
+
+      //
       scaffoldBackgroundColor: SalmonColors.white,
+
+      //
+      dividerTheme: _dividerThemeData,
+
+      //
+      elevatedButtonTheme: _elevatedButtonTheme,
+
+      //
+      outlinedButtonTheme: _outlinedButtonTheme,
+
+      //
+      bottomNavigationBarTheme: _bottomNavBarTheme,
+    );
+  }
+
+  ThemeData dark() {
+    return ThemeData.light().copyWith(
+      useMaterial3: true,
+
+      //
+      colorScheme: ColorScheme.fromSeed(
+        brightness: Brightness.dark,
+        seedColor: _seedColor,
+      ),
+
+      //
+      iconTheme: IconThemeData(
+        color: SalmonColors.white,
+      ),
+
+      //
+      textTheme: ThemeData.light().textTheme.apply(
+            fontFamily: _fontFamily,
+            bodyColor: SalmonColors.white,
+            displayColor: SalmonColors.white,
+            decorationColor: SalmonColors.white,
+          ),
+
+      //
+      appBarTheme: AppBarTheme(
+        backgroundColor: Colors.transparent,
+        foregroundColor: SalmonColors.white,
+        elevation: 0,
+      ),
+
+      //
+      scaffoldBackgroundColor: SalmonColors.black,
 
       //
       dividerTheme: _dividerThemeData,

@@ -11,11 +11,13 @@ class SalmonPasswordField extends HookConsumerWidget {
   const SalmonPasswordField({
     this.hintText,
     this.onSaved,
+    this.validator,
     Key? key,
   }) : super(key: key);
 
   final String? hintText;
   final void Function(String? value)? onSaved;
+  final String? Function(String? value)? validator;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,8 +25,8 @@ class SalmonPasswordField extends HookConsumerWidget {
     bool isObscure = isPassObscure.value;
 
     return SalmonFormField(
-      validator: (val) =>
-          val.length >= 8 ? null : SL.of(context).pickStrongPassword,
+      validator: validator ??
+          (val) => val.length >= 8 ? null : SL.of(context).pickStrongPassword,
       onSaved: onSaved,
       prefixIcon: const Icon(FontAwesomeIcons.lock),
       hintText: hintText ?? 'password',

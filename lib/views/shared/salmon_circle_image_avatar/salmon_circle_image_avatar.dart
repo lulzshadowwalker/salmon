@@ -20,10 +20,10 @@ class SalmonCircleImageAvatar extends StatelessWidget {
       height: radius,
       width: radius,
       decoration: BoxDecoration(
-        color: const Color(0xD0F8D58A),
+        color: SalmonColors.lightBlue,
         shape: BoxShape.circle,
         border: Border.all(
-          color: SalmonColors.lightBlue,
+          color: SalmonColors.yellow,
           width: 3,
         ),
         image: image != null
@@ -35,8 +35,8 @@ class SalmonCircleImageAvatar extends StatelessWidget {
       ),
       child: image == null
           ? ColorFiltered(
-              colorFilter: const ColorFilter.mode(
-                SalmonColors.blue,
+              colorFilter: ColorFilter.mode(
+                SalmonColors.yellow,
                 BlendMode.hue,
               ),
               child: Lottie.asset(

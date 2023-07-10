@@ -31,4 +31,16 @@ final class SalmonAnims {
 
   /// https://lottiefiles.com/94242-flag-with-sparkle
   static const String flag = 'assets/anims/flag.json';
+
+  /// https://lottiefiles.com/36309-google-icons-analytics
+  static const String analytics = 'assets/anims/analytics.json';
+
+  /// https://lottiefiles.com/65483-setting-icon-animation
+  static const String cog = 'assets/anims/cog.json';
+
+  /// https://lottiefiles.com/92450-sign-out-icon
+  static const String signOut = 'assets/anims/sign-out.json';
+  
+  /// https://lottiefiles.com/15429-burger-menu
+  static const String menu = 'assets/anims/menu.json';
 }

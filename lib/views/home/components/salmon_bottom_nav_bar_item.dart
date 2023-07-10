@@ -30,7 +30,10 @@ class SalmonBottomNavbarItem extends StatelessWidget {
             child: Container(
               width: _size,
               height: _size,
-              color: SalmonColors.yellow,
+              decoration: BoxDecoration(
+                color: SalmonColors.yellow,
+                shape: BoxShape.circle,
+              ),
             ),
           ),
         )

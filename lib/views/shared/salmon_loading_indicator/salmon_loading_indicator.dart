@@ -6,13 +6,13 @@ import '../../../helpers/salmon_anims.dart';
 
 class SalmonLoadingIndicator extends StatelessWidget {
   const SalmonLoadingIndicator({
-    this.color = SalmonColors.blue,
+    this.color,
     this.size,
     super.key,
   });
 
   final double? size;
-  final Color color;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class SalmonLoadingIndicator extends StatelessWidget {
       scale: 5,
       child: ColorFiltered(
         colorFilter: ColorFilter.mode(
-          color,
+          color ?? SalmonColors.yellow,
           BlendMode.srcIn,
         ),
         child: Lottie.asset(

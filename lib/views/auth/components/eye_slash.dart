@@ -42,8 +42,8 @@ class EyeSlash extends HookWidget {
     );
 
     return ColorFiltered(
-      colorFilter: const ColorFilter.mode(
-        SalmonColors.blue,
+      colorFilter: ColorFilter.mode(
+        SalmonColors.yellow,
         BlendMode.difference,
       ),
       child: Lottie.asset(

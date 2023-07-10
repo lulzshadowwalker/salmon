@@ -30,5 +30,21 @@
     "passwordResetEmailHasBeenSent": "password reset email has been sent",
     "feed": "Feed",
     "issues": "Issues",
-    "chat": "Chat"
+    "chat": "Chat",
+    "home": "Home",
+    "analytics": "Analytics",
+    "settings": "Settings",
+    "signOut": "Sign out",
+    "createAnAccount": "Create an account",
+    "guest": "Guest",
+    "accountSettings": "Account Settings",
+    "update": "update",
+    "applicationSettings": "Application Settings",
+    "language": "language",
+    "darkMode": "Dark mode",
+    "resetPassword": "reset password",
+    "accountDetails": "Account Details",
+    "confirmPassword": "Confirm password",
+    "infoHasBeenUpdated": "your information has been updated",
+    "reviewAccountDetails": "review account details"
 }

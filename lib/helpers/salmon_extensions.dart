@@ -10,6 +10,17 @@ extension NullAwareString on String? {
   bool get isEmpty => this == null || !this!.isNotEmpty;
 }
 
+/// returns a list without the [null] values if any
+extension CompactMap<T> on Iterable<T?> {
+  Iterable<T> get toCompactMap =>
+      map((e) => e).where((e) => e != null).toList().cast();
+}
+
+extension Compact<T, S> on Map<T, S> {
+  Map<T, S> get compact =>
+      Map.from(this)..removeWhere((key, value) => value == null);
+}
+
 extension StringToImageProvider on String? {
   NetworkImage? get asNetImg => this != null ? NetworkImage(this!) : null;
 

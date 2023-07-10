@@ -90,6 +90,7 @@ final class SalmonHelpers {
       "email-already-in-use": SL.of(context).emailAlreadyInUse,
       "weak-password": SL.of(context).weakPassword,
       "auth/user-not-found": SL.of(context).authUserNotFound,
+      "user-not-found": SL.of(context).authUserNotFound,
       "network-request-failed": SL.of(context).networkRequestFailed,
       "requires-recent-login": SL.of(context).requiresRecentLogin,
     };

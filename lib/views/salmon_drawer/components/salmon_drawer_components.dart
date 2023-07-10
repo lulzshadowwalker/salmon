@@ -1,0 +1,27 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lottie/lottie.dart';
+import 'package:salmon/helpers/salmon_anims.dart';
+import 'package:salmon/helpers/salmon_extensions.dart';
+import 'package:salmon/views/shared/animated_analytics_icon/animated_analytics_icon.dart';
+import 'package:salmon/views/shared/animated_settings_icon/animated_settings_icon.dart';
+import '../../../l10n/l10n_imports.dart';
+import '../../../models/enums/drawer_status.dart';
+import '../../../providers/a12n/a12n_provider.dart';
+import '../../../providers/drawer/drawer_provider.dart';
+import '../../../providers/salmon_user/salmon_user_provider.dart';
+import '../../../providers/theme/theme_mode/async_theme_mode_provider.dart';
+import '../../../theme/salmon_colors.dart';
+import '../../analytics/analytics.dart';
+import '../../home/components/animated_home_icon.dart';
+import '../../home/home.dart';
+import '../../settings/comps/settings_comps.dart';
+import '../../shared/salmon_circle_image_avatar/salmon_circle_image_avatar.dart';
+import '../../shared/salmon_loading_indicator/salmon_loading_indicator.dart';
+import '../../shared/salmon_single_child_scroll_view/salmon_single_child_scroll_view.dart';
+
+part '../salmon_drawer.dart';
+part 'drawer_content.dart';
+part 'sign_out_tile.dart';

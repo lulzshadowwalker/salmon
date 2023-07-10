@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 import 'package:salmon/helpers/salmon_const.dart';
+import 'package:salmon/models/salmon_user.dart';
 
 @immutable
 class SalmonUserCredentials {
@@ -28,7 +29,8 @@ class SalmonUserCredentials {
     return <String, dynamic>{
       'display_name': displayName,
       'email': email,
-      'pfp': pfpUrl,
+      'pfp_url': pfpUrl,
+      'pfp_raw': pfpRaw,
       'id': id,
     };
   }
@@ -40,6 +42,14 @@ class SalmonUserCredentials {
         id = map['id'],
         password = map['password'],
         pfpRaw = map['pfp_raw'];
+
+  SalmonUserCredentials.fromSalmonUser(SalmonUser? user)
+      : displayName = user?.displayName,
+        email = user?.email,
+        pfpUrl = user?.pfp,
+        id = user?.id,
+        password = null,
+        pfpRaw = null;
 
   SalmonUserCredentials.fromGoogleAuth(Map<String, dynamic> profile)
       : email = profile[SalmonConst.gEmail],

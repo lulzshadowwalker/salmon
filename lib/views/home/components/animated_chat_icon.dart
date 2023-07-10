@@ -3,7 +3,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:lottie/lottie.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/theme/salmon_colors.dart';
-import 'package:salmon/views/home/components/salmon_bottom_nav_bar_item.dart';
 
 import '../../../helpers/salmon_anims.dart';
 
@@ -46,25 +45,22 @@ class AnimatedChatIcon extends HookWidget {
       return null;
     }, [isActive, isLoaded.value]);
 
-    return SalmonBottomNavbarItem(
-      isActive: isActive,
-      child: ColorFiltered(
-        colorFilter: ColorFilter.mode(
-          isActive ? SalmonColors.yellow : SalmonColors.muted,
-          BlendMode.srcIn,
-        ),
-        child: Transform(
-          alignment: Alignment.center,
-          transform: Matrix4.identity()..scale(scale, scale),
-          child: Lottie.asset(
-            SalmonAnims.chat,
-            height: size,
-            controller: anim,
-            onLoaded: (comp) {
-              con.duration = comp.duration + const Duration(milliseconds: 250);
-              isLoaded.value = true;
-            },
-          ),
+    return ColorFiltered(
+      colorFilter: ColorFilter.mode(
+        isActive ? SalmonColors.yellow : SalmonColors.muted,
+        BlendMode.srcIn,
+      ),
+      child: Transform(
+        alignment: Alignment.center,
+        transform: Matrix4.identity()..scale(scale, scale),
+        child: Lottie.asset(
+          SalmonAnims.chat,
+          height: size,
+          controller: anim,
+          onLoaded: (comp) {
+            con.duration = comp.duration + const Duration(milliseconds: 250);
+            isLoaded.value = true;
+          },
         ),
       ),
     );

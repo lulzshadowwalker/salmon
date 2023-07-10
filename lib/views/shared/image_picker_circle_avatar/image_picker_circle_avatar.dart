@@ -63,9 +63,9 @@ class ImagePickerCircleAvatar extends HookWidget {
             child: Container(
               height: 24,
               width: 24,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: SalmonColors.blue,
+                color: SalmonColors.yellow,
               ),
               child: ColorFiltered(
                 colorFilter: ColorFilter.mode(

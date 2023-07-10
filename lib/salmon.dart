@@ -3,7 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/helpers/salmon_const.dart';
 import 'package:salmon/providers/l10n/async_l10n_provider.dart';
 import 'package:salmon/providers/router/router_provider.dart';
-import 'package:salmon/providers/theme/theme_provider.dart';
+import 'package:salmon/providers/theme/theme_data/theme_data_provider.dart';
+import 'package:salmon/providers/theme/theme_mode/async_theme_mode_provider.dart';
 import 'l10n/l10n_imports.dart';
 
 class Salmon extends ConsumerWidget {
@@ -17,7 +18,8 @@ class Salmon extends ConsumerWidget {
           loading: () => const Locale(SalmonConst.en),
         );
 
-    final theme = ref.watch(themeProvider);
+    final themeMode = ref.watch(asyncThemeModeProvider).value;
+    final theme = ref.watch(salmonThemeProvider);
     final router = ref.watch(routerProvider);
 
     return MaterialApp.router(
@@ -26,7 +28,9 @@ class Salmon extends ConsumerWidget {
       localizationsDelegates: SL.localizationsDelegates,
       supportedLocales: SL.supportedLocales,
       locale: locale,
-      theme: theme,
+      themeMode: themeMode,
+      theme: theme.light(),
+      darkTheme: theme.dark(),
       routerConfig: router.config,
     );
   }

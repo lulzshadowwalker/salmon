@@ -2,9 +2,11 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/providers/a12n/a12n_provider.dart';
 import 'package:salmon/router/salmon_routes.dart';
+import 'package:salmon/views/analytics/analytics.dart';
+import 'package:salmon/views/interface/interface.dart';
+import 'package:salmon/views/settings/comps/settings_comps.dart';
 import '../views/auth/sign_in.dart';
 import '../views/auth/sign_up.dart';
-import '../views/home/home.dart';
 import '../views/not_found/not_found.dart';
 import 'gorouter_refresh_stream.dart';
 
@@ -36,7 +38,23 @@ class SalmonRouter {
           GoRoute(
             name: SalmonRoutes.home,
             path: SalmonRoutes.home,
-            builder: (context, state) => const Home(),
+            builder: (context, state) => const Interface(),
+          ),
+          GoRoute(
+              name: SalmonRoutes.settings,
+              path: SalmonRoutes.settings,
+              builder: (context, state) => const Settings(),
+              routes: [
+                GoRoute(
+                  name: SalmonRoutes.accountDetails,
+                  path: SalmonRoutes.accountDetails,
+                  builder: (context, state) => const AccountDetails(),
+                )
+              ]),
+          GoRoute(
+            name: SalmonRoutes.analytics,
+            path: SalmonRoutes.analytics,
+            builder: (context, state) => const Analytics(),
           ),
           GoRoute(
             name: SalmonRoutes.signIn,
