@@ -5,7 +5,7 @@ class _DarkModeSwitch extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDark = ref.watch(asyncThemeModeProvider).value == ThemeMode.dark;
+    final isDark = !ref.watch(isLightThemeProvider);
 
     return Switch(
       value: isDark,

@@ -85,6 +85,7 @@ class ImagePickerCircleAvatar extends HookWidget {
                       () => plusIconAnimCon.forward(),
                     );
                   },
+                  addRepaintBoundary: true,
                 ),
               ),
             ),

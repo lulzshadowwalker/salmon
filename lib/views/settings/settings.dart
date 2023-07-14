@@ -5,6 +5,8 @@ class Settings extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isGuest = ref.watch(a12nProvider).isGuest;
+
     return Scaffold(
       backgroundColor: SalmonColors.yellow,
       appBar: AppBar(
@@ -14,15 +16,15 @@ class Settings extends ConsumerWidget {
         ),
         title: Text(SL.of(context).settings),
       ),
-      body: const SalmonSingleChildScrollView(
+      body: SalmonSingleChildScrollView(
         child: SalmonPageWrapper(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _SettingsProfileHeader(),
-              SizedBox(height: 32),
-              _AccountSettings(),
-              _AppSettings(),
+              const _SettingsProfileHeader(),
+              const SizedBox(height: 32),
+              if (!isGuest) const _AccountSettings(),
+              const _AppSettings(),
             ],
           ),
         ),

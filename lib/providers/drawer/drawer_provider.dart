@@ -36,3 +36,5 @@ class DrawerState extends _$DrawerState {
 // ignore: avoid_public_notifier_properties
   bool get isOpen => state == DrawerStatus.open;
 }
+
+

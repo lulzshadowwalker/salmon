@@ -55,6 +55,7 @@ class AnimatedAnalyticsIcon extends HookWidget {
           SalmonAnims.analytics,
           height: size,
           controller: anim,
+          addRepaintBoundary: true,
         ),
       ),
     );

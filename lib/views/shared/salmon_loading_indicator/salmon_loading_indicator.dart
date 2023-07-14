@@ -27,8 +27,9 @@ class SalmonLoadingIndicator extends StatelessWidget {
           SalmonAnims.googleLoading,
           reverse: true,
           frameRate: FrameRate.max,
-          filterQuality: FilterQuality.high,
+          filterQuality: FilterQuality.low,
           height: size ?? 42,
+          addRepaintBoundary: true,
         ),
       ),
     );

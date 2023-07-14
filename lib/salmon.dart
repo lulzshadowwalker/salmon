@@ -3,8 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/helpers/salmon_const.dart';
 import 'package:salmon/providers/l10n/async_l10n_provider.dart';
 import 'package:salmon/providers/router/router_provider.dart';
-import 'package:salmon/providers/theme/theme_data/theme_data_provider.dart';
-import 'package:salmon/providers/theme/theme_mode/async_theme_mode_provider.dart';
+import 'package:salmon/providers/theme_data/theme_data_provider.dart';
+import 'package:salmon/providers/theme_mode/async_theme_mode_provider.dart';
 import 'l10n/l10n_imports.dart';
 
 class Salmon extends ConsumerWidget {

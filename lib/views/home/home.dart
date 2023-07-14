@@ -24,43 +24,40 @@ class Home extends HookConsumerWidget {
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
         ),
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 16),
-          child: BottomNavigationBar(
-            currentIndex: index,
-            onTap: ref.read(homeProvider.notifier).set,
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            enableFeedback: true,
-            items: [
-              BottomNavigationBarItem(
-                label: SL.of(context).feed,
-                icon: SalmonBottomNavbarItem(
+        child: BottomNavigationBar(
+          currentIndex: index,
+          onTap: ref.read(homeProvider.notifier).set,
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          enableFeedback: true,
+          items: [
+            BottomNavigationBarItem(
+              label: SL.of(context).feed,
+              icon: SalmonBottomNavbarItem(
+                isActive: index == 0,
+                child: AnimatedHomeIcon(
                   isActive: index == 0,
-                  child: AnimatedHomeIcon(
-                    isActive: index == 0,
-                    scale: 1.1,
-                  ),
+                  scale: 1.1,
                 ),
               ),
-              BottomNavigationBarItem(
-                label: SL.of(context).issues,
-                icon: AnimatedIssuesIcon(
-                  isActive: index == 1,
-                ),
+            ),
+            BottomNavigationBarItem(
+              label: SL.of(context).issues,
+              icon: AnimatedIssuesIcon(
+                isActive: index == 1,
               ),
-              BottomNavigationBarItem(
-                label: SL.of(context).chat,
-                icon: SalmonBottomNavbarItem(
+            ),
+            BottomNavigationBarItem(
+              label: SL.of(context).chat,
+              icon: SalmonBottomNavbarItem(
+                isActive: index == 2,
+                child: AnimatedChatIcon(
                   isActive: index == 2,
-                  child: AnimatedChatIcon(
-                    isActive: index == 2,
-                    scale: 1.2,
-                  ),
+                  scale: 1.2,
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
       body: Column(
@@ -68,7 +65,8 @@ class Home extends HookConsumerWidget {
         children: [
           const Padding(
             padding: EdgeInsetsDirectional.only(
-              top: 72.0,
+              top: 72,
+              bottom: 16,
               start: 42,
             ),
             child: AnimatedMenuIcon(),

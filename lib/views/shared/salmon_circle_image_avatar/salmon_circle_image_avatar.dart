@@ -42,7 +42,8 @@ class SalmonCircleImageAvatar extends StatelessWidget {
               child: Lottie.asset(
                 SalmonAnims.avatar,
                 frameRate: FrameRate.max,
-                filterQuality: FilterQuality.high,
+                filterQuality: FilterQuality.medium,
+                addRepaintBoundary: true,
               ),
             )
           : null,

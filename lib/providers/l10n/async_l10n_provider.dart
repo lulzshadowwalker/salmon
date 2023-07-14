@@ -5,7 +5,7 @@ import 'package:salmon/helpers/salmon_const.dart';
 
 part 'async_l10n_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class AsyncL10n extends _$AsyncL10n {
   static const _storageKey = 'lang_code';
 

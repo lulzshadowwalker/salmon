@@ -8,7 +8,6 @@ import 'package:salmon/helpers/salmon_helpers.dart';
 import 'package:salmon/salmon.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:get_storage/get_storage.dart';
-
 import 'controllers/notif/notif_controller.dart';
 import 'firebase_options.dart';
 
@@ -19,15 +18,15 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  if (kDebugMode) {
-    try {
-      FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
-      await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
-      await FirebaseStorage.instance.useStorageEmulator('localhost', 9199);
-    } catch (e) {
-      SalmonHelpers.getLogger('main()').e(e);
-    }
-  }
+  // if (kDebugMode) {
+  //   try {
+  //     FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
+  //     await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+  //     await FirebaseStorage.instance.useStorageEmulator('localhost', 9199);
+  //   } catch (e) {
+  //     SalmonHelpers.getLogger('main()').e(e);
+  //   }
+  // }
 
   await GetStorage.init();
   await NotifController().init();

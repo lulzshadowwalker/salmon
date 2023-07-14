@@ -76,6 +76,7 @@ class _SignOutTile extends HookConsumerWidget {
                     con.duration = comp.duration * 0.4;
                     isLoaded.value = true;
                   },
+                  addRepaintBoundary: true,
                 ),
               ),
             ),

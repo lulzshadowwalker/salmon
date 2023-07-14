@@ -12,7 +12,6 @@ import '../../../models/enums/drawer_status.dart';
 import '../../../providers/a12n/a12n_provider.dart';
 import '../../../providers/drawer/drawer_provider.dart';
 import '../../../providers/salmon_user/salmon_user_provider.dart';
-import '../../../providers/theme/theme_mode/async_theme_mode_provider.dart';
 import '../../../theme/salmon_colors.dart';
 import '../../analytics/analytics.dart';
 import '../../home/components/animated_home_icon.dart';

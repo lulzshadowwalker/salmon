@@ -53,6 +53,7 @@ class AnimatedHomeIcon extends HookWidget {
           SalmonAnims.home,
           height: size,
           controller: anim,
+          filterQuality: FilterQuality.low,
         ),
       ),
     );

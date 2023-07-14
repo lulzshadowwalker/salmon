@@ -34,8 +34,11 @@ dependencies:
   logger: ^1.4.0
   lottie: ^2.4.0
   riverpod_annotation: ^2.1.1
+  shimmer: ^3.0.0
+  step_progress_indicator: ^1.0.2
   uuid: ^3.0.7
   validators: ^3.0.0
+  webview_flutter: ^4.2.2
 
 dev_dependencies:
   flutter_test:

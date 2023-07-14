@@ -13,6 +13,8 @@ import 'package:salmon/providers/a12n/a12n_provider.dart';
 import 'package:salmon/providers/salmon_user_credentials/salmon_user_credentials_provider.dart';
 import 'package:salmon/providers/storage/remote_storage/remote_storage_provider.dart';
 import '../../l10n/l10n_imports.dart';
+import '../../models/agency.dart';
+import '../../models/post.dart';
 import '../../models/typedefs/user_id.dart';
 
 final class RemoteDbController {
@@ -24,6 +26,8 @@ final class RemoteDbController {
 
   /* STRING CONST ------------------------------------------------------------- */
   static const String _cUsers = 'users';
+  static const String _cAgencies = 'agencies';
+  static const String _cPosts = 'posts';
   static const String _aCreatedOn = 'created_on';
   static const String _aId = 'id';
   static const String _aFcmToken = 'fcm_token';
@@ -106,5 +110,29 @@ registered new user with details:
     } catch (e) {
       SalmonHelpers.handleException(context: context, e: e, logger: _log);
     }
+  }
+
+  Stream<List<Agency>> get agencies {
+    return _db.collection(_cAgencies).snapshots().map(
+          (query) => query.docs
+              .map(
+                (doc) => Agency.fromMap(doc.data()),
+              )
+              .toList(),
+        );
+  }
+
+  Stream<List<Post>> get posts {
+    return _db
+        .collection(_cPosts)
+        // .orderBy('date_created', descending: true)
+        .snapshots()
+        .map(
+          (query) => query.docs
+              .map(
+                (doc) => Post.fromMap(doc.data()),
+              )
+              .toList(),
+        );
   }
 }

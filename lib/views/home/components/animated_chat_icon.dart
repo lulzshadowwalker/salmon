@@ -61,6 +61,7 @@ class AnimatedChatIcon extends HookWidget {
             con.duration = comp.duration + const Duration(milliseconds: 250);
             isLoaded.value = true;
           },
+          filterQuality: FilterQuality.low,
         ),
       ),
     );

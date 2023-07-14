@@ -7,4 +7,5 @@ final class SalmonRoutes {
   static const String onboarding = '/onboarding';
   static const String analytics = '/analytics';
   static const String accountDetails = 'account-details';
+  static const String postView = 'post-view';
 }

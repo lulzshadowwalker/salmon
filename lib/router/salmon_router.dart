@@ -3,8 +3,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/providers/a12n/a12n_provider.dart';
 import 'package:salmon/router/salmon_routes.dart';
 import 'package:salmon/views/analytics/analytics.dart';
+import 'package:salmon/views/feed/components/post_view.dart';
 import 'package:salmon/views/interface/interface.dart';
 import 'package:salmon/views/settings/comps/settings_comps.dart';
+import '../models/post.dart';
 import '../views/auth/sign_in.dart';
 import '../views/auth/sign_up.dart';
 import '../views/not_found/not_found.dart';
@@ -33,12 +35,22 @@ class SalmonRouter {
           return null;
         },
         refreshListenable:
-            GoRouterRefreshStream(ref.read(a12nProvider).authState),
+            GoRouterRefreshStream(ref.watch(a12nProvider).authState),
         routes: [
           GoRoute(
             name: SalmonRoutes.home,
             path: SalmonRoutes.home,
             builder: (context, state) => const Interface(),
+            routes: [
+              GoRoute(
+                name: SalmonRoutes.postView,
+                path: SalmonRoutes.postView,
+                builder: (context, state) {
+                  final extra = state.extra! as Post;
+                  return PostView(post: extra);
+                },
+              ),
+            ],
           ),
           GoRoute(
               name: SalmonRoutes.settings,

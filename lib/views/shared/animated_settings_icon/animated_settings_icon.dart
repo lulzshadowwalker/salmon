@@ -60,6 +60,7 @@ class AnimatedSettingsIcon extends HookWidget {
             con.duration = comp.duration;
             isLoaded.value = true;
           },
+          addRepaintBoundary: true,
         ),
       ),
     );

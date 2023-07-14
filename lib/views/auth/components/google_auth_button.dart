@@ -32,7 +32,7 @@ class GoogleAuthButton extends HookConsumerWidget {
                 SalmonAnims.googleLoading,
                 reverse: true,
                 frameRate: FrameRate.max,
-                filterQuality: FilterQuality.high,
+                filterQuality: FilterQuality.low,
                 height: 48,
               ),
             )

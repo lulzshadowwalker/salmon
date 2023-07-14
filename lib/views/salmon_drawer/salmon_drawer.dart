@@ -57,10 +57,11 @@ class SalmonDrawer extends HookConsumerWidget {
     // TODO check directionality with locale
 
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 211, 182, 120),
       body: Stack(
         alignment: Alignment.center,
         children: [
-          const _DrawerComponents(),
+          if (isOpen) const _DrawerComponents(),
           Transform(
             alignment: Directionality.of(context) == TextDirection.ltr
                 ? Alignment.bottomLeft

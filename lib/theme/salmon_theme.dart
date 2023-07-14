@@ -113,7 +113,7 @@ final class SalmonTheme {
   }
 
   ThemeData dark() {
-    return ThemeData.light().copyWith(
+    return ThemeData.dark().copyWith(
       useMaterial3: true,
 
       //
@@ -128,7 +128,7 @@ final class SalmonTheme {
       ),
 
       //
-      textTheme: ThemeData.light().textTheme.apply(
+      textTheme: ThemeData.dark().textTheme.apply(
             fontFamily: _fontFamily,
             bodyColor: SalmonColors.white,
             displayColor: SalmonColors.white,

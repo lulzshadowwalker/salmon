@@ -5,16 +5,15 @@ import 'package:lottie/lottie.dart';
 import 'package:salmon/helpers/salmon_anims.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/providers/drawer/drawer_provider.dart';
-import 'package:salmon/providers/theme/theme_mode/async_theme_mode_provider.dart';
 import 'package:salmon/theme/salmon_colors.dart';
+import '../../../providers/is_light_theme/is_light_theme_provider.dart';
 
 class AnimatedMenuIcon extends HookConsumerWidget {
   const AnimatedMenuIcon({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isDarkMode =
-        ref.watch(asyncThemeModeProvider).asData?.value == ThemeMode.dark;
+    final isDarkMode = !ref.watch(isLightThemeProvider);
 
     final con = useAnimationController(
       duration: const Duration(milliseconds: 435),
@@ -46,6 +45,7 @@ class AnimatedMenuIcon extends HookConsumerWidget {
           child: Lottie.asset(
             SalmonAnims.menu,
             controller: con,
+            filterQuality: FilterQuality.low,
           ),
         ),
       ),
