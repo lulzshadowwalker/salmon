@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,11 @@ final class SalmonHelpers {
         printer: SalmonLogPrinter(className),
       );
 
-  static Future<Uint8List?> pickImage(BuildContext context) async {
+  static Future<Uint8List?> pickImageFromSource(
+    BuildContext context, {
+    double? maxWidth = 512,
+    double? maxHeight,
+  }) async {
     try {
       const aborted = SalmonSilentException(
           'image picking proccess terminated by the user');
@@ -37,13 +42,136 @@ final class SalmonHelpers {
         throw aborted;
       }
 
-      final image = await ImagePicker().pickImage(source: imageSource);
+      final image = await ImagePicker().pickImage(
+        source: imageSource,
+        maxWidth: maxWidth,
+        maxHeight: maxHeight,
+      );
 
       if (image == null) {
         throw aborted;
       }
 
       return image.readAsBytes();
+    } catch (e) {
+      _log.e(e.toString());
+      return null;
+    }
+  }
+
+  static Future<Uint8List?> pickImageFromGallery({
+    double? maxWidth = 512,
+    double? maxHeight,
+  }) async {
+    try {
+      const aborted = SalmonSilentException(
+          'image picking proccess terminated by the user');
+
+      final image = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        maxWidth: maxWidth,
+        maxHeight: maxHeight,
+      );
+
+      if (image == null) {
+        throw aborted;
+      }
+
+      return image.readAsBytes();
+    } catch (e) {
+      _log.e(e.toString());
+      return null;
+    }
+  }
+
+  static Future<Uint8List?> pickImageFromCamera({
+    double? maxWidth = 512,
+    double? maxHeight,
+  }) async {
+    try {
+      const aborted = SalmonSilentException(
+          'image picking proccess terminated by the user');
+
+      final image = await ImagePicker().pickImage(
+        source: ImageSource.camera,
+        maxWidth: maxWidth,
+        maxHeight: maxHeight,
+      );
+
+      if (image == null) {
+        throw aborted;
+      }
+
+      return image.readAsBytes();
+    } catch (e) {
+      _log.e(e.toString());
+      return null;
+    }
+  }
+
+  static Future<Uint8List?> pickVideoFromCamera() async {
+    try {
+      const aborted = SalmonSilentException(
+          'image picking proccess terminated by the user');
+
+      final image = await ImagePicker().pickVideo(source: ImageSource.camera);
+
+      if (image == null) {
+        throw aborted;
+      }
+
+      return image.readAsBytes();
+    } catch (e) {
+      _log.e(e.toString());
+      return null;
+    }
+  }
+
+  static Future<List<Uint8List>?> pickImages({
+    double? maxWidth = 512,
+    double? maxHeight,
+  }) async {
+    try {
+      const aborted = SalmonSilentException(
+          'image picking proccess terminated by the user');
+
+      final images = await ImagePicker()
+          .pickMultipleMedia(
+        maxWidth: maxWidth,
+        maxHeight: maxHeight,
+      )
+          .then((images) {
+        return images.map((e) async {
+          return await e.readAsBytes();
+        });
+      });
+
+      if (images.isEmpty) {
+        throw aborted;
+      }
+
+      return await Future.wait(images);
+    } catch (e) {
+      _log.e(e.toString());
+      return null;
+    }
+  }
+
+  static Future<List<Uint8List>?> pickFiles() async {
+    try {
+      FilePickerResult? result =
+          await FilePicker.platform.pickFiles(allowMultiple: true);
+
+      if (result == null) {
+        throw const SalmonSilentException(
+            'file picking proccess terminated by the user');
+      }
+
+      final files = result.paths
+          .map((path) async => await File(path!).readAsBytes())
+          .toList();
+
+      return await Future.wait(files);
     } catch (e) {
       _log.e(e.toString());
       return null;

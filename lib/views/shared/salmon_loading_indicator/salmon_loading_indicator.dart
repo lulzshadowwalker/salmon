@@ -26,7 +26,6 @@ class SalmonLoadingIndicator extends StatelessWidget {
         child: Lottie.asset(
           SalmonAnims.googleLoading,
           reverse: true,
-          frameRate: FrameRate.max,
           filterQuality: FilterQuality.low,
           height: size ?? 42,
           addRepaintBoundary: true,

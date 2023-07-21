@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/l10n/l10n_imports.dart';
 import 'package:salmon/views/home/components/salmon_bottom_nav_bar_item.dart';
-import 'package:salmon/views/issues/issues.dart';
 import 'package:salmon/views/shared/animated_menu_icon/animated_menu_icon.dart';
+import 'package:salmon/views/shared/salmon_navigator/salmon_navigator.dart';
 import '../../providers/home/home_provider.dart';
 import '../chat/chat.dart';
 import '../feed/feed.dart';
+import '../issues/components/issues_components.dart';
 import 'components/animated_chat_icon.dart';
 import 'components/animated_home_icon.dart';
 import 'components/animated_issues_icon.dart';
@@ -60,29 +61,15 @@ class Home extends HookConsumerWidget {
           ],
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Padding(
-            padding: EdgeInsetsDirectional.only(
-              top: 72,
-              bottom: 16,
-              start: 42,
-            ),
-            child: AnimatedMenuIcon(),
-          ),
-          Expanded(
-            child: IndexedStack(
-              alignment: Alignment.center,
-              index: index,
-              children: const [
-                Feed(),
-                Issues(),
-                Chat(),
-              ],
-            ),
-          ),
-        ],
+      body: SalmonNavigator(
+        child: IndexedStack(
+          index: index,
+          children: const [
+            Feed(),
+            Issues(),
+            Chat(),
+          ],
+        ),
       ),
     );
   }

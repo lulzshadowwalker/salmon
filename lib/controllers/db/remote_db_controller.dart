@@ -9,9 +9,11 @@ import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/helpers/salmon_helpers.dart';
 import 'package:salmon/models/enums/notif_type.dart';
 import 'package:salmon/models/salmon_user.dart';
+import 'package:salmon/models/submission.dart';
 import 'package:salmon/providers/a12n/a12n_provider.dart';
 import 'package:salmon/providers/salmon_user_credentials/salmon_user_credentials_provider.dart';
 import 'package:salmon/providers/storage/remote_storage/remote_storage_provider.dart';
+import 'package:uuid/uuid.dart';
 import '../../l10n/l10n_imports.dart';
 import '../../models/agency.dart';
 import '../../models/post.dart';
@@ -28,6 +30,7 @@ final class RemoteDbController {
   static const String _cUsers = 'users';
   static const String _cAgencies = 'agencies';
   static const String _cPosts = 'posts';
+  static const String _cSubmissions = 'submissions';
   static const String _aCreatedOn = 'created_on';
   static const String _aId = 'id';
   static const String _aFcmToken = 'fcm_token';
@@ -125,7 +128,7 @@ registered new user with details:
   Stream<List<Post>> get posts {
     return _db
         .collection(_cPosts)
-        // .orderBy('date_created', descending: true)
+        .orderBy('date_created', descending: true)
         .snapshots()
         .map(
           (query) => query.docs
@@ -134,5 +137,66 @@ registered new user with details:
               )
               .toList(),
         );
+  }
+
+  Stream<List<Submission>> get submissions {
+    final uid = ref.read(a12nProvider).userId;
+
+    return _db
+        .collection(_cPosts)
+        .where('submitted_by', isEqualTo: uid)
+        // .orderBy('date_created', descending: true)
+        .snapshots()
+        .map(
+          (query) => query.docs
+              .map(
+                (doc) => Submission.fromMap(doc.data()),
+              )
+              .toList(),
+        );
+  }
+
+  Future<void> createSubmission({
+    required BuildContext context,
+    required Submission submission,
+  }) async {
+    try {
+      final uploads = submission.attachments?.map(
+        (e) async => await ref.read(remoteStorageProvider).upload(
+              context: context,
+              childName: 'submissions',
+              file: e,
+            ),
+      );
+
+      var urls = <String>[];
+      if (uploads != null) {
+        urls = await Future.wait(uploads).then(
+          (value) => value.toCompactMap.toList(),
+        );
+      }
+
+      final uid = ref.read(a12nProvider).userId;
+      final id = const Uuid().v4();
+
+      final data = submission.toMap()
+        ..['attachments'] = urls
+        ..['submitted_by'] = uid
+        ..['status'] = 'submitted'
+        ..['id'] = id
+        ..addAll(
+          {
+            'submitted_at': DateTime.now().toUtc(),
+          },
+        );
+      await _db.collection(_cSubmissions).doc(id).set(data);
+
+      _log.v('''
+created submission successfully with the data
+$data
+''');
+    } catch (e) {
+      SalmonHelpers.handleException(context: context, e: e, logger: _log);
+    }
   }
 }

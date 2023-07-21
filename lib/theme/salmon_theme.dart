@@ -93,6 +93,7 @@ final class SalmonTheme {
         backgroundColor: Colors.transparent,
         foregroundColor: SalmonColors.black,
         elevation: 0,
+        centerTitle: true,
       ),
 
       //
@@ -140,6 +141,7 @@ final class SalmonTheme {
         backgroundColor: Colors.transparent,
         foregroundColor: SalmonColors.white,
         elevation: 0,
+        centerTitle: true,
       ),
 
       //

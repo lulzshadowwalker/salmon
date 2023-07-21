@@ -43,7 +43,7 @@ class ImagePickerCircleAvatar extends HookWidget {
 
     return GestureDetector(
       onTap: () async {
-        final i = await SalmonHelpers.pickImage(context);
+        final i = await SalmonHelpers.pickImageFromSource(context);
 
         /// if the user aborts the process of selecting another image,
         ///  don't assign [null] instead of the previously selected image

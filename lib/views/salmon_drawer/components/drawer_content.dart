@@ -10,7 +10,7 @@ class _DrawerComponents extends HookConsumerWidget {
     final activePage = ref.watch(drawerPageProvider);
 
     final textStyle = Theme.of(context).textTheme.titleSmall?.copyWith(
-          color: SalmonColors.black,
+          color: SalmonColors.white,
           fontWeight: FontWeight.bold,
         );
 
@@ -44,7 +44,7 @@ class _DrawerComponents extends HookConsumerWidget {
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium
-                            ?.copyWith(color: SalmonColors.black),
+                            ?.copyWith(color: SalmonColors.white),
                       )
                     ],
                   );
@@ -60,7 +60,7 @@ class _DrawerComponents extends HookConsumerWidget {
                   leading: AnimatedHomeIcon(
                     size: 48,
                     isActive: activePage.runtimeType == Home,
-                    inactiveColor: SalmonColors.black,
+                    inactiveColor: SalmonColors.white,
                   ),
                   title: Text(
                     SL.of(context).home,
@@ -76,7 +76,7 @@ class _DrawerComponents extends HookConsumerWidget {
                   enableFeedback: true,
                   leading: AnimatedAnalyticsIcon(
                     isActive: activePage.runtimeType == Analytics,
-                    inactiveColor: SalmonColors.black,
+                    inactiveColor: SalmonColors.white,
                   ),
                   title: Text(
                     SL.of(context).analytics,
@@ -94,7 +94,7 @@ class _DrawerComponents extends HookConsumerWidget {
                   enableFeedback: true,
                   leading: AnimatedSettingsIcon(
                     isActive: activePage.runtimeType == Settings,
-                    inactiveColor: SalmonColors.black,
+                    inactiveColor: SalmonColors.white,
                   ),
                   title: Text(
                     SL.of(context).settings,

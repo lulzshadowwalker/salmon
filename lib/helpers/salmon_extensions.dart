@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 extension NullAwareString on String? {
   int get length => '$this'.length;
@@ -63,4 +64,16 @@ extension DurationOperations on Duration {
         milliseconds: inMilliseconds - other.inMilliseconds,
         microseconds: inMicroseconds - other.inMicroseconds,
       );
+}
+
+extension ContextHeleprs on BuildContext {
+  TextTheme get textTheme => Theme.of(this).textTheme;
+
+  TextDirection get directionality => Directionality.of(this);
+
+  bool get canAnyPop => canPop() || Navigator.of(this).canPop();
+
+  ThemeData get theme => Theme.of(this);
+
+  MediaQueryData get mq => MediaQuery.of(this);
 }

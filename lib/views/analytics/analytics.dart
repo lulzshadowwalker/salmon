@@ -11,12 +11,15 @@ class Analytics extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            ref.read(drawerStateProvider.notifier).toggle();
-            HapticFeedback.heavyImpact();
-          },
-          child: const Text('tappitty tap'),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: ElevatedButton(
+            onPressed: () {
+              ref.read(drawerStateProvider.notifier).toggle();
+              HapticFeedback.heavyImpact();
+            },
+            child: const Text('tappitty tap'),
+          ),
         ),
       ),
     );

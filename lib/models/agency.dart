@@ -6,23 +6,27 @@ import 'package:flutter/material.dart';
 @immutable
 final class Agency {
   final String? id;
-  final String? name;
+  final String? enName;
+  final String? arName;
   final String? logo;
 
   const Agency({
     this.id,
-    this.name,
+    this.enName,
+    this.arName,
     this.logo,
   });
 
   Agency copyWith({
     String? id,
-    String? name,
+    String? enName,
+    String? arName,
     String? logo,
   }) {
     return Agency(
       id: id ?? this.id,
-      name: name ?? this.name,
+      enName: enName ?? this.enName,
+      arName: arName ?? this.arName,
       logo: logo ?? this.logo,
     );
   }
@@ -30,7 +34,8 @@ final class Agency {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'name': name,
+      'en_name': enName,
+      'ar_name': arName,
       'logo': logo,
     };
   }
@@ -38,7 +43,8 @@ final class Agency {
   factory Agency.fromMap(Map<String, dynamic> map) {
     return Agency(
       id: map['id'] != null ? map['id'] as String : null,
-      name: map['name'] != null ? map['name'] as String : null,
+      enName: map['en_name'] != null ? map['en_name'] as String : null,
+      arName: map['ar_name'] != null ? map['ar_name'] as String : null,
       logo: map['logo'] != null ? map['logo'] as String : null,
     );
   }
@@ -49,15 +55,22 @@ final class Agency {
       Agency.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'Agency(id: $id, name: $name, logo: $logo)';
+  String toString() {
+    return 'Agency(id: $id, enName: $enName, arName: $arName, logo: $logo)';
+  }
 
   @override
   bool operator ==(covariant Agency other) {
     if (identical(this, other)) return true;
 
-    return other.id == id && other.name == name && other.logo == logo;
+    return other.id == id &&
+        other.enName == enName &&
+        other.arName == arName &&
+        other.logo == logo;
   }
 
   @override
-  int get hashCode => id.hashCode ^ name.hashCode ^ logo.hashCode;
+  int get hashCode {
+    return id.hashCode ^ enName.hashCode ^ arName.hashCode ^ logo.hashCode;
+  }
 }

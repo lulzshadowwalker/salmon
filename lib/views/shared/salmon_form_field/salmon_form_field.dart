@@ -6,6 +6,7 @@ import 'package:salmon/theme/salmon_colors.dart';
 class SalmonFormField extends StatelessWidget {
   const SalmonFormField({
     super.key,
+    this.formFieldKey,
     this.initialValue,
     this.keyboardType,
     this.obscureText = false,
@@ -21,6 +22,8 @@ class SalmonFormField extends StatelessWidget {
     this.inputFormatters,
     this.onSaved,
     this.contentPadding,
+    this.border,
+    this.focusNode,
   });
 
   final String? initialValue;
@@ -29,7 +32,7 @@ class SalmonFormField extends StatelessWidget {
   final String? Function(String? value)? validator;
   final bool autocorrect;
   final TextEditingController? controller;
-  final int maxLines;
+  final int? maxLines;
   final String? hintText;
   final Widget? label;
   final String? labelText;
@@ -38,12 +41,17 @@ class SalmonFormField extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final void Function(String? value)? onSaved;
   final EdgeInsets? contentPadding;
+  final InputBorder? border;
+  final FocusNode? focusNode;
+  final Key? formFieldKey;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 20),
       child: TextFormField(
+        key: formFieldKey,
+        focusNode: focusNode,
         controller: controller,
         autocorrect: autocorrect,
         inputFormatters: inputFormatters,
@@ -68,15 +76,19 @@ class SalmonFormField extends StatelessWidget {
           labelText: labelText,
           prefixIcon: prefixIcon,
           suffixIcon: suffixIcon,
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: SalmonColors.muted),
-          ),
-          errorBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: SalmonColors.red),
-          ),
-          focusedErrorBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: SalmonColors.red),
-          ),
+          border: border,
+          enabledBorder: border ??
+              UnderlineInputBorder(
+                borderSide: BorderSide(color: SalmonColors.muted),
+              ),
+          errorBorder: border ??
+              UnderlineInputBorder(
+                borderSide: BorderSide(color: SalmonColors.red),
+              ),
+          focusedErrorBorder: border ??
+              UnderlineInputBorder(
+                borderSide: BorderSide(color: SalmonColors.red),
+              ),
         ),
       ),
     );
