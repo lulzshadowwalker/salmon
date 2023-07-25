@@ -49,13 +49,16 @@ class _AccountDetailsState extends ConsumerState<AccountDetails> {
               key: _formKey,
               child: Column(
                 children: [
-                  ImagePickerCircleAvatar(
-                    initialImage: user?.pfp.asCachedNetImg,
-                    onSelected: (image) {
-                      userOverride.value = userOverride.value.copyWith(
-                        pfpRaw: image,
-                      );
-                    },
+                  Hero(
+                    tag: 'avatar',
+                    child: ImagePickerCircleAvatar(
+                      initialImage: user?.pfp.asCachedNetImg,
+                      onSelected: (image) {
+                        userOverride.value = userOverride.value.copyWith(
+                          pfpRaw: image,
+                        );
+                      },
+                    ),
                   ),
                   SalmonFormField(
                     validator: (val) =>
@@ -110,7 +113,12 @@ class _AccountDetailsState extends ConsumerState<AccountDetails> {
                         ref.read(a12nProvider).sendPasswordResetEmail(context),
                     child: _SettingsOption(
                       margin: const EdgeInsets.only(bottom: 16),
-                      title: Text(SL.of(context).resetPassword),
+                      title: Text(
+                        SL.of(context).resetPassword,
+                        style: const TextStyle(
+                          color: SalmonColors.black,
+                        ),
+                      ),
                       trailing: const FaIcon(
                         FontAwesomeIcons.solidCircleQuestion,
                       ),

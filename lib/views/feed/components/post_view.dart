@@ -54,10 +54,10 @@ class _PostViewState extends ConsumerState<PostView> {
                 ),
               )
               ..enableZoom(false)
-              ..loadHtmlString(
-                isLight
-                    ? widget.post.lightBody ?? ''
-                    : widget.post.darkBody ?? '',
+              ..loadRequest(
+                Uri.parse(
+                  'https://flutter.dev/',
+                ),
               ),
           ),
           Consumer(

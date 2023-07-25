@@ -179,14 +179,14 @@ final class SalmonHelpers {
   }
 
   static void handleException({
-    required BuildContext context,
+    BuildContext? context,
     required Object e,
     required Logger logger,
   }) {
     if (e is SocketException) {
-      _handleSocketException(context, logger);
+      _handleSocketException(context!, logger);
     } else if (e is FirebaseAuthException) {
-      _handleFirebaseAuthException(context, e);
+      _handleFirebaseAuthException(context!, e);
     } else if (e is SalmonSilentException) {
       logger.e(e.message);
     } else {
@@ -231,16 +231,18 @@ final class SalmonHelpers {
   }
 
   static void _handleUnkownError(
-    BuildContext context,
+    BuildContext? context,
     Object error,
     Logger logger,
   ) {
     logger.e(error.toString());
 
-    NotifController.showPopup(
-      context: context,
-      message: SL.of(context).unknownError,
-      type: NotifType.oops,
-    );
+    if (context != null) {
+      NotifController.showPopup(
+        context: context,
+        message: SL.of(context).unknownError,
+        type: NotifType.oops,
+      );
+    }
   }
 }

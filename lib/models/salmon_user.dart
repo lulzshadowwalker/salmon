@@ -34,7 +34,7 @@ class SalmonUser {
   SalmonUser.fromMap(Map<String, dynamic> map)
       : displayName = map['display_name'],
         email = map['email'],
-        pfp = map['pfp'],
+        pfp = map['pfp_url'],
         id = map['id'],
         password = map['password'];
 

@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 @immutable
-final class Agency {
+final class Agency implements Comparable<Agency> {
   final String? id;
   final String? enName;
   final String? arName;
@@ -69,8 +69,26 @@ final class Agency {
         other.logo == logo;
   }
 
+  bool containsSearchQuery(String query) {
+    if (query.isEmpty) return true;
+
+    final lowerCaseQuery = query.toLowerCase();
+    return (enName?.toLowerCase().contains(lowerCaseQuery) ?? false) ||
+        (arName?.toLowerCase().contains(lowerCaseQuery) ?? false);
+  }
+
   @override
   int get hashCode {
     return id.hashCode ^ enName.hashCode ^ arName.hashCode ^ logo.hashCode;
+  }
+
+  @override
+  int compareTo(Agency other) {
+    if (containsSearchQuery(other.enName ?? '') ||
+        containsSearchQuery(other.arName ?? '')) {
+      return 0;
+    } else {
+      return -1;
+    }
   }
 }

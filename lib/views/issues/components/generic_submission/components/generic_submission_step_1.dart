@@ -65,7 +65,7 @@ class _IssueSubmissionStep1State extends ConsumerState<GenericSubmissionStep1> {
                   isRepeatingAnimation: false,
                   animatedTexts: [
                     TyperAnimatedText(
-                      'We would very much like to hear anything you have to say', // TODO tr
+                      'We would very much like to hear anything you have to say\n', // TODO tr
                       speed: const Duration(milliseconds: 24),
                     ),
                   ],

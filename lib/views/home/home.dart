@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/l10n/l10n_imports.dart';
 import 'package:salmon/views/home/components/salmon_bottom_nav_bar_item.dart';
-import 'package:salmon/views/shared/animated_menu_icon/animated_menu_icon.dart';
 import 'package:salmon/views/shared/salmon_navigator/salmon_navigator.dart';
 import '../../providers/home/home_provider.dart';
 import '../chat/chat.dart';

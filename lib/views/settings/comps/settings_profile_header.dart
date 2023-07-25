@@ -14,9 +14,12 @@ class _SettingsProfileHeader extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: Row(
           children: [
-            SalmonCircleImageAvatar(
-              image: user?.pfp.asCachedNetImg,
-              radius: 80,
+            Hero(
+              tag: 'avatar',
+              child: SalmonCircleImageAvatar(
+                image: user?.pfp.asCachedNetImg,
+                radius: 80,
+              ),
             ),
             const SizedBox(width: 16),
             Expanded(

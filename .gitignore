@@ -52,3 +52,4 @@ firestore.indexes.json
 firestore.rules
 storage.rules
 ios/Podfile.lock
+*.env

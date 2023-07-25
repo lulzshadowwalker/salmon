@@ -7,7 +7,6 @@ import 'package:salmon/views/shared/salmon_navigator/salmon_navigator.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../theme/salmon_colors.dart';
-import '../shared/animated_menu_icon/animated_menu_icon.dart';
 
 class Feed extends ConsumerWidget {
   const Feed({super.key});

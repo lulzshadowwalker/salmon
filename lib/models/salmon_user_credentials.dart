@@ -30,7 +30,6 @@ class SalmonUserCredentials {
       'display_name': displayName,
       'email': email,
       'pfp_url': pfpUrl,
-      'pfp_raw': pfpRaw,
       'id': id,
     };
   }
@@ -38,7 +37,7 @@ class SalmonUserCredentials {
   SalmonUserCredentials.fromMap(Map<String, dynamic> map)
       : displayName = map['display_name'],
         email = map['email'],
-        pfpUrl = map['pfp'],
+        pfpUrl = map['pfp_url'],
         id = map['id'],
         password = map['password'],
         pfpRaw = map['pfp_raw'];

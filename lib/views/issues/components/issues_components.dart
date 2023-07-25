@@ -1,34 +1,17 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:go_router/go_router.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
-import 'package:salmon/helpers/salmon_helpers.dart';
-import 'package:salmon/helpers/salmon_images.dart';
-import 'package:salmon/l10n/l10n_imports.dart';
 import 'package:salmon/models/submission.dart';
-import 'package:salmon/providers/agencies/agencies_provider.dart';
 import 'package:salmon/providers/submissions/submissions_provider.dart';
 import 'package:salmon/views/home/components/home_app_bar.dart';
-import 'package:salmon/views/shared/salmon_attachment_card/salmon_attachment_card.dart';
-import 'package:salmon/views/shared/salmon_form_field/salmon_form_field.dart';
 import 'package:salmon/views/shared/salmon_loading_indicator/salmon_loading_indicator.dart';
 import 'package:salmon/views/shared/salmon_navigator/salmon_navigator.dart';
-import 'package:salmon/views/shared/salmon_unfocusable_wrapper/salmon_unfocusable_wrapper.dart';
-import 'package:step_progress_indicator/step_progress_indicator.dart';
-import 'package:wave/config.dart';
-import 'package:wave/wave.dart';
 
 import '../../../theme/salmon_colors.dart';
-import '../../shared/salmon_location_picker/salmon_location_picker.dart';
 import 'generic_submission/components/generic_submission_components.dart';
 import 'issue_submission/components/issue_submission_components.dart';
 

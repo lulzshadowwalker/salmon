@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/providers/l10n/async_l10n_provider.dart';
 import 'package:salmon/theme/salmon_colors.dart';
+import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 import '../helpers/salmon_const.dart';
 
@@ -158,6 +160,25 @@ final class SalmonTheme {
 
       //
       bottomNavigationBarTheme: _bottomNavBarTheme,
+    );
+  }
+
+  StreamChatThemeData chatTheme(BuildContext context) {
+    final isLight = context.theme.brightness == Brightness.light;
+
+    return StreamChatThemeData.fromTheme(context.theme).copyWith(
+      messageListViewTheme: StreamMessageListViewThemeData(
+        backgroundColor: isLight ? SalmonColors.white : SalmonColors.black,
+      ),
+      messageInputTheme: StreamMessageInputThemeData(
+        inputBackgroundColor: isLight ? SalmonColors.white : SalmonColors.black,
+      ),
+      ownMessageTheme: StreamMessageThemeData(
+        messageBackgroundColor: SalmonColors.lightYellow,
+        messageTextStyle: TextStyle(
+          color: SalmonColors.white,
+        ),
+      ),
     );
   }
 }
