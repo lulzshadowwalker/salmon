@@ -23,7 +23,9 @@ class Chat extends HookConsumerWidget {
       child: Builder(builder: (context) {
         return chatUser.when(
           data: (user) => Scaffold(
-            floatingActionButton: const ChatSearchAgencyButton(),
+            floatingActionButton: user != null
+                ? const ChatSearchAgencyButton()
+                : const SizedBox.shrink(),
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

@@ -40,7 +40,19 @@ final class SalmonAnims {
 
   /// https://lottiefiles.com/92450-sign-out-icon
   static const String signOut = 'assets/anims/sign-out.json';
-  
+
   /// https://lottiefiles.com/15429-burger-menu
   static const String menu = 'assets/anims/menu.json';
+
+  /// https://lottiefiles.com/animations/government-XN1jQ7xw5y
+  static const String government = 'assets/anims/government.json';
+
+  /// https://lottiefiles.com/animations/shake-hands-YGg9uZP6Fv
+  static const String handshake = 'assets/anims/handshake.json';
+
+  /// https://lottiefiles.com/animations/communication-SfSWysDv95
+  static const String communication = 'assets/anims/communication.json';
+
+  /// https://lottiefiles.com/animations/circle-loading-82IUMY6Uiw
+  static const String logo = 'assets/anims/logo.json';
 }

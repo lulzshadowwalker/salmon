@@ -10,7 +10,9 @@ class _DarkModeSwitch extends HookConsumerWidget {
     return Switch(
       value: isDark,
       onChanged: (_) {
-        ref.read(asyncThemeModeProvider.notifier).toggle();
+        ref.read(themeModeProvider.notifier).mode(
+              isDark ? ThemeMode.light : ThemeMode.dark,
+            );
       },
     );
   }

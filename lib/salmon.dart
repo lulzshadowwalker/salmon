@@ -6,7 +6,7 @@ import 'package:salmon/providers/chat/chat_provider.dart';
 import 'package:salmon/providers/l10n/async_l10n_provider.dart';
 import 'package:salmon/providers/router/router_provider.dart';
 import 'package:salmon/providers/theme_data/theme_data_provider.dart';
-import 'package:salmon/providers/theme_mode/async_theme_mode_provider.dart';
+import 'package:salmon/providers/theme_mode/theme_mode_provider.dart';
 import 'package:salmon/theme/salmon_colors.dart';
 import 'package:salmon/theme/salmon_theme.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
@@ -28,7 +28,7 @@ class _SalmonState extends ConsumerState<Salmon> {
           loading: () => const Locale(SalmonConst.en),
         );
 
-    final themeMode = ref.watch(asyncThemeModeProvider).value;
+    final themeMode = ref.watch(themeModeProvider);
     final theme = ref.watch(salmonThemeProvider);
     final router = ref.watch(routerProvider);
     final client = ref.watch(chatClientProvider);
@@ -42,7 +42,7 @@ class _SalmonState extends ConsumerState<Salmon> {
       themeMode: themeMode,
       theme: theme.light(),
       darkTheme: theme.dark(),
-      routerConfig: router.config,
+      routerConfig: router,
       builder: (context, child) => StreamChat(
         client: client,
         streamChatThemeData: theme.chatTheme(context),

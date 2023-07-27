@@ -21,4 +21,10 @@ final class SalmonConst {
 
   /// google auth map key
   static const String gUserId = 'email';
+
+  static const String light = 'light';
+  static const String dark = 'dark';
+  static const String systemDefault = 'system_defualt';
+
+  static const String skThemeMode = 'theme_mode';
 }

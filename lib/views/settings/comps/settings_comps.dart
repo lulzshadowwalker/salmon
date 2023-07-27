@@ -26,7 +26,7 @@ import 'package:validators/validators.dart';
 import '../../../models/salmon_user_credentials.dart';
 import '../../../providers/l10n/async_l10n_provider.dart';
 import '../../../providers/salmon_user_credentials/salmon_user_credentials_provider.dart';
-import '../../../providers/theme_mode/async_theme_mode_provider.dart';
+import '../../../providers/theme_mode/theme_mode_provider.dart';
 import '../../../theme/salmon_colors.dart';
 import '../../shared/animated_menu_icon/animated_menu_icon.dart';
 import '../../shared/salmon_circle_image_avatar/salmon_circle_image_avatar.dart';

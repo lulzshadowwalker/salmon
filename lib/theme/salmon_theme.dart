@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
@@ -180,5 +181,20 @@ final class SalmonTheme {
         ),
       ),
     );
+  }
+
+  /// returns light by default, unless changed by the user in the settings.
+  static ThemeMode get themeMode {
+    final themeMode = GetStorage().read<String>(SalmonConst.skThemeMode);
+    switch (themeMode) {
+      case SalmonConst.systemDefault:
+        return ThemeMode.system;
+      case SalmonConst.light:
+        return ThemeMode.light;
+      case SalmonConst.dark:
+        return ThemeMode.dark;
+      default:
+        return ThemeMode.light;
+    }
   }
 }
