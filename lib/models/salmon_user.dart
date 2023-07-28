@@ -3,74 +3,75 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-import 'package:salmon/helpers/salmon_const.dart';
 
 @immutable
-class SalmonUser {
+final class SalmonUser {
   /// defaults to [username]
   final String? displayName;
   final String? id;
   final String? email;
   final String? password;
   final String? pfp;
+  final List? topics;
 
   const SalmonUser({
     this.displayName,
+    this.id,
     this.email,
     this.password,
     this.pfp,
-    this.id,
+    this.topics,
   });
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'display_name': displayName,
-      'email': email,
-      'pfp': pfp,
-      'id': id,
-    };
-  }
-
-  SalmonUser.fromMap(Map<String, dynamic> map)
-      : displayName = map['display_name'],
-        email = map['email'],
-        pfp = map['pfp_url'],
-        id = map['id'],
-        password = map['password'];
-
-  SalmonUser.fromGoogleAuth(Map<String, dynamic> profile)
-      : email = profile[SalmonConst.gEmail],
-        displayName = profile[SalmonConst.gName],
-        pfp = profile[SalmonConst.gProfilePicture],
-        id = profile[SalmonConst.gUserId],
-        password = null;
-
-  String toJson() => json.encode(toMap());
-
-  factory SalmonUser.fromJson(String source) =>
-      SalmonUser.fromMap(json.decode(source) as Map<String, dynamic>);
 
   SalmonUser copyWith({
     String? displayName,
     String? id,
-    String? username,
     String? email,
     String? password,
-    Uint8List? pfpRaw,
-    String? pfpUrl,
+    String? pfp,
+    List? topics,
   }) {
     return SalmonUser(
       displayName: displayName ?? this.displayName,
       id: id ?? this.id,
       email: email ?? this.email,
       password: password ?? this.password,
-      pfp: pfpUrl ?? pfp,
+      pfp: pfp ?? this.pfp,
+      topics: topics ?? this.topics,
     );
   }
 
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'display_name': displayName,
+      'id': id,
+      'email': email,
+      'password': password,
+      'pfp_url': pfp,
+      'topics': topics,
+    };
+  }
+
+  factory SalmonUser.fromMap(Map<String, dynamic> map) {
+    return SalmonUser(
+      displayName:
+          map['display_name'] != null ? map['display_name'] as String : null,
+      id: map['id'] != null ? map['id'] as String : null,
+      email: map['email'] != null ? map['email'] as String : null,
+      password: map['password'] != null ? map['password'] as String : null,
+      pfp: map['pfp_url'] != null ? map['pfp_url'] as String : null,
+      topics: map['topics'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory SalmonUser.fromJson(String source) =>
+      SalmonUser.fromMap(json.decode(source) as Map<String, dynamic>);
+
   @override
   String toString() {
-    return 'SalmonUserCredentials(displayName: $displayName, id: $id, email: $email, password: $password, pfpUrl: $pfp)';
+    return 'SalmonUser(displayName: $displayName, id: $id, email: $email, password: $password, pfp: $pfp, topics: $topics)';
   }
 
   @override
@@ -81,7 +82,8 @@ class SalmonUser {
         other.id == id &&
         other.email == email &&
         other.password == password &&
-        other.pfp == pfp;
+        other.pfp == pfp &&
+        other.topics == topics;
   }
 
   @override
@@ -90,6 +92,7 @@ class SalmonUser {
         id.hashCode ^
         email.hashCode ^
         password.hashCode ^
-        pfp.hashCode;
+        pfp.hashCode ^
+        topics.hashCode;
   }
 }

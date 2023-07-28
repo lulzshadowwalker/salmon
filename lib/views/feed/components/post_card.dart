@@ -4,9 +4,11 @@ import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:salmon/providers/agency/agency_provider.dart';
+import 'package:salmon/providers/comment_count/comment_count_provider.dart';
 import 'package:salmon/providers/theme_data/theme_data_provider.dart';
 import 'package:salmon/router/salmon_routes.dart';
-import 'package:salmon/views/feed/components/post_card_tag.dart';
+import 'package:salmon/views/feed/components/post_tag_chip.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../models/post.dart';
@@ -23,6 +25,8 @@ class PostCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(salmonThemeProvider).dark();
+    final agency = ref.watch(agencyProvider(post.createdBy ?? ''));
+    final commentCount = ref.watch(commentCountProvider(post.id!));
 
     return Theme(
       data: theme,
@@ -50,7 +54,7 @@ class PostCard extends ConsumerWidget {
                   ),
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   child: CachedNetworkImage(
-                    imageUrl: post.coverImage ??
+                    imageUrl: post.coverImage ?? // TODO placeholder image
                         'https://images.unsplash.com/photo-1615023691139-47180d57138f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
                     maxHeightDiskCache: 480,
                     fit: BoxFit.cover,
@@ -85,14 +89,47 @@ class PostCard extends ConsumerWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              PostCardTag(
-                                title: Text(post.tag ?? ''),
-                              ),
+                              if (agency.hasValue)
+                                PostTagChip(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      CachedNetworkImage(
+                                        imageUrl: agency.value!.logo!,
+                                        errorWidget: (context, url, error) =>
+                                            const SizedBox.shrink(),
+                                        imageBuilder:
+                                            (context, imageProvider) => Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.only(
+                                            end: 8,
+                                          ),
+                                          child: Image(
+                                            image: imageProvider,
+                                            height: 24,
+                                          ),
+                                        ),
+                                      ),
+                                      ConstrainedBox(
+                                        constraints: const BoxConstraints(
+                                          maxWidth: 150,
+                                        ),
+                                        child: Text(
+                                          agency.value?.enName ?? '',
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               const Spacer(),
                               FractionallySizedBox(
                                 widthFactor: 0.75,
                                 child: Text(
-                                  post.title ?? 'Read more', // TODO tr
+                                  post.enTitle ?? 'Read more', // TODO tr
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineSmall
@@ -103,27 +140,32 @@ class PostCard extends ConsumerWidget {
                                 ),
                               ),
                               const SizedBox(height: 18),
-                              const Row(
+                              Row(
                                 children: [
-                                  FaIcon(
-                                    FontAwesomeIcons.handsClapping,
-                                    size: 18,
-                                  ),
-                                  SizedBox(width: 8),
-                                  Text(
-                                    '·  2.9K',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                  SizedBox(width: 16),
-                                  FaIcon(
-                                    FontAwesomeIcons.solidComments,
-                                    size: 18,
-                                  ),
-                                  SizedBox(width: 8),
-                                  Text(
-                                    '·  63',
-                                    style: TextStyle(fontSize: 12),
-                                  ),
+                                  if ((post.clapCount ?? 0) != 0) ...[
+                                    const FaIcon(
+                                      FontAwesomeIcons.handsClapping,
+                                      size: 18,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      '·  ${post.clapCount}',
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
+                                    const SizedBox(width: 16),
+                                  ],
+                                  if (commentCount.hasValue &&
+                                      ((commentCount.value ?? 0) != 0)) ...[
+                                    const FaIcon(
+                                      FontAwesomeIcons.solidComments,
+                                      size: 18,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      '·  ${commentCount.value}',
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
+                                  ]
                                 ],
                               ),
                             ],

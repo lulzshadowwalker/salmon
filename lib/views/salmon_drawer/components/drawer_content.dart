@@ -28,7 +28,7 @@ class _DrawerComponents extends HookConsumerWidget {
               const Spacer(),
               Consumer(
                 builder: (context, ref, child) {
-                  final user = ref.watch(salmonUserProvider).value;
+                  final user = ref.watch(currentUserProvider).value;
 
                   return Row(
                     children: [

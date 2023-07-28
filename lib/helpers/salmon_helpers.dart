@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:salmon/helpers/salmon_log_printer.dart';
 import 'package:salmon/l10n/l10n_imports.dart';
@@ -243,6 +244,27 @@ final class SalmonHelpers {
         message: SL.of(context).unknownError,
         type: NotifType.oops,
       );
+    }
+  }
+
+  static String formatTime(BuildContext context, DateTime dateTime) {
+    final now = DateTime.now();
+    final difference = now.difference(dateTime);
+
+    if (difference.inMinutes <= 1) {
+      return 'Just now'; // TODO tr
+    } else if (difference.inMinutes <= 59) {
+      return '${difference.inMinutes} minutes ago';
+    } else if (difference.inHours <= 24) {
+      final timeFormat = DateFormat.jm().format(dateTime);
+
+      return timeFormat;
+    } else {
+      final isSameYear = now.year == dateTime.year;
+      final dateFormat = isSameYear ? 'dd.MM.yyyy' : 'dd.MM.y';
+      final timeFormat = DateFormat.jm().format(dateTime);
+
+      return '${DateFormat(dateFormat).format(dateTime)} - $timeFormat';
     }
   }
 }

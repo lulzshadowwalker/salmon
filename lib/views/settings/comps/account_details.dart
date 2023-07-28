@@ -12,7 +12,7 @@ class _AccountDetailsState extends ConsumerState<AccountDetails> {
 
   @override
   Widget build(BuildContext context) {
-    final user = ref.read(salmonUserProvider).value;
+    final user = ref.read(currentUserProvider).value;
     final userOverride = useState(const SalmonUserCredentials());
     final nameController = useTextEditingController();
     final emailController = useTextEditingController();

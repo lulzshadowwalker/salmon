@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -35,67 +34,74 @@ class Onboarding extends HookConsumerWidget {
 
     return Theme(
       data: theme.dark(),
-      child: Scaffold(
-        body: Stack(
-          children: [
-            LiquidSwipe(
-              enableLoop: false,
-              ignoreUserGestureWhileAnimating: true,
-              enableSideReveal: true,
-              waveType: WaveType.circularReveal,
-              pages: _pages,
-              onPageChangeCallback: (activePage) =>
-                  currentPage.value = activePage,
-            ),
-            AnimatedSwitcher(
-              duration: const Duration(milliseconds: 250),
-              child: isLast
-                  ? Align(
-                      alignment: Alignment.bottomCenter,
-                      child: SafeArea(
-                        child: Padding(
-                          padding: const EdgeInsets.all(24),
-                          child: AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 250),
-                            child: isLoading.value
-                                ? const ColorFiltered(
-                                    colorFilter: ColorFilter.mode(
-                                      SalmonColors.blue,
-                                      BlendMode.srcIn,
-                                    ),
-                                    child: SalmonLoadingIndicator(),
-                                  )
-                                : ElevatedButton(
-                                    style: context
-                                        .theme.elevatedButtonTheme.style
-                                        ?.copyWith(
-                                      backgroundColor: MaterialStateProperty
-                                          .resolveWith<Color?>(
-                                        (_) => SalmonColors.lightBlue,
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            body: Stack(
+              children: [
+                LiquidSwipe(
+                  enableLoop: false,
+                  ignoreUserGestureWhileAnimating: true,
+                  enableSideReveal: true,
+                  waveType: WaveType.circularReveal,
+                  pages: _pages,
+                  onPageChangeCallback: (activePage) =>
+                      currentPage.value = activePage,
+                ),
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 250),
+                  child: isLast
+                      ? Align(
+                          alignment: Alignment.bottomCenter,
+                          child: SafeArea(
+                            child: Padding(
+                              padding: const EdgeInsets.all(24),
+                              child: AnimatedSwitcher(
+                                duration: const Duration(milliseconds: 250),
+                                child: isLoading.value
+                                    ? const ColorFiltered(
+                                        colorFilter: ColorFilter.mode(
+                                          SalmonColors.blue,
+                                          BlendMode.srcIn,
+                                        ),
+                                        child: SalmonLoadingIndicator(),
+                                      )
+                                    : ElevatedButton(
+                                        style: context
+                                            .theme.elevatedButtonTheme.style
+                                            ?.copyWith(
+                                          backgroundColor: MaterialStateProperty
+                                              .resolveWith<Color?>(
+                                            (_) => SalmonColors.lightBlue,
+                                          ),
+                                        ),
+                                        onPressed: () async {
+                                          isLoading.value = true;
+
+                                          await GetStorage().write(
+                                              SalmonConst.skIsFirstLaunch,
+                                              false);
+
+                                          context.goNamed(SalmonRoutes.home);
+                                          NotifController.init();
+                                          if (isMounted()) {
+                                            isLoading.value = false;
+                                          }
+                                        },
+                                        child: const Text(
+                                          'Continue to Salmon', // TODO tr
+                                        ),
                                       ),
-                                    ),
-                                    onPressed: () async {
-                                      isLoading.value = true;
-
-                                      await GetStorage().write(
-                                          SalmonConst.skIsFirstLaunch, false);
-
-                                      context.goNamed(SalmonRoutes.home);
-                                      NotifController().init();
-                                      if (isMounted()) isLoading.value = false;
-                                    },
-                                    child: const Text(
-                                      'Continue to Salmon', // TODO tr
-                                    ),
-                                  ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    )
-                  : const SizedBox.shrink(),
-            )
-          ],
-        ),
+                        )
+                      : const SizedBox.shrink(),
+                )
+              ],
+            ),
+          );
+        },
       ),
     );
   }

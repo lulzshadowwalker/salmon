@@ -1,11 +1,15 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:salmon/helpers/salmon_anims.dart';
 import 'package:salmon/helpers/salmon_helpers.dart';
 import 'package:salmon/l10n/l10n_imports.dart';
+import 'package:salmon/providers/a12n/a12n_provider.dart';
+import 'package:salmon/providers/current_user/current_user_provider.dart';
 import 'package:salmon/theme/salmon_colors.dart';
 import '../../models/enums/notif_type.dart';
 import '../../models/notif_config.dart';
@@ -15,7 +19,7 @@ import '../../models/notif_config.dart';
 Future<void> _handleFcmBackgroundMessage(RemoteMessage message) async {
   final RemoteNotification? notif = message.notification;
   if (notif != null) {
-    NotifController().show(
+    NotifController.show(
       id: DateTime.now().second,
       title: notif.title ?? 'We would like to hear your feedback',
       body: notif.body ?? 'feel free to let us know what you have on your mind',
@@ -24,8 +28,8 @@ Future<void> _handleFcmBackgroundMessage(RemoteMessage message) async {
 }
 
 class NotifController {
-  NotifController._internal();
-  factory NotifController() => NotifController._internal();
+  NotifController(this.ref);
+  final Ref ref;
 
   static final _log = SalmonHelpers.getLogger('NotifController');
 
@@ -123,7 +127,8 @@ Popup shown with details
 ''');
   }
 
-  final _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  static final _flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
 
   static const _notifDetails = NotificationDetails(
     //
@@ -143,7 +148,7 @@ Popup shown with details
     ),
   );
 
-  Future<void> init() async {
+  static Future<void> init() async {
     try {
       if (Platform.isAndroid) {
         final isGranted = await _flutterLocalNotificationsPlugin
@@ -195,7 +200,7 @@ Popup shown with details
   static Future<String?> get fcmToken async =>
       await FirebaseMessaging.instance.getToken();
 
-  Future<void> show({
+  static Future<void> show({
     required int id,
     required String title,
     required String body,
@@ -220,7 +225,7 @@ local push notification has been shown
     _log.v('all notifications have been cancelled');
   }
 
-  Future<void> _initCloudMessaging() async {
+  static Future<void> _initCloudMessaging() async {
     await FirebaseMessaging.instance.setAutoInitEnabled(true);
 
     if (Platform.isIOS) {
@@ -247,5 +252,55 @@ local push notification has been shown
     FirebaseMessaging.onBackgroundMessage(_handleFcmBackgroundMessage);
 
     _log.v('Firebase Cloud-Messaging has been initialized');
+  }
+
+  static String generateTopicName(String name) => name
+      .trim()
+      .replaceAll(' ', '-')
+      .replaceAll(RegExp(r"[^a-zA-Z0-9-]"), '')
+      .toLowerCase();
+
+  Future<bool?> checkTopicSubscription(String topic) async {
+    try {
+      final user = await ref.read(currentUserProvider.future);
+
+      final isSubbed = user.topics?.contains(topic) ?? false;
+
+      _log.v('''
+topic ($topic) subscription status check: $isSubbed
+''');
+
+      return isSubbed;
+    } catch (e) {
+      SalmonHelpers.handleException(e: e, logger: _log);
+      return null;
+    }
+  }
+
+  Future<void> manageTopicSubscription({
+    required String topic,
+    required bool subscribe,
+  }) async {
+    try {
+      final uid = ref.read(a12nProvider).userId;
+
+      if (subscribe) {
+        await FirebaseFirestore.instance.collection('users').doc(uid).set({
+          'topics': FieldValue.arrayUnion([topic])
+        });
+        await FirebaseMessaging.instance.subscribeToTopic(topic);
+      } else {
+        await FirebaseFirestore.instance.collection('users').doc(uid).set({
+          'topics': FieldValue.arrayRemove([topic])
+        });
+        await FirebaseMessaging.instance.unsubscribeFromTopic(topic);
+      }
+
+      _log.v('''
+topic ($topic) subscription status: $subscribe
+''');
+    } catch (e) {
+      SalmonHelpers.handleException(e: e, logger: _log);
+    }
   }
 }

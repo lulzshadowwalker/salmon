@@ -5,7 +5,7 @@ class _SettingsProfileHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(salmonUserProvider).value;
+    final user = ref.watch(currentUserProvider).value;
     final isGuest = ref.read(a12nProvider).isGuest;
 
     return Directionality(

@@ -70,7 +70,7 @@ class SalmonFormField extends StatelessWidget {
               .textTheme
               .bodyMedium
               ?.copyWith(color: SalmonColors.muted),
-          contentPadding: const EdgeInsets.only(bottom: 5),
+          contentPadding: contentPadding ?? const EdgeInsets.only(bottom: 5),
           hintText: hintText,
           label: label,
           labelText: labelText,

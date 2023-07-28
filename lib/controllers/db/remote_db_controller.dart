@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/controllers/notif/notif_controller.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/helpers/salmon_helpers.dart';
+import 'package:salmon/models/comment.dart';
 import 'package:salmon/models/enums/notif_type.dart';
 import 'package:salmon/models/salmon_user.dart';
 import 'package:salmon/models/submission.dart';
@@ -34,6 +35,13 @@ final class RemoteDbController {
   static const String _aCreatedOn = 'created_on';
   static const String _aId = 'id';
   static const String _aFcmToken = 'fcm_token';
+  static const String _cClaps = 'claps';
+  static const String _aCount = 'count';
+  static const String _aUserId = 'user_id';
+  static const String _aClapCount = 'clap_count';
+  static const String _cComments = 'comments';
+  static const String _aComment = 'comment';
+  static const String _aPostId = 'post_id';
   /* -------------------------------------------------------------------------- */
 
   Future<void> createUserRecord({
@@ -197,6 +205,168 @@ $data
 ''');
     } catch (e) {
       SalmonHelpers.handleException(context: context, e: e, logger: _log);
+    }
+  }
+
+  Future<void> clap(Post post, int count) async {
+    try {
+      final uid = ref.read(a12nProvider).userId;
+      final postRef = _db.collection(_cPosts).doc(post.id);
+      final clapRef = postRef.collection(_cClaps).doc(uid);
+
+      await _db.runTransaction((trans) async {
+        final oldPostClapCount = await trans
+                .get(postRef)
+                .then((value) => value.data()?[_aClapCount] as int?) ??
+            0;
+
+        final oldUserClapCount = await trans
+                .get(clapRef)
+                .then((value) => value.data()?[_aCount] as int?) ??
+            0;
+
+        trans.set(
+          clapRef,
+          {
+            _aCount: count,
+            _aUserId: uid,
+          },
+          SetOptions(merge: true),
+        );
+
+        final newPostClapCount = oldPostClapCount + (count - oldUserClapCount);
+        trans.set(
+          postRef,
+          {
+            _aClapCount: newPostClapCount,
+          },
+          SetOptions(merge: true),
+        );
+
+        _log.v('''
+
+post: ${post.enTitle} (id: ${post.id})
+user has clapped $count times
+total claps: $newPostClapCount claps
+''');
+      });
+    } catch (e) {
+      SalmonHelpers.handleException(e: e, logger: _log);
+    }
+  }
+
+  Future<Agency?> fetchAgency(String id) async {
+    try {
+      return await _db.collection(_cAgencies).doc(id).get().then(
+            (snap) => Agency.fromMap(snap.data()!),
+          );
+    } catch (e) {
+      SalmonHelpers.handleException(e: e, logger: _log);
+      return null;
+    }
+  }
+
+  Future<int?> fetchUserClapCount(String id) async {
+    try {
+      final uid = ref.read(a12nProvider).userId;
+
+      return await _db
+          .collection(_cPosts)
+          .doc(id)
+          .collection(_cClaps)
+          .doc(uid)
+          .get()
+          .then(
+            (snap) => snap.data()?[_aCount] ?? 0,
+          );
+    } catch (e) {
+      SalmonHelpers.handleException(e: e, logger: _log);
+      return null;
+    }
+  }
+
+  Future<void> comment({
+    required Post post,
+    required String comment,
+  }) async {
+    try {
+      final uid = ref.read(a12nProvider).userId;
+      final id = const Uuid().v4();
+
+      final data = {
+        _aUserId: uid,
+        _aComment: comment,
+        _aCreatedOn: DateTime.now().toUtc(),
+        _aPostId: post.id,
+        _aId: id,
+      };
+
+      await _db
+          .collection(_cPosts)
+          .doc(post.id)
+          .collection(_cComments)
+          .doc(id)
+          .set(
+            data,
+            SetOptions(merge: true),
+          );
+
+      _log.v('''
+post: ${post.enTitle} (id: ${post.id})
+user has added a comment "$comment"
+''');
+    } catch (e) {
+      SalmonHelpers.handleException(e: e, logger: _log);
+    }
+  }
+
+  Stream<List<Comment?>> comments(String postId) {
+    try {
+      return _db
+          .collection(_cPosts)
+          .doc(postId)
+          .collection(_cComments)
+          .orderBy(
+            _aCreatedOn,
+            descending: true,
+          )
+          .snapshots()
+          .map(
+            (query) => query.docs
+                .map(
+                  (doc) => Comment.fromMap(doc.data()),
+                )
+                .toList(),
+          );
+    } catch (e) {
+      SalmonHelpers.handleException(e: e, logger: _log);
+      return const Stream.empty();
+    }
+  }
+
+  Future<SalmonUser?> fetchUser(String userId) async {
+    try {
+      return await _db.collection(_cUsers).doc(userId).get().then(
+            (snap) => SalmonUser.fromMap(snap.data()!),
+          );
+    } catch (e) {
+      SalmonHelpers.handleException(e: e, logger: _log);
+      return null;
+    }
+  }
+
+  Future<int?> fetchCommentCount(String id) async {
+    try {
+      return await _db
+          .collection(_cPosts)
+          .doc(id)
+          .collection(_cComments)
+          .count()
+          .get()
+          .then((value) => value.count);
+    } catch (e) {
+      SalmonHelpers.handleException(e: e, logger: _log);
+      return null;
     }
   }
 }

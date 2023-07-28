@@ -53,6 +53,15 @@ final class SalmonAnims {
   /// https://lottiefiles.com/animations/communication-SfSWysDv95
   static const String communication = 'assets/anims/communication.json';
 
-  /// https://lottiefiles.com/animations/circle-loading-82IUMY6Uiw
+  /// https://lottiefiles.com/animations/flower-mograph-0YgMfW8ITY
   static const String logo = 'assets/anims/logo.json';
+
+  /// https://lottiefiles.com/animations/pop-firework-nmRmNnpi2b
+  static const String splash = 'assets/anims/splash.json';
+
+  /// https://lottiefiles.com/animations/celebrate-3EiVKJeakg
+  static const String confetti = 'assets/anims/confetti.json';
+
+  /// https://lottiefiles.com/animations/notification-L6WRjuOKCK
+  static const String bell = 'assets/anims/bell.json';
 }
