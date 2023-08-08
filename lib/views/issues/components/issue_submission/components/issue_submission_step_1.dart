@@ -47,48 +47,52 @@ class _IssueSubmissionStep1State extends ConsumerState<IssueSubmissionStep1> {
               ? FocusManager.instance.primaryFocus?.unfocus()
               : _focusNode.requestFocus();
         },
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'How can we help you', // TODO tr
-                style: context.textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
+        child: SalmonSingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'How can we help you', // TODO tr
+                  style: context.textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              SizedBox(
-                height: 48,
-                child: AnimatedTextKit(
-                  isRepeatingAnimation: false,
-                  animatedTexts: [
-                    TyperAnimatedText(
-                      'Please provide a brief summary of the issue you are facing. This will help us understand and address your problem more efficiently', // TODO tr
-                      speed: const Duration(milliseconds: 24),
-                    ),
-                  ],
+                const SizedBox(height: 8),
+                SizedBox(
+                  height: 48,
+                  child: AnimatedTextKit(
+                    isRepeatingAnimation: false,
+                    animatedTexts: [
+                      TyperAnimatedText(
+                        'Please provide a brief summary of the issue you are facing. This will help us understand and address your problem more efficiently', // TODO tr
+                        speed: const Duration(milliseconds: 24),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              SalmonFormField(
-                formFieldKey: _formFieldKey,
-                focusNode: _focusNode,
-                hintText: 'Summarize your problem ..', // TODO tr
-                initialValue: submission.summary,
-                maxLines: null,
-                border: InputBorder.none,
-                validator: (value) => value.isEmpty
-                    ? 'Please give us a summary of your problem' // TODO tr
-                    : null,
-                onSaved: (value) {
-                  ref.read(_submissionProvider.notifier).state =
-                      submission.copyWith(
-                    summary: value,
-                  );
-                },
-              ),
-            ],
+                SalmonFormField(
+                  formFieldKey: _formFieldKey,
+                  focusNode: _focusNode,
+                  hintText: 'Summarize your problem ..', // TODO tr
+                  initialValue: submission.summary,
+                  maxLines: null,
+                  keyboardType: TextInputType.multiline,
+                  border: InputBorder.none,
+                  validator: (value) => value.isEmpty
+                      ? 'Please give us a summary of your problem' // TODO tr
+                      : null,
+                  onSaved: (value) {
+                    ref.read(_submissionProvider.notifier).set(
+                          submission.copyWith(
+                            summary: value?.trim(),
+                          ),
+                        );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

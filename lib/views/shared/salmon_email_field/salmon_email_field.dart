@@ -35,6 +35,7 @@ class SalmonEmailField extends ConsumerWidget {
           (val) => isEmail('$val') ? null : SL.of(context).enterValidEmail,
       prefixIcon: const Icon(FontAwesomeIcons.solidEnvelope),
       hintText: hintText.isEmpty ? 'email@example.com' : hintText,
+      keyboardType: TextInputType.emailAddress,
     );
   }
 }

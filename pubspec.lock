@@ -441,6 +441,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.3.0"
+  easy_stepper:
+    dependency: "direct main"
+    description:
+      name: easy_stepper
+      sha256: "4df1e4e5bb979bd4ede9e4162e47e68133eaada74885424e4f7cec3f144c4b3b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.3"
   equatable:
     dependency: transitive
     description:
@@ -1141,6 +1149,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.8.1"
+  lazy_load_indexed_stack:
+    dependency: "direct main"
+    description:
+      name: lazy_load_indexed_stack
+      sha256: c56c9c292048ecd8c86008617c7d77aa4057cafcdae1c5269aec6fb75019eebf
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   lints:
     dependency: transitive
     description:
@@ -1214,7 +1230,7 @@ packages:
     source: hosted
     version: "1.9.1"
   mime:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: mime
       sha256: e4ff8e8564c03f255408decd16e7899da1733852a9110a58fe6d1b817684a63e
@@ -1342,13 +1358,13 @@ packages:
     source: hosted
     version: "5.4.0"
   photo_manager:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: photo_manager
-      sha256: bdc4ab1fa9fb064d8ccfea6ab44119f55b220293d7ce2e19eb5a5f998db86c88
+      sha256: df31e29a81831d1ec136d80ba4a43a90077994ada6acd565fcfbd8ed181ca0e8
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.0"
+    version: "2.7.0"
   photo_view:
     dependency: transitive
     description:
@@ -1835,7 +1851,7 @@ packages:
     source: hosted
     version: "2.1.4"
   video_player:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: video_player
       sha256: "3fd106c74da32f336dc7feb65021da9b0207cb3124392935f1552834f7cce822"

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/helpers/salmon_helpers.dart';
@@ -19,27 +20,32 @@ class ImagePickerCircleAvatar extends HookWidget {
     Key? key,
   }) : super(key: key);
 
-  final void Function(Uint8List? image)? onSelected;
+  final void Function(XFile? image)? onSelected;
   final ImageProvider? initialImage;
   static const double _radius = 128;
 
   @override
   Widget build(BuildContext context) {
-    final image = useState<Uint8List?>(null);
+    final image = useState<XFile?>(null);
+    final imageData = useState<Uint8List?>(null);
     final plusIconAnimCon = useAnimationController(duration: const Duration());
 
     useEffect(() {
       /// if no callback is provided, don't add listeners :D
       if (onSelected == null) return null;
 
-      void listener() {
+      void listener() async {
         onSelected!(image.value);
+
+        if (image.value != null) {
+          imageData.value = await image.value?.readAsBytes();
+        }
       }
 
       image.addListener(() => listener());
 
       return () => image.removeListener(() => listener());
-    });
+    }, [image.value]);
 
     return GestureDetector(
       onTap: () async {
@@ -55,7 +61,7 @@ class ImagePickerCircleAvatar extends HookWidget {
         children: [
           SalmonCircleImageAvatar(
             radius: _radius,
-            image: image.value.asMemImg ?? initialImage,
+            image: imageData.value.asMemImg ?? initialImage,
           ),
           Positioned(
             bottom: 2,
@@ -70,7 +76,7 @@ class ImagePickerCircleAvatar extends HookWidget {
               child: ColorFiltered(
                 colorFilter: ColorFilter.mode(
                   SalmonColors.white,
-                  BlendMode.difference,
+                  BlendMode.srcATop,
                 ),
                 child: Lottie.asset(
                   SalmonAnims.plus,

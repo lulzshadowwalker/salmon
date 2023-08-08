@@ -23,18 +23,21 @@ class _AccountDetailsState extends ConsumerState<AccountDetails> {
 
     useEffect(() {
       void listener() {
+        print('hello');
         isAnyModified.value =
             nameController.text.isNotEmpty || emailController.text.isNotEmpty;
       }
 
       nameController.addListener(listener);
-
       emailController.addListener(() {
         isEmailModified.value = emailController.text.isNotEmpty;
         listener();
       });
 
-      return null;
+      return () {
+        nameController.removeListener(listener);
+        emailController.removeListener(listener);
+      };
     }, const []);
 
     return SalmonUnfocusableWrapper(

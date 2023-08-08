@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -6,12 +7,18 @@ import 'package:salmon/router/salmon_routes.dart';
 import 'package:salmon/views/analytics/analytics.dart';
 import 'package:salmon/views/feed/components/post_view.dart';
 import 'package:salmon/views/interface/interface.dart';
+import 'package:salmon/views/issues/components/general_submission/components/general_submission_components.dart';
+import 'package:salmon/views/issues/components/issue_submission/components/issue_submission_components.dart';
+import 'package:salmon/views/issues/components/submisison_review.dart';
 import 'package:salmon/views/onboarding/onboarding.dart';
 import 'package:salmon/views/settings/comps/settings_comps.dart';
+import 'package:salmon/views/shared/salmon_fullscreenable/salmon_fullscreenable.dart';
+import 'package:salmon/views/shared/salmon_location_picker/salmon_location_picker.dart';
 import 'package:salmon/views/splash/splash.dart';
 
 import '../helpers/salmon_const.dart';
 import '../models/post.dart';
+import '../models/submission.dart';
 import '../views/auth/sign_in.dart';
 import '../views/auth/sign_up.dart';
 import '../views/not_found/not_found.dart';
@@ -76,7 +83,41 @@ class SalmonRouter {
                 name: SalmonRoutes.analytics,
                 path: SalmonRoutes.analytics,
                 builder: (context, state) => const Analytics(),
-              )
+              ),
+              GoRoute(
+                name: SalmonRoutes.generalSubmission,
+                path: SalmonRoutes.generalSubmission,
+                builder: (context, state) => const GeneralSubmission(),
+              ),
+              GoRoute(
+                name: SalmonRoutes.issueSubmission,
+                path: SalmonRoutes.issueSubmission,
+                builder: (context, state) => const IssueSubmission(),
+              ),
+              GoRoute(
+                name: SalmonRoutes.submissionReview,
+                path: SalmonRoutes.submissionReview,
+                builder: (context, state) {
+                  final submission = state.extra as Submission;
+
+                  return SubmissionReview(
+                    submission: submission,
+                  );
+                },
+              ),
+              GoRoute(
+                name: SalmonRoutes.fullscreenable,
+                path: SalmonRoutes.fullscreenable,
+                builder: (context, state) => SalmonFullscreenable(
+                  child: state.extra as Widget,
+                ),
+              ),
+              // GoRoute(
+              //   // TODO GoRouter pop w value prolly requires a higher package version
+              //   name: SalmonRoutes.locationPicker,
+              //   path: SalmonRoutes.locationPicker,
+              //   builder: (context, state) => const SalmonLocationPicker(),
+              // )
             ],
           ),
           GoRoute(

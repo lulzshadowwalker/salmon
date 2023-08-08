@@ -8,4 +8,9 @@ final class SalmonRoutes {
   static const String analytics = 'analytics';
   static const String accountDetails = 'account-details';
   static const String postView = 'post-view';
+  static const String issueSubmission = 'issue-submission';
+  static const String generalSubmission = 'general-submission';
+  static const String submissionReview = 'submission-review';
+  static const String fullscreenable = 'fullscreenable';
+  // static const String locationPicker = 'location-picker';
 }

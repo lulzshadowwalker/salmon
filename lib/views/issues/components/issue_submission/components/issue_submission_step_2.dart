@@ -92,17 +92,23 @@ class IssueSubmissionStep2 extends HookConsumerWidget {
                                       ),
                                     ),
                                     const SizedBox(width: 16),
-                                    Text(e.enName ?? 'unknown'), // TODO tr
+                                    Expanded(
+                                      child: Text(
+                                        e.enName ?? 'unknown',
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ), // TODO tr
                                   ],
                                 ),
                               ),
                             )
                             .toList(),
                         onChanged: (value) {
-                          ref.read(_submissionProvider.notifier).state =
-                              submission.copyWith(
-                            agency: value,
-                          );
+                          ref.read(_submissionProvider.notifier).set(
+                                submission.copyWith(
+                                  agency: value,
+                                ),
+                              );
                         },
                       ),
                       const SizedBox(height: 8),

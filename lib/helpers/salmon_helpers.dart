@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
+import 'package:mime/mime.dart';
 import 'package:salmon/helpers/salmon_log_printer.dart';
 import 'package:salmon/l10n/l10n_imports.dart';
 import 'package:salmon/views/shared/salmon_image_picker_options/salmon_image_picker_options.dart';
@@ -22,7 +23,7 @@ final class SalmonHelpers {
         printer: SalmonLogPrinter(className),
       );
 
-  static Future<Uint8List?> pickImageFromSource(
+  static Future<XFile?> pickImageFromSource(
     BuildContext context, {
     double? maxWidth = 512,
     double? maxHeight,
@@ -52,15 +53,14 @@ final class SalmonHelpers {
       if (image == null) {
         throw aborted;
       }
-
-      return image.readAsBytes();
+      return image;
     } catch (e) {
       _log.e(e.toString());
       return null;
     }
   }
 
-  static Future<Uint8List?> pickImageFromGallery({
+  static Future<XFile?> pickImageFromGallery({
     double? maxWidth = 512,
     double? maxHeight,
   }) async {
@@ -68,24 +68,38 @@ final class SalmonHelpers {
       const aborted = SalmonSilentException(
           'image picking proccess terminated by the user');
 
-      final image = await ImagePicker().pickImage(
+      final image = await ImagePicker()
+          .pickImage(
         source: ImageSource.gallery,
         maxWidth: maxWidth,
         maxHeight: maxHeight,
-      );
+      )
+          .then<XFile?>((file) async {
+        if (file != null) {
+          final bytes = await file.readAsBytes();
+          return XFile.fromData(
+            bytes,
+            mimeType: lookupMimeType(file.name, headerBytes: bytes),
+            name: file.name,
+            path: file.path,
+          );
+        }
+
+        return null;
+      });
 
       if (image == null) {
         throw aborted;
       }
 
-      return image.readAsBytes();
+      return image;
     } catch (e) {
       _log.e(e.toString());
       return null;
     }
   }
 
-  static Future<Uint8List?> pickImageFromCamera({
+  static Future<XFile?> pickImageFromCamera({
     double? maxWidth = 512,
     double? maxHeight,
   }) async {
@@ -93,42 +107,70 @@ final class SalmonHelpers {
       const aborted = SalmonSilentException(
           'image picking proccess terminated by the user');
 
-      final image = await ImagePicker().pickImage(
+      final image = await ImagePicker()
+          .pickImage(
         source: ImageSource.camera,
         maxWidth: maxWidth,
         maxHeight: maxHeight,
-      );
+      )
+          .then<XFile?>((file) async {
+        if (file != null) {
+          final bytes = await file.readAsBytes();
+          return XFile.fromData(
+            bytes,
+            mimeType: lookupMimeType(file.name, headerBytes: bytes),
+            name: file.name,
+            path: file.path,
+          );
+        }
+
+        return file;
+      });
 
       if (image == null) {
         throw aborted;
       }
 
-      return image.readAsBytes();
+      return image;
     } catch (e) {
       _log.e(e.toString());
       return null;
     }
   }
 
-  static Future<Uint8List?> pickVideoFromCamera() async {
+  static Future<XFile?> pickVideoFromCamera() async {
     try {
       const aborted = SalmonSilentException(
           'image picking proccess terminated by the user');
 
-      final image = await ImagePicker().pickVideo(source: ImageSource.camera);
+      final video = await ImagePicker()
+          .pickVideo(source: ImageSource.camera)
+          .then<XFile?>((file) async {
+        if (file != null) {
+          final bytes = await file.readAsBytes();
+          return XFile.fromData(
+            bytes,
+            mimeType: lookupMimeType(file.name, headerBytes: bytes),
+            name: file.name,
+            path: file.path,
+          );
+        }
 
-      if (image == null) {
+        return null;
+      });
+
+      if (video == null) {
         throw aborted;
       }
 
-      return image.readAsBytes();
+      return video;
     } catch (e) {
       _log.e(e.toString());
       return null;
     }
   }
 
-  static Future<List<Uint8List>?> pickImages({
+  static Future<List<XFile>?> pickImages({
     double? maxWidth = 512,
     double? maxHeight,
   }) async {
@@ -138,14 +180,18 @@ final class SalmonHelpers {
 
       final images = await ImagePicker()
           .pickMultipleMedia(
-        maxWidth: maxWidth,
-        maxHeight: maxHeight,
-      )
-          .then((images) {
-        return images.map((e) async {
-          return await e.readAsBytes();
-        });
-      });
+            maxWidth: maxWidth,
+            maxHeight: maxHeight,
+          )
+          .then((files) => files.map((e) async {
+                final bytes = await e.readAsBytes();
+                return XFile.fromData(
+                  bytes,
+                  mimeType: lookupMimeType(e.name, headerBytes: bytes),
+                  name: e.name,
+                  path: e.path,
+                );
+              }).toList());
 
       if (images.isEmpty) {
         throw aborted;
@@ -158,7 +204,7 @@ final class SalmonHelpers {
     }
   }
 
-  static Future<List<Uint8List>?> pickFiles() async {
+  static Future<List<XFile>?> pickFiles() async {
     try {
       FilePickerResult? result =
           await FilePicker.platform.pickFiles(allowMultiple: true);
@@ -168,9 +214,19 @@ final class SalmonHelpers {
             'file picking proccess terminated by the user');
       }
 
-      final files = result.paths
-          .map((path) async => await File(path!).readAsBytes())
-          .toList();
+      final files = result.paths.map(
+        (path) async {
+          final file = XFile(path!);
+
+          final bytes = await file.readAsBytes();
+          return XFile.fromData(
+            bytes,
+            mimeType: lookupMimeType(file.name, headerBytes: bytes),
+            name: file.name,
+            path: file.path,
+          );
+        },
+      ).toList();
 
       return await Future.wait(files);
     } catch (e) {
@@ -257,14 +313,10 @@ final class SalmonHelpers {
       return '${difference.inMinutes} minutes ago';
     } else if (difference.inHours <= 24) {
       final timeFormat = DateFormat.jm().format(dateTime);
-
       return timeFormat;
     } else {
-      final isSameYear = now.year == dateTime.year;
-      final dateFormat = isSameYear ? 'dd.MM.yyyy' : 'dd.MM.y';
       final timeFormat = DateFormat.jm().format(dateTime);
-
-      return '${DateFormat(dateFormat).format(dateTime)} - $timeFormat';
+      return '${DateFormat('dd.MM.yyyy').format(dateTime)} - $timeFormat';
     }
   }
 }

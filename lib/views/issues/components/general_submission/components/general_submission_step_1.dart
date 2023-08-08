@@ -1,14 +1,14 @@
-part of 'generic_submission_components.dart';
+part of './general_submission_components.dart';
 
-class GenericSubmissionStep1 extends ConsumerStatefulWidget {
-  const GenericSubmissionStep1({super.key});
+class IssueSubmissionStep1 extends ConsumerStatefulWidget {
+  const IssueSubmissionStep1({super.key});
 
   @override
-  ConsumerState<GenericSubmissionStep1> createState() =>
+  ConsumerState<IssueSubmissionStep1> createState() =>
       _IssueSubmissionStep1State();
 }
 
-class _IssueSubmissionStep1State extends ConsumerState<GenericSubmissionStep1> {
+class _IssueSubmissionStep1State extends ConsumerState<IssueSubmissionStep1> {
   final _focusNode = FocusNode();
   final _formFieldKey = GlobalKey<FormFieldState>();
 
@@ -77,15 +77,17 @@ class _IssueSubmissionStep1State extends ConsumerState<GenericSubmissionStep1> {
                 hintText: 'we are listening ..', // TODO tr
                 initialValue: submission.summary,
                 maxLines: null,
+                keyboardType: TextInputType.multiline,
                 border: InputBorder.none,
                 validator: (value) => value.isEmpty
                     ? 'is there anything you have to say?' // TODO tr
                     : null,
                 onSaved: (value) {
-                  ref.read(_submissionProvider.notifier).state =
-                      submission.copyWith(
-                    summary: value,
-                  );
+                  ref.read(_submissionProvider.notifier).set(
+                        submission.copyWith(
+                          summary: value?.trim(),
+                        ),
+                      );
                 },
               ),
             ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/providers/posts/posts_provider.dart';
 import 'package:salmon/views/feed/components/post_card.dart';
 import 'package:salmon/views/home/components/home_app_bar.dart';
@@ -33,8 +34,9 @@ class Feed extends ConsumerWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: ListView.builder(
+                    padding: const EdgeInsets.only(top: 18),
                     physics: const ClampingScrollPhysics(),
-                    itemCount: posts.value?.length,
+                    itemCount: (posts.value ?? []).length,
                     itemBuilder: (context, index) {
                       final isLast = posts.value?.length != null &&
                           index != (posts.value!.length - 1);
@@ -50,17 +52,23 @@ class Feed extends ConsumerWidget {
                           error: (error, stackTrace) => const Center(
                             child: Text('unknown error'),
                           ),
-                          loading: () => AspectRatio(
-                            aspectRatio: 1,
-                            child: Shimmer.fromColors(
-                              baseColor: SalmonColors.mutedLight,
-                              highlightColor: SalmonColors.white,
-                              child: Container(
-                                color: SalmonColors.mutedLight,
-                                width: double.infinity,
-                                height: 100,
+                          loading: () => ListView.separated(
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) => AspectRatio(
+                              aspectRatio: 1,
+                              child: Shimmer.fromColors(
+                                baseColor: SalmonColors.mutedLight,
+                                highlightColor: SalmonColors.white,
+                                child: Container(
+                                  color: SalmonColors.mutedLight,
+                                  width: double.infinity,
+                                  height: 100,
+                                ),
                               ),
                             ),
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(height: 16),
+                            itemCount: 6,
                           ),
                         ),
                       );

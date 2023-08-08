@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
+import 'package:photo_manager/photo_manager.dart';
 import 'package:salmon/controllers/notif/notif_controller.dart';
 import 'package:salmon/helpers/salmon_const.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
@@ -18,7 +19,7 @@ import 'package:salmon/views/shared/salmon_loading_indicator/salmon_loading_indi
 class Onboarding extends HookConsumerWidget {
   const Onboarding({super.key});
 
-  static const _pages = [
+  static final _pages = [
     OnboardingPage1(),
     OnboardingPage2(),
     OnboardingPage3(),
@@ -40,9 +41,15 @@ class Onboarding extends HookConsumerWidget {
             body: Stack(
               children: [
                 LiquidSwipe(
-                  enableLoop: false,
-                  ignoreUserGestureWhileAnimating: true,
+                  positionSlideIcon: 0.8,
+                  fullTransitionValue: 880,
+                  slideIconWidget: isLast
+                      ? const SizedBox.shrink()
+                      : const Icon(Icons.arrow_back_ios),
+                  preferDragFromRevealedArea: true,
                   enableSideReveal: true,
+                  ignoreUserGestureWhileAnimating: true,
+                  enableLoop: false,
                   waveType: WaveType.circularReveal,
                   pages: _pages,
                   onPageChangeCallback: (activePage) =>
@@ -84,6 +91,8 @@ class Onboarding extends HookConsumerWidget {
 
                                           context.goNamed(SalmonRoutes.home);
                                           NotifController.init();
+                                          PhotoManager
+                                              .requestPermissionExtend();
                                           if (isMounted()) {
                                             isLoading.value = false;
                                           }

@@ -303,4 +303,13 @@ topic ($topic) subscription status: $subscribe
       SalmonHelpers.handleException(e: e, logger: _log);
     }
   }
+
+  static void showInDevPopup(BuildContext context) {
+    NotifController.showPopup(
+      context: context,
+      title: 'nope',
+      message: 'in development 🥱',
+      type: NotifType.tip,
+    );
+  }
 }

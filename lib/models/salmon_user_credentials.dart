@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:salmon/helpers/salmon_const.dart';
 import 'package:salmon/models/salmon_user.dart';
@@ -13,7 +14,7 @@ class SalmonUserCredentials {
   final String? id;
   final String? email;
   final String? password;
-  final Uint8List? pfpRaw;
+  final XFile? pfpRaw;
   final String? pfpUrl;
 
   const SalmonUserCredentials({
@@ -70,7 +71,7 @@ class SalmonUserCredentials {
     String? username,
     String? email,
     String? password,
-    Uint8List? pfpRaw,
+    XFile? pfpRaw,
     String? pfpUrl,
   }) {
     return SalmonUserCredentials(

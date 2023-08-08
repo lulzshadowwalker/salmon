@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -34,12 +35,17 @@ class ClapButtonState extends ConsumerState<ClapButton> {
     final isMounted = useIsMounted();
     final isMax = counter.value >= maxCount;
     final splashController = useAnimationController(duration: const Duration());
+    final confettiController =
+        useAnimationController(duration: const Duration());
     final isLight = ref.watch(themeModeProvider) == ThemeMode.light;
     final userClapCount = ref.watch(userClapCountProvider(post.id ?? ''));
+    final isSplashLoaded = useState(false);
 
     useEffect(() {
       secondaryCounter = counter.value;
       void listener() {
+        if (isMax || !isSplashLoaded.value) return;
+
         splashController
           ..reset()
           ..forward();
@@ -91,7 +97,6 @@ class ClapButtonState extends ConsumerState<ClapButton> {
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
-                      // TODO add lottie animation
                       AnimatedSlide(
                         offset: isVisible.value
                             ? const Offset(0.0, -2.5)
@@ -118,17 +123,32 @@ class ClapButtonState extends ConsumerState<ClapButton> {
                                           : SalmonColors.white,
                                       isMax ? BlendMode.dstIn : BlendMode.srcIn,
                                     ),
-                                    child: Lottie.asset(
-                                      isMax
-                                          ? SalmonAnims.confetti
-                                          : SalmonAnims.splash,
-                                      controller: splashController,
-                                      onLoaded: (comp) {
-                                        splashController.duration =
-                                            comp.duration;
-                                      },
-                                      height: 32,
-                                    ),
+                                    child: isMax
+                                        ? Lottie.asset(
+                                            SalmonAnims.confetti,
+                                            controller: confettiController,
+                                            onLoaded: (comp) {
+                                              confettiController.duration =
+                                                  comp.duration;
+                                              if (!isVisible.value) {
+                                                isVisible.value = true;
+                                              }
+                                              confettiController.forward();
+                                            },
+                                            height: 32,
+                                            frameRate: FrameRate.composition,
+                                            filterQuality: FilterQuality.low,
+                                          )
+                                        : Lottie.asset(
+                                            SalmonAnims.splash,
+                                            controller: splashController,
+                                            onLoaded: (comp) {
+                                              splashController.duration =
+                                                  comp.duration;
+                                              isSplashLoaded.value = true;
+                                            },
+                                            height: 32,
+                                          ),
                                   ),
                                 ),
                                 AnimatedContainer(

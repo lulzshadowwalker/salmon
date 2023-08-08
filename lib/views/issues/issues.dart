@@ -35,22 +35,17 @@ class Issues extends ConsumerWidget {
                         Expanded(
                           child: _IssueCard(
                             onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => const IssueSubmission(),
-                                ),
-                              );
+                              context.goNamed(SalmonRoutes.issueSubmission);
                             },
-                            title: 'Issue', // TODO tr
+                            title: 'Complaint', // TODO tr
                             backgroundColor: SalmonColors.brown,
                             child: ColorFiltered(
-                              colorFilter: const ColorFilter.mode(
-                                SalmonColors.brown,
-                                BlendMode.color,
+                              colorFilter: ColorFilter.mode(
+                                SalmonColors.brown.withOpacity(0.05),
+                                BlendMode.srcATop,
                               ),
-                              child: Lottie.network(
-                                // TODO Lottie asset
-                                'https://lottie.host/44ff4ac5-5014-4d61-88fe-436bf090769e/HOn3gUZ2Eb.json',
+                              child: Lottie.asset(
+                                SalmonAnims.report,
                                 filterQuality: FilterQuality.medium,
                               ),
                             ),
@@ -60,25 +55,14 @@ class Issues extends ConsumerWidget {
                         Expanded(
                           child: _IssueCard(
                             onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const GenericSubmission(),
-                                ),
-                              );
+                              context.goNamed(SalmonRoutes.generalSubmission);
                             },
-                            title: 'Generic', // TODO tr
+                            title: 'General', // TODO tr
                             backgroundColor: SalmonColors.blue,
-                            child: ColorFiltered(
-                              colorFilter: const ColorFilter.mode(
-                                SalmonColors.blue,
-                                BlendMode.color,
-                              ),
-                              child: Lottie.network(
-                                // TODO Lottie asset
-                                'https://lottie.host/44ff4ac5-5014-4d61-88fe-436bf090769e/HOn3gUZ2Eb.json',
-                                filterQuality: FilterQuality.medium,
-                              ),
+                            child: Lottie.asset(
+                              SalmonAnims.shapes,
+                              filterQuality: FilterQuality.medium,
+                              reverse: true,
                             ),
                           ),
                         ),
@@ -97,14 +81,38 @@ class Issues extends ConsumerWidget {
 
                     submissions.when(
                       data: (data) => Expanded(
-                        child: ListView.builder(
-                          padding: EdgeInsets.zero,
-                          itemCount: data.length,
-                          itemBuilder: (context, index) => _SubmissionTile(
-                            index: index,
-                            submission: data[index],
-                          ),
-                        ),
+                        child: data.isNotEmpty
+                            ? ListView.builder(
+                                padding: EdgeInsets.zero,
+                                itemCount: data.length,
+                                itemBuilder: (context, index) =>
+                                    _SubmissionTile(
+                                  index: index,
+                                  submission: data[index],
+                                ),
+                              )
+                            : Center(
+                                child: FractionallySizedBox(
+                                  widthFactor: 0.5,
+                                  child: Column(
+                                    children: [
+                                      const SizedBox(height: 36),
+                                      Lottie.asset(
+                                        SalmonAnims.interaction,
+                                        repeat: true,
+                                      ),
+                                      const SizedBox(height: 12),
+                                      Text(
+                                        'feel free to reach out for any suggestions or complaints you may have',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color: SalmonColors.muted,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                       ),
                       error: (error, stackTrace) => const Center(
                         child: Text(

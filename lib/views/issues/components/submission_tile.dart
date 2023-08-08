@@ -28,7 +28,12 @@ class _SubmissionTile extends HookWidget {
       scale: animate.value ? 1 : 0,
       curve: Curves.easeOutCubic,
       child: Bounceable(
-        onTap: () {},
+        onTap: () {
+          context.goNamed(
+            SalmonRoutes.submissionReview,
+            extra: submission,
+          );
+        },
         duration: const Duration(milliseconds: 80),
         reverseDuration: const Duration(milliseconds: 80),
         child: Container(
@@ -52,13 +57,15 @@ class _SubmissionTile extends HookWidget {
                 ),
               ),
               const SizedBox(width: 12),
-              Text(
-                submission.summary ?? 'unknown', // TODO tr
-                style: const TextStyle(
-                  color: SalmonColors.black,
+              Expanded(
+                child: Text(
+                  submission.summary ?? 'unknown', // TODO tr
+                  maxLines: 1,
+                  style: const TextStyle(
+                    color: SalmonColors.black,
+                  ),
                 ),
               ),
-              const Spacer(),
               FaIcon(
                 context.directionality == TextDirection.ltr
                     ? FontAwesomeIcons.angleRight

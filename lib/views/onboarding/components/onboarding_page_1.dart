@@ -15,6 +15,8 @@ class OnboardingPage1 extends StatelessWidget {
         SalmonAnims.government,
         height: context.mq.size.height * 0.35,
         reverse: true,
+        filterQuality: FilterQuality.medium,
+        frameRate: FrameRate.composition,
       ),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

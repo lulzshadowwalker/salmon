@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-
 @immutable
 final class SalmonUser {
   /// defaults to [username]

@@ -25,6 +25,17 @@ class Settings extends ConsumerWidget {
               const SizedBox(height: 32),
               if (!isGuest) const _AccountSettings(),
               const _AppSettings(),
+              _SettingsSection(
+                title: 'About',
+                options: [
+                  _SettingsOption(
+                    title: const Text('about us'),
+                    onTap: () {
+                      NotifController.showInDevPopup(context);
+                    },
+                  ),
+                ],
+              ),
             ],
           ),
         ),

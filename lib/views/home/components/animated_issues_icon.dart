@@ -57,6 +57,7 @@ class AnimatedIssuesIcon extends HookWidget {
               isLoaded.value = true;
             },
             filterQuality: FilterQuality.low,
+            frameRate: FrameRate.max,
           ),
         ),
       ),

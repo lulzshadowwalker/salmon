@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:salmon/helpers/salmon_anims.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/helpers/salmon_images.dart';
 import 'package:salmon/views/shared/salmon_loading_indicator/salmon_loading_indicator.dart';
@@ -68,9 +69,8 @@ class _ChannelListState extends State<ChannelList> {
                   SalmonColors.lightBlue,
                   BlendMode.srcIn,
                 ),
-                child: Lottie.network(
-                  // TODO Lottie asset
-                  'https://lottie.host/9214f179-ac41-433b-8185-ac9d6737c8fb/nNFN8uCDXD.json',
+                child: Lottie.asset(
+                  SalmonAnims.chatBubble,
                 ),
               ),
               const SizedBox(height: 24),

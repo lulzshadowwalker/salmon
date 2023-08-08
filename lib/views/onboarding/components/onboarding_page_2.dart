@@ -14,6 +14,8 @@ class OnboardingPage2 extends StatelessWidget {
       header: Lottie.asset(
         SalmonAnims.communication,
         height: context.mq.size.height * 0.35,
+        filterQuality: FilterQuality.medium,
+        frameRate: FrameRate.composition,
       ),
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

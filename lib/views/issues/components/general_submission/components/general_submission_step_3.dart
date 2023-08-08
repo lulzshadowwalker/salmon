@@ -1,4 +1,4 @@
-part of 'generic_submission_components.dart';
+part of 'general_submission_components.dart';
 
 final _hasMediaProvider = StateProvider.autoDispose<bool>((ref) => false);
 final _hasPhotoProvider = StateProvider.autoDispose<bool>((ref) => false);
@@ -6,8 +6,8 @@ final _hasVideoProvider = StateProvider.autoDispose<bool>((ref) => false);
 final _hasLocationProvider = StateProvider.autoDispose<bool>((ref) => false);
 final _hasFilesProvider = StateProvider.autoDispose<bool>((ref) => false);
 
-class GenericSubmissionStep3 extends HookConsumerWidget {
-  const GenericSubmissionStep3({super.key});
+class GeneralSubmissionStep3 extends HookConsumerWidget {
+  const GeneralSubmissionStep3({super.key});
 
   static const _cardSize = double.infinity;
 
@@ -15,28 +15,16 @@ class GenericSubmissionStep3 extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final pages = ref.watch(_pagesProvider);
     final currentStep = ref.watch(_currentStepProvider);
-    final isMounted = useIsMounted();
     final submission = ref.watch(_submissionProvider);
 
     return SalmonUnfocusableWrapper(
       child: Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
-            final submission = ref.read(_submissionProvider);
+            final nextStep = (currentStep + 1).clamp(0, pages.length - 1);
+            if (currentStep == nextStep) return;
 
-            await ref.read(remoteDbProvider).createSubmission(
-                  context: context,
-                  submission: submission.copyWith(type: 'generic'),
-                );
-
-            if (isMounted()) {
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                  builder: (context) => const Issues(),
-                ),
-                (route) => false,
-              );
-            }
+            ref.read(_currentStepProvider.notifier).state = nextStep;
           },
           child: Transform.flip(
             flipX: context.directionality == TextDirection.rtl,
@@ -68,7 +56,8 @@ class GenericSubmissionStep3 extends HookConsumerWidget {
               const SizedBox(height: 36),
               Expanded(
                 child: GridView(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate:
+                      const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 12,
                     mainAxisSpacing: 12,
@@ -84,13 +73,14 @@ class GenericSubmissionStep3 extends HookConsumerWidget {
 
                             ref.read(_hasMediaProvider.notifier).state = true;
 
-                            ref.read(_submissionProvider.notifier).state =
-                                submission.copyWith(
-                              attachments: [
-                                ...?submission.attachments,
-                                ...images,
-                              ],
-                            );
+                            ref.read(_submissionProvider.notifier).set(
+                                  submission.copyWith(
+                                    attachments: [
+                                      ...?submission.attachments,
+                                      ...images,
+                                    ],
+                                  ),
+                                );
                           },
                           hasValue: ref.watch(_hasMediaProvider),
                           title: 'media', // TODO tr
@@ -105,19 +95,20 @@ class GenericSubmissionStep3 extends HookConsumerWidget {
                         return SalmonAttachmentCard(
                           onTap: () async {
                             final image =
-                                await SalmonHelpers.pickImageFromCamera();
+                                await SalmonHelpers.pickImageFromGallery();
 
                             if (image == null) return;
 
                             ref.read(_hasPhotoProvider.notifier).state = true;
 
-                            ref.read(_submissionProvider.notifier).state =
-                                submission.copyWith(
-                              attachments: [
-                                ...?submission.attachments,
-                                image,
-                              ],
-                            );
+                            ref.read(_submissionProvider.notifier).set(
+                                  submission.copyWith(
+                                    attachments: [
+                                      ...?submission.attachments,
+                                      image,
+                                    ],
+                                  ),
+                                );
                           },
                           hasValue: ref.watch(_hasPhotoProvider),
                           title: 'photo', // TODO tr
@@ -138,13 +129,14 @@ class GenericSubmissionStep3 extends HookConsumerWidget {
 
                             ref.read(_hasVideoProvider.notifier).state = true;
 
-                            ref.read(_submissionProvider.notifier).state =
-                                submission.copyWith(
-                              attachments: [
-                                ...?submission.attachments,
-                                video,
-                              ],
-                            );
+                            ref.read(_submissionProvider.notifier).set(
+                                  submission.copyWith(
+                                    attachments: [
+                                      ...?submission.attachments,
+                                      video,
+                                    ],
+                                  ),
+                                );
                           },
                           hasValue: ref.watch(_hasVideoProvider),
                           title: 'record', // TODO tr
@@ -158,7 +150,7 @@ class GenericSubmissionStep3 extends HookConsumerWidget {
                       builder: (context, ref, child) {
                         return SalmonAttachmentCard(
                           onTap: () async {
-                            final location = await Navigator.push(
+                            final location = await Navigator.push<LatLng>(
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
@@ -171,13 +163,14 @@ class GenericSubmissionStep3 extends HookConsumerWidget {
                             ref.read(_hasLocationProvider.notifier).state =
                                 true;
 
-                            ref.read(_submissionProvider.notifier).state =
-                                submission.copyWith(
-                              location: GeoPoint(
-                                location.latitude,
-                                location.longitude,
-                              ),
-                            );
+                            ref.read(_submissionProvider.notifier).set(
+                                  submission.copyWith(
+                                    location: GeoPoint(
+                                      location.latitude,
+                                      location.longitude,
+                                    ),
+                                  ),
+                                );
                           },
                           hasValue: ref.watch(_hasLocationProvider),
                           title: 'location', // TODO tr
@@ -197,13 +190,14 @@ class GenericSubmissionStep3 extends HookConsumerWidget {
 
                             ref.read(_hasFilesProvider.notifier).state = true;
 
-                            ref.read(_submissionProvider.notifier).state =
-                                submission.copyWith(
-                              attachments: [
-                                ...?submission.attachments,
-                                ...files,
-                              ],
-                            );
+                            ref.read(_submissionProvider.notifier).set(
+                                  submission.copyWith(
+                                    attachments: [
+                                      ...?submission.attachments,
+                                      ...files,
+                                    ],
+                                  ),
+                                );
                           },
                           hasValue: ref.watch(_hasFilesProvider),
                           title: 'files', // TODO tr

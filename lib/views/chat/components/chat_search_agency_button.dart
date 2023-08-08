@@ -101,7 +101,7 @@ class ChatSearchAgencyButton extends ConsumerWidget {
           ),
         ),
       ),
-      child: const Icon(FontAwesomeIcons.solidMessage),
+      child: const Icon(FontAwesomeIcons.plus),
     );
   }
 }

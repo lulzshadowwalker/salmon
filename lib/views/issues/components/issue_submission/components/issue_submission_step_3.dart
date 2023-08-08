@@ -47,35 +47,39 @@ class _IssueSubmissionStep3State extends ConsumerState<IssueSubmissionStep3> {
             ),
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Help us\nhelp you', // TODO tr
-                style: context.textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
+        body: SalmonSingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Help us\nhelp you', // TODO tr
+                  style: context.textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              SalmonFormField(
-                formFieldKey: _formFieldKey,
-
-                focusNode: _focusNode,
-                hintText: 'Tell us more about your problem', // TODO tr
-                maxLines: null,
-                border: InputBorder.none,
-                validator: (value) => value.isEmpty
-                    ? 'Please give us more details about your problem' // TODO tr
-                    : null,
-                onSaved: (value) {
-                  ref.read(_submissionProvider.notifier).state =
-                      submission.copyWith(
-                    details: value,
-                  );
-                },
-              ),
-            ],
+                SalmonFormField(
+                  formFieldKey: _formFieldKey,
+                  focusNode: _focusNode,
+                  initialValue: submission.details,
+                  hintText: 'Tell us more about your problem', // TODO tr
+                  maxLines: null,
+                  keyboardType: TextInputType.multiline,
+                  border: InputBorder.none,
+                  validator: (value) => value.isEmpty
+                      ? 'Please give us more details about your problem' // TODO tr
+                      : null,
+                  onSaved: (value) {
+                    ref.read(_submissionProvider.notifier).set(
+                          submission.copyWith(
+                            details: value?.trim(),
+                          ),
+                        );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

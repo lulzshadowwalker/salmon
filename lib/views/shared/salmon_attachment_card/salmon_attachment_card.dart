@@ -58,8 +58,10 @@ class SalmonAttachmentCard extends HookWidget {
                 backgroundColor,
                 BlendMode.srcIn,
               ),
-              child: const SalmonLoadingIndicator(
-                size: 64,
+              child: const Center(
+                child: SalmonLoadingIndicator(
+                  size: 64,
+                ),
               ),
             )
           : SizedBox(
@@ -67,7 +69,7 @@ class SalmonAttachmentCard extends HookWidget {
               child: AspectRatio(
                 aspectRatio: 1,
                 child: Bounceable(
-                  onTap: () {},
+                  onTap: onTap == null ? null : () {},
                   duration: _bounceDuration,
                   reverseDuration: _bounceDuration,
                   child: Stack(

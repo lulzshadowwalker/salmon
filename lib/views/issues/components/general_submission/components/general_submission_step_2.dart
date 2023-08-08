@@ -1,7 +1,7 @@
-part of 'generic_submission_components.dart';
+part of 'general_submission_components.dart';
 
-class GenericSubmissionStep2 extends HookConsumerWidget {
-  const GenericSubmissionStep2({super.key});
+class GeneralSubmissionStep2 extends HookConsumerWidget {
+  const GeneralSubmissionStep2({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -46,6 +46,18 @@ class GenericSubmissionStep2 extends HookConsumerWidget {
                 ),
               ),
               const SizedBox(height: 8),
+              SizedBox(
+                height: 48,
+                child: AnimatedTextKit(
+                  isRepeatingAnimation: false,
+                  animatedTexts: [
+                    TyperAnimatedText(
+                      'This will help us direct your message in the right direction', // TODO tr
+                      speed: const Duration(milliseconds: 24),
+                    ),
+                  ],
+                ),
+              ),
               const SizedBox(height: 8),
               agencies.when(
                 data: (data) {
@@ -80,17 +92,23 @@ class GenericSubmissionStep2 extends HookConsumerWidget {
                                       ),
                                     ),
                                     const SizedBox(width: 16),
-                                    Text(e.enName ?? 'unknown'), // TODO tr
+                                    Expanded(
+                                      child: Text(
+                                        e.enName ?? 'unknown',
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ), // TODO tr
                                   ],
                                 ),
                               ),
                             )
                             .toList(),
                         onChanged: (value) {
-                          ref.read(_submissionProvider.notifier).state =
-                              submission.copyWith(
-                            agency: value,
-                          );
+                          ref.read(_submissionProvider.notifier).set(
+                                submission.copyWith(
+                                  agency: value,
+                                ),
+                              );
                         },
                       ),
                       const SizedBox(height: 8),
@@ -98,7 +116,7 @@ class GenericSubmissionStep2 extends HookConsumerWidget {
                         duration: const Duration(milliseconds: 250),
                         child: showRequired.value
                             ? Text(
-                                'Please tell us the agency that you\'re facing an issue with', // TODO tr
+                                'Please tell us which agency you want to reach out to', // TODO tr
                                 style: context.textTheme.labelMedium?.copyWith(
                                   color: context.theme.colorScheme.error,
                                 ),

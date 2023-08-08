@@ -36,8 +36,8 @@ class SalmonCircleImageAvatar extends StatelessWidget {
       child: image == null
           ? ColorFiltered(
               colorFilter: ColorFilter.mode(
-                SalmonColors.yellow,
-                BlendMode.hue,
+                SalmonColors.yellow.withOpacity(0.15),
+                BlendMode.srcATop,
               ),
               child: Lottie.asset(
                 SalmonAnims.avatar,

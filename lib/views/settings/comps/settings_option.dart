@@ -25,7 +25,7 @@ class _SettingsOption extends StatelessWidget {
       behavior: HitTestBehavior.opaque,
       onTap: onTap,
       child: Container(
-        margin: margin ?? const EdgeInsets.symmetric(vertical: 8),
+        margin: margin ?? const EdgeInsets.symmetric(vertical: 0),
         padding: EdgeInsets.symmetric(
           horizontal: isWrapped ? 16 : 0,
           vertical: 8,
@@ -42,7 +42,13 @@ class _SettingsOption extends StatelessWidget {
             SizedBox(width: leading == null ? 0 : 8),
             title,
             const Spacer(),
-            trailing,
+            trailing ??
+                Icon(
+                  Directionality.of(context) == TextDirection.ltr
+                      ? FontAwesomeIcons.angleRight
+                      : FontAwesomeIcons.angleLeft,
+                  size: 18,
+                ),
           ].toCompactMap.toList(),
         ),
       ),

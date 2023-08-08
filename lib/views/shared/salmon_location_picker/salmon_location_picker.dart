@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:lottie/lottie.dart' as lottie;
 import 'package:salmon/helpers/salmon_extensions.dart';
@@ -59,7 +60,6 @@ class _SalmonLocationPickerState extends State<SalmonLocationPicker> {
                 () => EagerGestureRecognizer(),
               )
             },
-            liteModeEnabled: Platform.isAndroid ? true : false,
             onMapCreated: (GoogleMapController controller) {
               mapController = controller;
               isLoaded.value = true;

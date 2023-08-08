@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'attachment.dart';
 
 @immutable
 final class Submission {
@@ -82,7 +83,11 @@ final class Submission {
       location: map['location'] != null
           ? GeoPoint(map['location']['latitude'], map['location']['longitude'])
           : null,
-      attachments: map['attachments'],
+      attachments: map['attachments'] != null
+          ? (map['attachments'] as List)
+              .map((e) => Attachment.fromMap(e))
+              .toList()
+          : null,
       status: map['status'] != null ? map['status'] as String : null,
       type: map['type'] != null ? map['type'] as String : null,
     );

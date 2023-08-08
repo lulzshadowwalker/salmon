@@ -24,7 +24,10 @@ final class SalmonAnims {
   static const String warning = 'assets/anims/warning.json';
 
   /// https://lottiefiles.com/96188-chatbot-animation
-  static const String chat = 'assets/anims/chat.json';
+  static const String chatBot = 'assets/anims/chat-bot.json';
+
+  /// https://lottiefiles.com/animations/chat-loading-animation-1ACD4reHK3
+  static const String chatBubble = 'assets/anims/chat-bubble.json';
 
   /// https://lottiefiles.com/89433-home-icon-animation
   static const String home = 'assets/anims/home.json';
@@ -64,4 +67,19 @@ final class SalmonAnims {
 
   /// https://lottiefiles.com/animations/notification-L6WRjuOKCK
   static const String bell = 'assets/anims/bell.json';
+
+  /// https://lottiefiles.com/animations/report-scanning-crm-leads-n2BhB0m4tl
+  static const String report = 'assets/anims/report.json';
+
+  /// https://lottiefiles.com/animations/abstract-icon-WrD5d1PfST
+  static const String shapes = 'assets/anims/shapes.json';
+
+  /// https://lottiefiles.com/animations/circle-spark-bCjMRVc8BD
+  static const String splash2 = 'assets/anims/splash-2.json';
+
+  /// https://lottiefiles.com/animations/feedback-persuasion-animation-19hSZUctp0
+  static const String interaction = 'assets/anims/interaction.json';
+
+  /// https://lottiefiles.com/animations/day-and-night-switch-button-KlEhPOm08L
+  static const String themeSwitch = 'assets/anims/theme-switch.json';
 }

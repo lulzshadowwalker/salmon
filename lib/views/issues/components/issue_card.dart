@@ -39,14 +39,22 @@ class _IssueCard extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  FractionallySizedBox(
-                    widthFactor: 0.7,
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: child,
+                  const SizedBox(height: 16),
+                  Expanded(
+                    child: LayoutBuilder(
+                      builder: (context, constraints) => ConstrainedBox(
+                        constraints: constraints,
+                        child: FractionallySizedBox(
+                          widthFactor: 1,
+                          heightFactor: 1,
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: child,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                  const SizedBox(height: 16),
                   Text(
                     title,
                     style: TextStyle(
@@ -57,6 +65,7 @@ class _IssueCard extends StatelessWidget {
                               .toColor(),
                     ),
                   ),
+                  const SizedBox(height: 32),
                 ],
               ),
             ),

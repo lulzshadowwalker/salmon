@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:mime/mime.dart';
 import 'package:salmon/controllers/notif/notif_controller.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/helpers/salmon_helpers.dart';
@@ -42,6 +44,9 @@ final class RemoteDbController {
   static const String _cComments = 'comments';
   static const String _aComment = 'comment';
   static const String _aPostId = 'post_id';
+  static const String _aName = 'name';
+  static const String _aUrl = 'url';
+  static const String _aMimeType = 'mime_type';
   /* -------------------------------------------------------------------------- */
 
   Future<void> createUserRecord({
@@ -51,12 +56,15 @@ final class RemoteDbController {
     try {
       var cred = ref.read(salmonUserCredentialsProvider).credentials;
 
-      final pfpRaw = cred.pfpRaw;
-      if (pfpRaw != null) {
+      final pfpFile = cred.pfpRaw;
+
+      if (pfpFile != null) {
+        final data = await pfpFile.readAsBytes();
+
         final pfpUrl = await ref.read(remoteStorageProvider).upload(
               context: context,
               childName: _cUsers,
-              file: pfpRaw,
+              file: data,
             );
 
         cred = cred.copyWith(
@@ -151,7 +159,7 @@ registered new user with details:
     final uid = ref.read(a12nProvider).userId;
 
     return _db
-        .collection(_cPosts)
+        .collection(_cSubmissions)
         .where('submitted_by', isEqualTo: uid)
         // .orderBy('date_created', descending: true)
         .snapshots()
@@ -169,26 +177,37 @@ registered new user with details:
     required Submission submission,
   }) async {
     try {
-      final uploads = submission.attachments?.map(
-        (e) async => await ref.read(remoteStorageProvider).upload(
+      final uploads = submission.attachments?.map((e) async {
+        (e as XFile);
+
+        final bytes = await e.readAsBytes();
+
+        final url = await ref.read(remoteStorageProvider).upload(
               context: context,
               childName: 'submissions',
-              file: e,
-            ),
-      );
+              file: bytes,
+            );
 
-      var urls = <String>[];
-      if (uploads != null) {
-        urls = await Future.wait(uploads).then(
-          (value) => value.toCompactMap.toList(),
-        );
-      }
+        final mime = e.mimeType ??
+            lookupMimeType(
+              e.name,
+              headerBytes: bytes,
+            );
+
+        return {
+          _aUrl: url,
+          _aMimeType: mime,
+          _aName: e.name,
+        };
+      });
+
+      final attachments = await Future.wait((uploads ?? []).cast());
 
       final uid = ref.read(a12nProvider).userId;
       final id = const Uuid().v4();
 
       final data = submission.toMap()
-        ..['attachments'] = urls
+        ..['attachments'] = attachments
         ..['submitted_by'] = uid
         ..['status'] = 'submitted'
         ..['id'] = id

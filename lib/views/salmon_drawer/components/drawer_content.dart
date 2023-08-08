@@ -40,7 +40,7 @@ class _DrawerComponents extends HookConsumerWidget {
                       Text(
                         isGuest
                             ? SL.of(context).guest
-                            : (user?.displayName).maybeAsEmpty,
+                            : (user?.displayName) ?? 'Unknown',
                         style: Theme.of(context)
                             .textTheme
                             .titleMedium

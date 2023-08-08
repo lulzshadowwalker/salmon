@@ -54,7 +54,7 @@ class AnimatedChatIcon extends HookWidget {
         alignment: Alignment.center,
         transform: Matrix4.identity()..scale(scale, scale),
         child: Lottie.asset(
-          SalmonAnims.chat,
+          SalmonAnims.chatBot,
           height: size,
           controller: anim,
           onLoaded: (comp) {
