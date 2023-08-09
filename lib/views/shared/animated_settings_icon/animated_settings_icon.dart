@@ -48,7 +48,7 @@ class AnimatedSettingsIcon extends HookWidget {
       child: ColorFiltered(
         colorFilter: ColorFilter.mode(
           isActive
-              ? SalmonColors.yellow
+              ? Theme.of(context).colorScheme.primary
               : inactiveColor ?? SalmonColors.mutedLight,
           BlendMode.srcIn,
         ),

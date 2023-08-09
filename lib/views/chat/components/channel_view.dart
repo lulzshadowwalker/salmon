@@ -35,7 +35,7 @@ class ChannelView extends StatelessWidget {
             ),
           ],
         ),
-        backgroundColor: SalmonColors.yellow,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: SalmonColors.white,
       ),
       body: const Column(

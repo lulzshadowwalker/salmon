@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:salmon/helpers/salmon_anims.dart';
+import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/theme/salmon_colors.dart';
 
 /// circle image avatar with an animated avatar placeholder if [image] is null
@@ -20,10 +21,10 @@ class SalmonCircleImageAvatar extends StatelessWidget {
       height: radius,
       width: radius,
       decoration: BoxDecoration(
-        color: SalmonColors.lightBlue,
+        color: context.cs.primaryContainer,
         shape: BoxShape.circle,
         border: Border.all(
-          color: SalmonColors.yellow,
+          color: Theme.of(context).colorScheme.primary,
           width: 3,
         ),
         image: image != null
@@ -36,7 +37,7 @@ class SalmonCircleImageAvatar extends StatelessWidget {
       child: image == null
           ? ColorFiltered(
               colorFilter: ColorFilter.mode(
-                SalmonColors.yellow.withOpacity(0.15),
+                Theme.of(context).colorScheme.primary.withOpacity(0.15),
                 BlendMode.srcATop,
               ),
               child: Lottie.asset(

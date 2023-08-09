@@ -41,14 +41,18 @@ class _AccountDetailsState extends ConsumerState<AccountDetails> {
 
     return SalmonUnfocusableWrapper(
       child: Scaffold(
-        backgroundColor: SalmonColors.yellow,
         appBar: AppBar(
           title: Text(SL.of(context).accountDetails),
+          bottom: const AppBarDivider(),
         ),
         body: SalmonSingleChildScrollView(
-          child: SalmonPageWrapper(
-            child: Form(
-              key: _formKey,
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: 48,
+                horizontal: 24,
+              ),
               child: Column(
                 children: [
                   Hero(

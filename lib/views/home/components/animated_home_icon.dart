@@ -46,7 +46,9 @@ class AnimatedHomeIcon extends HookWidget {
       transform: Matrix4.identity()..scale(scale, scale),
       child: ColorFiltered(
         colorFilter: ColorFilter.mode(
-          isActive ? SalmonColors.yellow : inactiveColor ?? SalmonColors.muted,
+          isActive
+              ? Theme.of(context).colorScheme.primary
+              : inactiveColor ?? SalmonColors.muted,
           BlendMode.srcIn,
         ),
         child: Lottie.asset(
@@ -54,6 +56,7 @@ class AnimatedHomeIcon extends HookWidget {
           height: size,
           controller: anim,
           filterQuality: FilterQuality.low,
+          frameRate: FrameRate.composition,
         ),
       ),
     );

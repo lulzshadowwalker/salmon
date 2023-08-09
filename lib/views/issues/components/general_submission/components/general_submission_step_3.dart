@@ -56,8 +56,7 @@ class GeneralSubmissionStep3 extends HookConsumerWidget {
               const SizedBox(height: 36),
               Expanded(
                 child: GridView(
-                  gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 12,
                     mainAxisSpacing: 12,
@@ -201,7 +200,8 @@ class GeneralSubmissionStep3 extends HookConsumerWidget {
                           },
                           hasValue: ref.watch(_hasFilesProvider),
                           title: 'files', // TODO tr
-                          backgroundColor: SalmonColors.yellow,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primary,
                           size: _cardSize,
                           child: const FaIcon(FontAwesomeIcons.solidFile),
                         );

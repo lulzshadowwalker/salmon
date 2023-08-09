@@ -27,6 +27,16 @@ class SalmonDrawer extends HookConsumerWidget {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        IconButton(
+                          onPressed: () {
+                            Scaffold.of(context).closeDrawer();
+                          },
+                          icon: const FaIcon(
+                            FontAwesomeIcons.xmark,
+                            size: 42,
+                          ),
+                        ),
+                        const SizedBox(height: 48),
                         SalmonCircleImageAvatar(
                           image: user?.pfp.asCachedNetImg,
                           radius: 128,
@@ -93,6 +103,7 @@ class SalmonDrawer extends HookConsumerWidget {
                 ),
                 const Spacer(flex: 6),
                 const _SignOutTile(),
+                const SizedBox(height: 16),
               ],
             ),
           ),

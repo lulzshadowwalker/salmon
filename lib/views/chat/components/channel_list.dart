@@ -104,7 +104,7 @@ class _ChannelListState extends State<ChannelList> {
                     child: Container(
                       width: 22,
                       height: 22,
-                      color: SalmonColors.blue,
+                      color: context.theme.colorScheme.secondary,
                       alignment: Alignment.center,
                       child: Text(
                         unreadCount.toString(),

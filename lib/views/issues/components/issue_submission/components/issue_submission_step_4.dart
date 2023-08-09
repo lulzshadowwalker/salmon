@@ -200,7 +200,8 @@ class IssueSubmissionStep4 extends HookConsumerWidget {
                           },
                           hasValue: ref.watch(_hasFilesProvider),
                           title: 'files', // TODO tr
-                          backgroundColor: SalmonColors.yellow,
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primary,
                           size: _cardSize,
                           child: const FaIcon(FontAwesomeIcons.solidFile),
                         );

@@ -31,7 +31,7 @@ final class SalmonTheme {
 
   static final _elevatedButtonTheme = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      backgroundColor: SalmonColors.yellow,
+      backgroundColor: _seedColor,
       foregroundColor: SalmonColors.white,
       minimumSize: const Size.fromHeight(42),
       shape: RoundedRectangleBorder(
@@ -47,10 +47,6 @@ final class SalmonTheme {
       color: SalmonColors.mutedLight,
       size: 30,
     ),
-    selectedIconTheme: IconThemeData(
-      color: SalmonColors.yellow,
-      size: 30,
-    ),
     showUnselectedLabels: false,
     showSelectedLabels: false,
   );
@@ -58,9 +54,8 @@ final class SalmonTheme {
   static final _outlinedButtonTheme = OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
       side: BorderSide(
-        color: SalmonColors.yellow,
+        color: _seedColor,
       ),
-      foregroundColor: SalmonColors.yellow,
       minimumSize: const Size.fromHeight(42),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
@@ -68,17 +63,19 @@ final class SalmonTheme {
     ),
   );
 
-  static final _seedColor = SalmonColors.yellow;
+  static const _seedColor = SalmonColors.blue;
 
   ThemeData light() {
+    final colorScheme = ColorScheme.fromSeed(
+      brightness: Brightness.light,
+      seedColor: _seedColor,
+    ).copyWith(primary: _seedColor);
+
     return ThemeData.light().copyWith(
       useMaterial3: true,
 
       //
-      colorScheme: ColorScheme.fromSeed(
-        brightness: Brightness.light,
-        seedColor: _seedColor,
-      ),
+      colorScheme: colorScheme,
 
       drawerTheme: DrawerThemeData(
         backgroundColor: SalmonColors.white,
@@ -119,19 +116,26 @@ final class SalmonTheme {
       outlinedButtonTheme: _outlinedButtonTheme,
 
       //
-      bottomNavigationBarTheme: _bottomNavBarTheme,
+      bottomNavigationBarTheme: _bottomNavBarTheme.copyWith(
+        selectedIconTheme: IconThemeData(
+          color: colorScheme.primary,
+          size: 30,
+        ),
+      ),
     );
   }
 
   ThemeData dark() {
+    final colorScheme = ColorScheme.fromSeed(
+      brightness: Brightness.dark,
+      seedColor: _seedColor,
+    );
+
     return ThemeData.dark().copyWith(
       useMaterial3: true,
 
       //
-      colorScheme: ColorScheme.fromSeed(
-        brightness: Brightness.dark,
-        seedColor: _seedColor,
-      ),
+      colorScheme: colorScheme,
 
       drawerTheme: const DrawerThemeData(
         backgroundColor: SalmonColors.black,
@@ -172,7 +176,12 @@ final class SalmonTheme {
       outlinedButtonTheme: _outlinedButtonTheme,
 
       //
-      bottomNavigationBarTheme: _bottomNavBarTheme,
+      bottomNavigationBarTheme: _bottomNavBarTheme.copyWith(
+        selectedIconTheme: IconThemeData(
+          color: colorScheme.primary,
+          size: 30,
+        ),
+      ),
     );
   }
 

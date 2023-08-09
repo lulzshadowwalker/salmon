@@ -34,7 +34,7 @@ class OnboardingPage1 extends StatelessWidget {
           )
         ],
       ),
-      color: SalmonColors.yellow,
+      color: Theme.of(context).colorScheme.primary,
     );
   }
 }

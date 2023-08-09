@@ -43,7 +43,7 @@ class _CommentInputState extends ConsumerState<CommentInput> {
             detectionRegExp: hashTagAtSignUrlRegExp,
             decoratedStyle: TextStyle(
               fontSize: 14,
-              color: SalmonColors.yellow,
+              color: Theme.of(context).colorScheme.primary,
             ),
             basicStyle: const TextStyle(
               fontSize: 14,

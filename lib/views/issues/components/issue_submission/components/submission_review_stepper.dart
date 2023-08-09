@@ -10,7 +10,7 @@ class _SubmissionReviewStepper extends HookWidget {
 
     return EasyStepper(
       activeStep: activeStep,
-      activeStepBackgroundColor: SalmonColors.yellow,
+      activeStepBackgroundColor: Theme.of(context).colorScheme.primary,
       finishedStepBackgroundColor: SalmonColors.lightYellow,
       finishedStepTextColor: SalmonColors.muted,
       activeStepIconColor: SalmonColors.black,

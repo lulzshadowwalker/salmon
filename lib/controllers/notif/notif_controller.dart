@@ -33,39 +33,39 @@ class NotifController {
 
   static final _log = SalmonHelpers.getLogger('NotifController');
 
-  static final _notifConfigs = <NotifType, NotifConfig>{
-    NotifType.success: NotifConfig(
-      color: SalmonColors.green,
-      leading: Lottie.asset(
-        SalmonAnims.success,
-        repeat: false,
-      ),
-    ),
-    NotifType.warning: NotifConfig(
-      color: SalmonColors.yellow,
-      leading: Lottie.asset(
-        SalmonAnims.warning,
-        repeat: false,
-      ),
-    ),
-    NotifType.oops: NotifConfig(
-      color: SalmonColors.red,
-      leading: Lottie.asset(
-        SalmonAnims.oops,
-        repeat: false,
-      ),
-    ),
-    NotifType.tip: NotifConfig(
-      color: SalmonColors.lightBlue,
-      leading: Lottie.asset(
-        SalmonAnims.info,
-        repeat: false,
-      ),
-    ),
-  };
+  static Map<NotifType, NotifConfig> _notifConfigs(BuildContext context) => {
+        NotifType.success: NotifConfig(
+          color: SalmonColors.green,
+          leading: Lottie.asset(
+            SalmonAnims.success,
+            repeat: false,
+          ),
+        ),
+        NotifType.warning: NotifConfig(
+          color: Theme.of(context).colorScheme.primary,
+          leading: Lottie.asset(
+            SalmonAnims.warning,
+            repeat: false,
+          ),
+        ),
+        NotifType.oops: NotifConfig(
+          color: SalmonColors.red,
+          leading: Lottie.asset(
+            SalmonAnims.oops,
+            repeat: false,
+          ),
+        ),
+        NotifType.tip: NotifConfig(
+          color: SalmonColors.lightBlue,
+          leading: Lottie.asset(
+            SalmonAnims.info,
+            repeat: false,
+          ),
+        ),
+      };
 
-  static NotifConfig _getNotifConfig(NotifType type) =>
-      _notifConfigs[type] ?? _notifConfigs[NotifType.tip]!;
+  static NotifConfig _getNotifConfig(BuildContext context, NotifType type) =>
+      _notifConfigs(context)[type] ?? _notifConfigs(context)[NotifType.tip]!;
 
   static void showPopup({
     required BuildContext context,
@@ -86,7 +86,7 @@ class NotifController {
     ScaffoldMessenger.maybeOf(context)?.showSnackBar(
       SnackBar(
         duration: duration,
-        backgroundColor: _getNotifConfig(type).color,
+        backgroundColor: _getNotifConfig(context, type).color,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25),
         ),
@@ -99,7 +99,7 @@ class NotifController {
         content: ListTile(
           leading: SizedBox(
             height: double.infinity,
-            child: _getNotifConfig(type).leading,
+            child: _getNotifConfig(context, type).leading,
           ),
           title: Text(
             title,

@@ -38,7 +38,7 @@ class Splash extends HookWidget {
     );
 
     return Scaffold(
-      backgroundColor: SalmonColors.yellow,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: Center(
         child: Lottie.asset(
           SalmonAnims.logo,

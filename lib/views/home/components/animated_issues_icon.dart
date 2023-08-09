@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:lottie/lottie.dart';
+import 'package:salmon/helpers/salmon_extensions.dart';
 
 import '../../../helpers/salmon_anims.dart';
 import '../../../theme/salmon_colors.dart';
@@ -40,7 +41,9 @@ class AnimatedIssuesIcon extends HookWidget {
         duration: con.duration!,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: isActive ? SalmonColors.yellow : SalmonColors.lightYellow,
+          color: isActive
+              ? Theme.of(context).colorScheme.primary
+              : context.cs.primaryContainer,
           borderRadius: BorderRadius.circular(15),
         ),
         child: ColorFiltered(

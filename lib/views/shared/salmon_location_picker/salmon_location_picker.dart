@@ -130,7 +130,7 @@ class _SalmonLocationPickerState extends State<SalmonLocationPicker> {
                               ),
                               backgroundColor:
                                   MaterialStateProperty.resolveWith<Color?>(
-                                (_) => SalmonColors.lightYellow,
+                                (_) => context.cs.primaryContainer,
                               ),
                             ),
                         onPressed: () => Navigator.of(context)

@@ -31,7 +31,7 @@ class SalmonRichTextButton extends StatelessWidget {
           TextSpan(
             text: ' $textCTA',
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: color ?? SalmonColors.yellow,
+                  color: color ?? Theme.of(context).colorScheme.primary,
                 ),
             recognizer: TapGestureRecognizer()..onTap = onTap,
           ),

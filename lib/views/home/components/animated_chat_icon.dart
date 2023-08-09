@@ -47,7 +47,7 @@ class AnimatedChatIcon extends HookWidget {
 
     return ColorFiltered(
       colorFilter: ColorFilter.mode(
-        isActive ? SalmonColors.yellow : SalmonColors.muted,
+        isActive ? Theme.of(context).colorScheme.primary : SalmonColors.muted,
         BlendMode.srcIn,
       ),
       child: Transform(

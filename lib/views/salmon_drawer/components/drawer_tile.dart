@@ -24,7 +24,7 @@ class _DrawerTile extends StatelessWidget {
           title,
           style: context.textTheme.titleSmall?.copyWith(
             fontWeight: FontWeight.bold,
-            color: isActive ? SalmonColors.yellow : null,
+            color: isActive ? Theme.of(context).colorScheme.primary : null,
           ),
         ),
       ),

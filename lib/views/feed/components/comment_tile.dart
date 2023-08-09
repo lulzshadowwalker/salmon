@@ -74,7 +74,7 @@ class CommentTile extends StatelessWidget {
                               detectionRegExp: hashTagAtSignUrlRegExp,
                               detectedStyle: TextStyle(
                                 fontSize: 14,
-                                color: SalmonColors.yellow,
+                                color: Theme.of(context).colorScheme.primary,
                               ),
                               basicStyle: const TextStyle(
                                 fontSize: 14,

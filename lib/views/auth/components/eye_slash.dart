@@ -43,7 +43,7 @@ class EyeSlash extends HookWidget {
 
     return ColorFiltered(
       colorFilter: ColorFilter.mode(
-        SalmonColors.yellow,
+        Theme.of(context).colorScheme.primary,
         BlendMode.srcIn,
       ),
       child: Lottie.asset(

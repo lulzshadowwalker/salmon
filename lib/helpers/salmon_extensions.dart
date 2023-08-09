@@ -76,4 +76,6 @@ extension ContextHeleprs on BuildContext {
   ThemeData get theme => Theme.of(this);
 
   MediaQueryData get mq => MediaQuery.of(this);
+
+  ColorScheme get cs => Theme.of(this).colorScheme;
 }

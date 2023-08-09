@@ -20,7 +20,7 @@ class SalmonLoadingIndicator extends StatelessWidget {
       scale: 5,
       child: ColorFiltered(
         colorFilter: ColorFilter.mode(
-          color ?? SalmonColors.yellow,
+          color ?? Theme.of(context).colorScheme.primary,
           BlendMode.srcIn,
         ),
         child: Lottie.asset(

@@ -21,7 +21,7 @@ class Feed extends ConsumerWidget {
         return RefreshIndicator(
           onRefresh: () async => ref.invalidate(postsProvider),
           displacement: 65,
-          backgroundColor: SalmonColors.lightYellow,
+          backgroundColor: context.cs.primaryContainer,
           color: SalmonColors.black,
           edgeOffset: AppBar().preferredSize.height,
           child: Column(

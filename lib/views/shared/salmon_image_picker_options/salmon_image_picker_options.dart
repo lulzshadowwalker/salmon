@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/l10n/l10n_imports.dart';
 import 'package:salmon/theme/salmon_colors.dart';
 
@@ -49,7 +50,7 @@ class SalmonImagePickerOptions extends StatelessWidget {
                     (_) => BorderSide(color: SalmonColors.white),
                   ),
                   backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                    (_) => SalmonColors.lightYellow,
+                    (_) => context.cs.primaryContainer,
                   ),
                 ),
             onPressed: () => Navigator.of(context).pop(),

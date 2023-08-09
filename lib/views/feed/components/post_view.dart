@@ -118,7 +118,8 @@ class _PostViewState extends ConsumerState<PostView> {
                               ? CircularStepProgressIndicator(
                                   totalSteps: 100,
                                   currentStep: prog,
-                                  selectedColor: SalmonColors.yellow,
+                                  selectedColor:
+                                      Theme.of(context).colorScheme.primary,
                                   unselectedColor: SalmonColors.muted,
                                   width: 50,
                                   height: 50,
