@@ -16,8 +16,6 @@ class Feed extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final posts = ref.watch(postsProvider);
 
-    // TODO locallized articles
-
     return SalmonNavigator(
       child: Builder(builder: (context) {
         return RefreshIndicator(
@@ -29,7 +27,6 @@ class Feed extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const HomeAppBar(),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12),

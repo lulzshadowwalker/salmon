@@ -1,4 +1,0 @@
-enum DrawerStatus {
-  open,
-  closed,
-}

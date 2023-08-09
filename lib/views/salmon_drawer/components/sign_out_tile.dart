@@ -65,7 +65,7 @@ class _SignOutTile extends HookConsumerWidget {
               flipX: true,
               child: ColorFiltered(
                 colorFilter: ColorFilter.mode(
-                  SalmonColors.white,
+                  context.textTheme.bodyLarge?.color ?? SalmonColors.black,
                   BlendMode.srcIn,
                 ),
                 child: Lottie.asset(
@@ -86,14 +86,16 @@ class _SignOutTile extends HookConsumerWidget {
             duration: const Duration(milliseconds: 350),
             child: initSignOut.value
                 ? SalmonLoadingIndicator(
-                    color: SalmonColors.white,
+                    color: context.textTheme.bodyLarge?.color ??
+                        SalmonColors.black,
                   )
                 : Text(
                     isGuest
                         ? SL.of(context).createAnAccount
                         : SL.of(context).signOut,
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: SalmonColors.white,
+                          color: context.textTheme.bodyLarge?.color ??
+                              SalmonColors.black,
                           fontWeight: FontWeight.bold,
                         ),
                   ),

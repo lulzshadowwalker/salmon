@@ -23,7 +23,6 @@ class _AccountDetailsState extends ConsumerState<AccountDetails> {
 
     useEffect(() {
       void listener() {
-        print('hello');
         isAnyModified.value =
             nameController.text.isNotEmpty || emailController.text.isNotEmpty;
       }

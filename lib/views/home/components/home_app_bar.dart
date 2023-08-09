@@ -1,33 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lottie/lottie.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:salmon/helpers/salmon_extensions.dart';
 
-import '../../../theme/salmon_colors.dart';
-import '../../shared/animated_menu_icon/animated_menu_icon.dart';
+import '../../../providers/drawer/drawer_provider.dart';
+import '../../shared/menu_button/menu_button.dart';
 
-class HomeAppBar extends StatelessWidget {
-  const HomeAppBar({super.key});
+class HomeAppBar extends ConsumerWidget implements PreferredSizeWidget {
+  const HomeAppBar({
+    this.title,
+    super.key,
+  });
+
+  final Widget? title;
 
   @override
-  Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsetsDirectional.only(
-        top: 72,
-        bottom: 16,
-        start: 42,
-        end: 42,
-      ),
-      child: Row(
-        children: [
-          AnimatedMenuIcon(),
-          Spacer(),
-          FaIcon(
+  Widget build(BuildContext context, WidgetRef ref) {
+    return AppBar(
+      title: title,
+      leading: const MenuButton(),
+      actions: [
+        Padding(
+          padding: const EdgeInsetsDirectional.only(end: 32),
+          child: FaIcon(
             FontAwesomeIcons.bell,
-            size: 24,
-            color: SalmonColors.black,
+            size: 32,
+            color: context.textTheme.bodyLarge?.color,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
+
+  @override
+  Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
 }

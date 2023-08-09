@@ -13,6 +13,7 @@ import 'package:salmon/router/salmon_routes.dart';
 import 'package:salmon/views/home/components/home_app_bar.dart';
 import 'package:salmon/views/shared/salmon_loading_indicator/salmon_loading_indicator.dart';
 import 'package:salmon/views/shared/salmon_navigator/salmon_navigator.dart';
+import 'package:salmon/views/shared/salmon_single_child_scroll_view/salmon_single_child_scroll_view.dart';
 import 'package:salmon/views/shared/salmon_step_progress_indicator/salmon_step_progress_indicator.dart';
 
 import '../../../helpers/salmon_anims.dart';

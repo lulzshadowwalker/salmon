@@ -22,10 +22,11 @@ final class SalmonTheme {
           ? enFontFamily
           : enFontFamily;
 
-  static const _dividerThemeData = DividerThemeData(
+  static final _dividerThemeData = DividerThemeData(
     thickness: 2,
     indent: 15,
     endIndent: 15,
+    color: SalmonColors.muted,
   );
 
   static final _elevatedButtonTheme = ElevatedButtonThemeData(
@@ -79,6 +80,10 @@ final class SalmonTheme {
         seedColor: _seedColor,
       ),
 
+      drawerTheme: DrawerThemeData(
+        backgroundColor: SalmonColors.white,
+      ),
+
       //
       iconTheme: const IconThemeData(
         color: SalmonColors.black,
@@ -126,6 +131,10 @@ final class SalmonTheme {
       colorScheme: ColorScheme.fromSeed(
         brightness: Brightness.dark,
         seedColor: _seedColor,
+      ),
+
+      drawerTheme: const DrawerThemeData(
+        backgroundColor: SalmonColors.black,
       ),
 
       //

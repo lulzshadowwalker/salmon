@@ -1,95 +1,102 @@
 part of 'components/salmon_drawer_components.dart';
 
 class SalmonDrawer extends HookConsumerWidget {
-  const SalmonDrawer({
-    required this.page,
-    super.key,
-  });
-
-  final Widget page;
-
-  double _maybeNegate(double value, BuildContext context) =>
-      Directionality.of(context) == TextDirection.ltr ? value : value * -1;
+  const SalmonDrawer({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isOpen = ref.watch(drawerStateProvider) == DrawerStatus.open;
+    final isGuest = ref.read(a12nProvider).isGuest;
+    final activePage = ref.watch(drawerPageProvider);
 
-    final con =
-        useAnimationController(duration: const Duration(milliseconds: 220));
+    return SalmonSingleChildScrollView(
+      child: Theme(
+        data: Theme.of(context).copyWith(
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Consumer(
+                  builder: (context, ref, child) {
+                    final user = ref.watch(currentUserProvider).value;
 
-    final rotationAnim = Tween<double>(
-      begin: 0,
-      end: _maybeNegate(0.08, context),
-    ).animate(
-      CurvedAnimation(
-        curve: Curves.easeInBack,
-        parent: con,
-      ),
-    );
-
-    final xOffsetAnim = Tween<double>(
-      begin: 0,
-      end: _maybeNegate(240, context),
-    ).animate(con);
-
-    final yOffsetAnim = Tween<double>(
-      begin: 0,
-      end: 50,
-    ).animate(con);
-
-    final scaleAnim = Tween<double>(
-      begin: 1,
-      end: 0.85,
-    ).animate(con);
-
-    final scale = useAnimation(scaleAnim);
-    final xOffset = useAnimation(xOffsetAnim);
-    final yOffset = useAnimation(yOffsetAnim);
-    final rotation = useAnimation(rotationAnim);
-
-    useEffect(() {
-      isOpen ? con.forward() : con.reverse();
-
-      return null;
-    }, [isOpen]);
-
-    // TODO check directionality with locale
-
-    return Scaffold(
-      backgroundColor: SalmonColors.blue,
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          if (isOpen) const _DrawerComponents(),
-          Transform(
-            alignment: Directionality.of(context) == TextDirection.ltr
-                ? Alignment.bottomLeft
-                : Alignment.bottomLeft,
-            transform: Matrix4.identity()
-              ..scale(scale)
-              // TODO dynamic drawer [Transform.translate]
-              ..translate(xOffset, yOffset)
-              ..rotateZ(rotation),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 150),
-              curve: Curves.easeOutCubic,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(isOpen ? 35 : 0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    spreadRadius: 12,
-                    blurRadius: 50,
-                    offset: const Offset(0, 3), // changes position of shadow
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SalmonCircleImageAvatar(
+                          image: user?.pfp.asCachedNetImg,
+                          radius: 128,
+                        ),
+                        const SizedBox(height: 24),
+                        Padding(
+                          padding: const EdgeInsetsDirectional.only(start: 12),
+                          child: Text(
+                            isGuest
+                                ? SL.of(context).guest
+                                : (user?.displayName) ?? 'Unknown',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall
+                                ?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                        ),
+                        const Divider(height: 48),
+                      ],
+                    );
+                  },
+                ),
+                const Spacer(),
+                _DrawerTile(
+                  onTap: () {
+                    ref.read(drawerPageProvider.notifier).set(const Home());
+                    Navigator.of(context).pop();
+                  },
+                  leading: AnimatedHomeIcon(
+                    size: 48,
+                    isActive: activePage.runtimeType == Home,
+                    inactiveColor: context.theme.textTheme.bodyLarge?.color,
                   ),
-                ],
-              ),
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              child: page,
+                  title: SL.of(context).home,
+                  isActive: activePage.runtimeType == Home,
+                ),
+                _DrawerTile(
+                  onTap: () {
+                    ref
+                        .read(drawerPageProvider.notifier)
+                        .set(const Analytics());
+                    Navigator.of(context).pop();
+                  },
+                  leading: AnimatedAnalyticsIcon(
+                    isActive: activePage.runtimeType == Analytics,
+                    inactiveColor: context.theme.textTheme.bodyLarge?.color,
+                  ),
+                  title: SL.of(context).analytics,
+                  isActive: activePage.runtimeType == Analytics,
+                ),
+                _DrawerTile(
+                  onTap: () {
+                    ref.read(drawerPageProvider.notifier).set(const Settings());
+                    Navigator.of(context).pop();
+                  },
+                  leading: AnimatedSettingsIcon(
+                    isActive: activePage.runtimeType == Settings,
+                    inactiveColor: context.theme.textTheme.bodyLarge?.color,
+                  ),
+                  title: SL.of(context).settings,
+                  isActive: activePage.runtimeType == Settings,
+                ),
+                const Spacer(flex: 6),
+                const _SignOutTile(),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }

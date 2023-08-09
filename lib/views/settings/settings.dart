@@ -8,16 +8,15 @@ class Settings extends ConsumerWidget {
     final isGuest = ref.watch(a12nProvider).isGuest;
 
     return Scaffold(
-      backgroundColor: SalmonColors.yellow,
       appBar: AppBar(
-        leading: const Padding(
-          padding: EdgeInsetsDirectional.only(start: 24),
-          child: AnimatedMenuIcon(),
-        ),
+        leading: const MenuButton(),
         title: Text(SL.of(context).settings),
+        bottom: const AppBarDivider(),
       ),
+      drawer: const Drawer(child: SalmonDrawer()),
       body: SalmonSingleChildScrollView(
-        child: SalmonPageWrapper(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(24, 32, 24, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

@@ -4,6 +4,7 @@ import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/helpers/salmon_helpers.dart';
 import 'package:salmon/views/home/components/home_app_bar.dart';
 import 'package:salmon/views/shared/salmon_navigator/salmon_navigator.dart';
+import 'package:salmon/views/shared/salmon_single_child_scroll_view/salmon_single_child_scroll_view.dart';
 
 import '../../providers/chat/chat_provider.dart';
 import '../shared/salmon_loading_indicator/salmon_loading_indicator.dart';
@@ -26,38 +27,40 @@ class Chat extends HookConsumerWidget {
             floatingActionButton: user != null
                 ? const ChatSearchAgencyButton()
                 : const SizedBox.shrink(),
-            body: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const HomeAppBar(),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsetsDirectional.only(start: 12),
-                          child: Text(
-                            'Chat', // TODO tr
-                            style: context.textTheme.headlineMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
+            body: SalmonSingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding:
+                                const EdgeInsetsDirectional.only(start: 12),
+                            child: Text(
+                              'Chat', // TODO tr
+                              style: context.textTheme.headlineMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: user != null
-                              ? const ChannelList()
-                              : const Center(
-                                  child: Text(
-                                      'needs auth'), // TODO chat auth wrapper ui
-                                ),
-                        )
-                      ],
+                          Expanded(
+                            child: user != null
+                                ? const ChannelList()
+                                : const Center(
+                                    child: Text(
+                                        'needs auth'), // TODO chat auth wrapper ui
+                                  ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
           error: (error, stackTrace) {
