@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:salmon/helpers/salmon_anims.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
+import 'package:salmon/providers/theme_data/theme_data_provider.dart';
 import '../../../theme/salmon_colors.dart';
 import 'onboarding_page.dart';
 
-class OnboardingPage1 extends StatelessWidget {
+class OnboardingPage1 extends ConsumerWidget {
   const OnboardingPage1({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return OnboardingPage(
       header: Lottie.asset(
         SalmonAnims.government,
@@ -22,8 +24,8 @@ class OnboardingPage1 extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Building Trust.\nBridging the Gap.',
-            style: context.textTheme.headlineSmall?.copyWith(
+            'Building Trust\nBridging the Gap',
+            style: context.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -34,7 +36,7 @@ class OnboardingPage1 extends StatelessWidget {
           )
         ],
       ),
-      color: SalmonColors.yellow,
+      color: SalmonColors.blue,
     );
   }
 }

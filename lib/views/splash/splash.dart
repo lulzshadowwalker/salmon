@@ -11,6 +11,9 @@ import '../../theme/salmon_colors.dart';
 class Splash extends HookWidget {
   const Splash({super.key});
 
+  static final min = 105.normalized(maxVal: 360);
+  static final max = 180.normalized(maxVal: 360);
+
   static void coolFunction(BuildContext context) async {
     context.goNamed(SalmonRoutes.home);
   }
@@ -19,7 +22,8 @@ class Splash extends HookWidget {
   Widget build(BuildContext context) {
     final controller = useAnimationController(
       duration: const Duration(),
-      upperBound: 37.normalized(maxVal: 48),
+      lowerBound: min,
+      upperBound: max,
     );
 
     useEffect(() {
@@ -34,17 +38,17 @@ class Splash extends HookWidget {
 
     final anim = CurvedAnimation(
       parent: controller,
-      curve: Curves.easeOut,
+      curve: Curves.ease,
     );
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: SalmonColors.blue,
       body: Center(
         child: Lottie.asset(
           SalmonAnims.logo,
           controller: anim,
           onLoaded: (comp) {
-            controller.duration = comp.duration;
+            controller.duration = comp.duration * (max - min);
             controller.forward();
           },
           filterQuality: FilterQuality.high,

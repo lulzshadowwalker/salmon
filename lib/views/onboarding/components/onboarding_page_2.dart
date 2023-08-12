@@ -22,7 +22,7 @@ class OnboardingPage2 extends StatelessWidget {
         children: [
           Text(
             'We Listen\nWe Act', // TODO tr
-            style: context.textTheme.headlineSmall?.copyWith(
+            style: context.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -33,7 +33,7 @@ class OnboardingPage2 extends StatelessWidget {
           )
         ],
       ),
-      color: SalmonColors.lightBlue,
+      color: SalmonColors.yellow,
     );
   }
 }

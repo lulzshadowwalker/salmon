@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:photo_manager/photo_manager.dart';
@@ -34,7 +36,11 @@ class Onboarding extends HookConsumerWidget {
     final isMounted = useIsMounted();
 
     return Theme(
-      data: theme.dark(),
+      data: theme.dark().copyWith(
+            textTheme: theme.dark().textTheme.apply(
+                  fontFamily: GoogleFonts.beVietnamPro().fontFamily,
+                ),
+          ),
       child: Builder(
         builder: (context) {
           return Scaffold(
@@ -42,10 +48,13 @@ class Onboarding extends HookConsumerWidget {
               children: [
                 LiquidSwipe(
                   positionSlideIcon: 0.8,
-                  fullTransitionValue: 880,
+                  fullTransitionValue: 380,
                   slideIconWidget: isLast
                       ? const SizedBox.shrink()
-                      : const Icon(Icons.arrow_back_ios),
+                      : const Icon(
+                          FontAwesomeIcons.angleLeft,
+                          size: 28,
+                        ),
                   preferDragFromRevealedArea: true,
                   enableSideReveal: true,
                   ignoreUserGestureWhileAnimating: true,
@@ -79,15 +88,16 @@ class Onboarding extends HookConsumerWidget {
                                             ?.copyWith(
                                           backgroundColor: MaterialStateProperty
                                               .resolveWith<Color?>(
-                                            (_) => SalmonColors.lightBlue,
+                                            (_) => SalmonColors.blue,
                                           ),
                                         ),
                                         onPressed: () async {
                                           isLoading.value = true;
 
                                           await GetStorage().write(
-                                              SalmonConst.skIsFirstLaunch,
-                                              false);
+                                            SalmonConst.skIsFirstLaunch,
+                                            false,
+                                          );
 
                                           context.goNamed(SalmonRoutes.home);
                                           NotifController.init();

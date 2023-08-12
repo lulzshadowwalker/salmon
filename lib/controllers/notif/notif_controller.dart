@@ -285,14 +285,20 @@ topic ($topic) subscription status check: $isSubbed
       final uid = ref.read(a12nProvider).userId;
 
       if (subscribe) {
-        await FirebaseFirestore.instance.collection('users').doc(uid).set({
-          'topics': FieldValue.arrayUnion([topic])
-        });
+        await FirebaseFirestore.instance.collection('users').doc(uid).set(
+          {
+            'topics': FieldValue.arrayUnion([topic]),
+          },
+          SetOptions(merge: true),
+        );
         await FirebaseMessaging.instance.subscribeToTopic(topic);
       } else {
-        await FirebaseFirestore.instance.collection('users').doc(uid).set({
-          'topics': FieldValue.arrayRemove([topic])
-        });
+        await FirebaseFirestore.instance.collection('users').doc(uid).set(
+          {
+            'topics': FieldValue.arrayRemove([topic]),
+          },
+          SetOptions(merge: true),
+        );
         await FirebaseMessaging.instance.unsubscribeFromTopic(topic);
       }
 

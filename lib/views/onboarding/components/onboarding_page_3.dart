@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:salmon/helpers/salmon_anims.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
+import 'package:salmon/providers/theme_data/theme_data_provider.dart';
 import '../../../theme/salmon_colors.dart';
 import 'onboarding_page.dart';
 
-class OnboardingPage3 extends HookWidget {
+class OnboardingPage3 extends HookConsumerWidget {
   const OnboardingPage3({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = ref.watch(salmonThemeProvider);
+
     final controller = useAnimationController(
       duration: const Duration(),
     );
@@ -37,7 +41,7 @@ class OnboardingPage3 extends HookWidget {
         children: [
           Text(
             'Our Promise', // TODO tr
-            style: context.textTheme.headlineSmall?.copyWith(
+            style: context.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -48,7 +52,7 @@ class OnboardingPage3 extends HookWidget {
           )
         ],
       ),
-      color: SalmonColors.yellow,
+      color: SalmonColors.lightBrown,
     );
   }
 }
