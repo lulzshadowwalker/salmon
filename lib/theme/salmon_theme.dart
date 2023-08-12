@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -196,7 +197,7 @@ final class SalmonTheme {
         inputBackgroundColor: isLight ? SalmonColors.white : SalmonColors.black,
       ),
       ownMessageTheme: StreamMessageThemeData(
-        messageBackgroundColor: SalmonColors.lightYellow,
+        messageBackgroundColor: SalmonColors.lightBlue,
         messageTextStyle: TextStyle(
           color: SalmonColors.white,
         ),
@@ -218,4 +219,33 @@ final class SalmonTheme {
         return ThemeMode.light;
     }
   }
+
+  static markdownStyleSheet(BuildContext context) =>
+      MarkdownStyleSheet.fromTheme(context.theme).copyWith(
+        h1: context.textTheme.headlineSmall
+            ?.copyWith(fontWeight: FontWeight.bold),
+        h2: context.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+        h3: context.textTheme.titleMedium
+            ?.copyWith(fontWeight: FontWeight.bold),
+        h4: context.textTheme.titleSmall,
+        h5: context.textTheme.bodyLarge,
+        h6: context.textTheme.bodyMedium,
+        h1Padding: const EdgeInsets.only(top: 24, bottom: 4),
+        h2Padding: const EdgeInsets.only(top: 24, bottom: 4),
+        h3Padding: const EdgeInsets.only(top: 24, bottom: 4),
+        h4Padding: const EdgeInsets.only(top: 24, bottom: 4),
+        h5Padding: const EdgeInsets.only(top: 24, bottom: 4),
+        h6Padding: const EdgeInsets.only(top: 24, bottom: 4),
+        p: context.textTheme.titleMedium
+            ?.copyWith(color: SalmonColors.black.withOpacity(0.75)),
+        blockquotePadding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 24,
+        ),
+        blockquoteDecoration: BoxDecoration(
+          color: SalmonColors.muted.withOpacity(0.15),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        pPadding: const EdgeInsets.symmetric(vertical: 8),
+      );
 }

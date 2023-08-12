@@ -54,6 +54,7 @@ dependencies:
   easy_stepper: ^0.7.3
   lazy_load_indexed_stack: ^1.0.1
   photo_manager: ^2.7.0
+  flutter_markdown: ^0.6.17+1
 
 dev_dependencies:
   flutter_test:

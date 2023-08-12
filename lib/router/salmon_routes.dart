@@ -13,4 +13,5 @@ final class SalmonRoutes {
   static const String submissionReview = 'submission-review';
   static const String fullscreenable = 'fullscreenable';
   // static const String locationPicker = 'location-picker';
+  static const String chat = 'chat';
 }

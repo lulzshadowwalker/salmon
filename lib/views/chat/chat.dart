@@ -21,60 +21,63 @@ class Chat extends HookConsumerWidget {
     final chatUser = ref.watch(chatUserProvider);
 
     return SalmonNavigator(
-      child: Builder(builder: (context) {
-        return chatUser.when(
-          data: (user) => Scaffold(
-            floatingActionButton: user != null
-                ? const ChatSearchAgencyButton()
-                : const SizedBox.shrink(),
-            body: SalmonSingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding:
-                                const EdgeInsetsDirectional.only(start: 12),
-                            child: Text(
-                              'Chat', // TODO tr
-                              style: context.textTheme.headlineMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
+      child: Builder(
+        builder: (context) {
+          return chatUser.when(
+            data: (user) => Scaffold(
+              floatingActionButton: user != null
+                  ? const ChatSearchAgencyButton()
+                  : const SizedBox.shrink(),
+              body: SalmonSingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsetsDirectional.only(start: 12),
+                              child: Text(
+                                'Chat', // TODO tr
+                                style:
+                                    context.textTheme.headlineMedium?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
-                          ),
-                          Expanded(
-                            child: user != null
-                                ? const ChannelList()
-                                : const Center(
-                                    child: Text(
-                                        'needs auth'), // TODO chat auth wrapper ui
-                                  ),
-                          )
-                        ],
+                            Expanded(
+                              child: user != null
+                                  ? const ChannelList()
+                                  : const Center(
+                                      child: Text(
+                                          'needs auth'), // TODO chat auth wrapper ui
+                                    ),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          error: (error, stackTrace) {
-            _log.e(error);
+            error: (error, stackTrace) {
+              _log.e(error);
 
-            return const Center(
-              child: Text('unknown error has occurred'), // TODO error widget
-            );
-          },
-          loading: () => const Center(
-            child: SalmonLoadingIndicator(),
-          ),
-        );
-      }),
+              return const Center(
+                child: Text('unknown error has occurred'), // TODO error widget
+              );
+            },
+            loading: () => const Center(
+              child: SalmonLoadingIndicator(),
+            ),
+          );
+        },
+      ),
     );
   }
 }

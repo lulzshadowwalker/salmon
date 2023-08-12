@@ -18,6 +18,7 @@ import 'package:salmon/views/shared/salmon_step_progress_indicator/salmon_step_p
 
 import '../../../helpers/salmon_anims.dart';
 import '../../../theme/salmon_colors.dart';
+import '../../salmon_drawer/components/salmon_drawer_components.dart';
 import 'issue_submission/components/issue_submission_components.dart';
 
 part '../issues.dart';

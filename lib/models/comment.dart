@@ -51,9 +51,9 @@ final class Comment {
       postId: map['post_id'] != null ? map['post_id'] as String : null,
       userId: map['user_id'] != null ? map['user_id'] as String : null,
       comment: map['comment'] != null ? map['comment'] as String : null,
-       createdOn: map['created_on'] != null
-        ? (map['created_on'] as Timestamp).toDate() // Convert Firestore Timestamp to Dart DateTime
-        : null,
+      createdOn: map['created_on'] != null
+          ? (map['created_on'] as Timestamp).toDate()
+          : null,
     );
   }
 

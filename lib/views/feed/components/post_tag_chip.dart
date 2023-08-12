@@ -25,9 +25,10 @@ class PostTagChip extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(50),
             border: Border.all(
+              width: 0.3,
               color: SalmonColors.muted,
             ),
-            color: const Color.fromARGB(40, 84, 84, 84),
+            color: SalmonColors.muted.withOpacity(0.15),
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(

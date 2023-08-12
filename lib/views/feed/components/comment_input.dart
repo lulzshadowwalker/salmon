@@ -35,7 +35,7 @@ class _CommentInputState extends ConsumerState<CommentInput> {
               end: 12,
               bottom: 4,
             ),
-            child: CommentAvatar(imageUrl: user.value?.pfp),
+            child: CommentAvatar(user: user.value!),
           ),
         Expanded(
           child: DetectableTextField(

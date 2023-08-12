@@ -107,7 +107,7 @@ class _SalmonLocationPickerState extends State<SalmonLocationPicker> {
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: const EdgeInsets.only(
-                right: 72,
+                right: 8,
                 bottom: 14,
                 left: 8,
               ),

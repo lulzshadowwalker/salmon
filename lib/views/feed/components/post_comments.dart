@@ -28,81 +28,72 @@ class _PostCommentsState extends ConsumerState<PostComments> {
     final comments = ref.watch(postCommentsProvider(post.id!));
 
     return SalmonUnfocusableWrapper(
-      child: Theme(
-        data: theme.dark(),
-        child: Builder(builder: (context) {
-          return Container(
-            color: SalmonColors.black,
-            width: double.infinity,
-            child: Builder(builder: (context) {
-              return DefaultTextStyle(
-                style: context.textTheme.bodyLarge!,
-                child: SafeArea(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsetsDirectional.only(
-                          start: 28,
-                          top: 24,
-                        ),
-                        child: Text(
-                          'Comments', // TODO tr
-                          style: context.textTheme.headlineMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 28),
-                      Expanded(
-                        child: comments.when(
-                          data: (data) => data.isEmpty
-                              ? const Center(
-                                  child: Text('no comments yet'),
-                                )
-                              : Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                  ),
-                                  child: ListView.builder(
-                                    physics: const ClampingScrollPhysics(),
-                                    itemCount: data.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      final comment = data[index];
-                                      if (comment == null ||
-                                          comment.comment.isEmpty) return null;
-
-                                      return CommentData(
-                                        data: comment,
-                                        child: const CommentTile(),
-                                      );
-                                    },
-                                  ),
-                                ),
-                          error: (error, stackTrace) => const Center(
-                            // TODO error widget
-                            child: Text('unknown error has occurred'),
-                          ),
-                          loading: () => const Center(
-                            child: SalmonLoadingIndicator(),
-                          ),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 24,
-                          vertical: 12,
-                        ),
-                        child: CommentInput(),
-                      ),
-                    ],
+      child: Container(
+        color: context.theme.scaffoldBackgroundColor,
+        child: DefaultTextStyle(
+          style: context.textTheme.bodyLarge!,
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(
+                    start: 28,
+                    top: 24,
+                  ),
+                  child: Text(
+                    'Comments', // TODO tr
+                    style: context.textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              );
-            }),
-          );
-        }),
+                const SizedBox(height: 28),
+                Expanded(
+                  child: comments.when(
+                    data: (data) => data.isEmpty
+                        ? const Center(
+                            child: Text('no comments yet'),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                            ),
+                            child: ListView.builder(
+                              physics: const ClampingScrollPhysics(),
+                              itemCount: data.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                final comment = data[index];
+                                if (comment == null || comment.comment.isEmpty)
+                                  return null;
+
+                                return CommentData(
+                                  data: comment,
+                                  child: const CommentTile(),
+                                );
+                              },
+                            ),
+                          ),
+                    error: (error, stackTrace) => const Center(
+                      // TODO error widget
+                      child: Text('unknown error has occurred'),
+                    ),
+                    loading: () => const Center(
+                      child: SalmonLoadingIndicator(),
+                    ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 12,
+                  ),
+                  child: CommentInput(),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

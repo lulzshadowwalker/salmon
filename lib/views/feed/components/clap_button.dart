@@ -130,10 +130,8 @@ class ClapButtonState extends ConsumerState<ClapButton> {
                                             onLoaded: (comp) {
                                               confettiController.duration =
                                                   comp.duration;
-                                              if (!isVisible.value) {
-                                                isVisible.value = true;
-                                              }
                                               confettiController.forward();
+                                              isVisible.value = true;
                                             },
                                             height: 32,
                                             frameRate: FrameRate.composition,
@@ -142,6 +140,7 @@ class ClapButtonState extends ConsumerState<ClapButton> {
                                         : Lottie.asset(
                                             SalmonAnims.splash,
                                             controller: splashController,
+                                            frameRate: FrameRate.max,
                                             onLoaded: (comp) {
                                               splashController.duration =
                                                   comp.duration;

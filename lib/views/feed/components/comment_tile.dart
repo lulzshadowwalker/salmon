@@ -38,7 +38,7 @@ class CommentTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       CommentAvatar(
-                        imageUrl: author.value?.pfp,
+                        user: author.value!,
                         size: 28,
                       ),
                       const SizedBox(width: 12),

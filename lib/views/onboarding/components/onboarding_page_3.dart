@@ -48,7 +48,7 @@ class OnboardingPage3 extends HookWidget {
           )
         ],
       ),
-      color: Theme.of(context).colorScheme.primary,
+      color: SalmonColors.yellow,
     );
   }
 }

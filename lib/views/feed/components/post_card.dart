@@ -47,11 +47,7 @@ class PostCard extends ConsumerWidget {
             reverseDuration: null,
             child: AspectRatio(
               aspectRatio: 1,
-              child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
+              child: Card(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   child: CachedNetworkImage(
                     imageUrl: post.coverImage ?? // TODO placeholder image

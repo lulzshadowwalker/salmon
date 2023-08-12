@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:salmon/models/location.dart';
@@ -20,22 +21,23 @@ final class Post {
   final String? urlAction;
   final int? clapCount;
   final List? claps;
+  final DateTime? dateCreated;
 
-  const Post({
-    this.id,
-    this.enTitle,
-    this.arTitle,
-    this.lightArBody,
-    this.lightEnBody,
-    this.darkArBody,
-    this.darkEnBody,
-    this.coverImage,
-    this.createdBy,
-    this.location,
-    this.urlAction,
-    this.clapCount,
-    this.claps,
-  });
+  const Post(
+      {this.id,
+      this.enTitle,
+      this.arTitle,
+      this.lightArBody,
+      this.lightEnBody,
+      this.darkArBody,
+      this.darkEnBody,
+      this.coverImage,
+      this.createdBy,
+      this.location,
+      this.urlAction,
+      this.clapCount,
+      this.claps,
+      this.dateCreated});
 
   Post copyWith({
     String? id,
@@ -51,6 +53,7 @@ final class Post {
     String? urlAction,
     int? clapCount,
     List? claps,
+    DateTime? dateCreated,
   }) {
     return Post(
       id: id ?? this.id,
@@ -66,6 +69,7 @@ final class Post {
       urlAction: urlAction ?? this.urlAction,
       clapCount: clapCount ?? this.clapCount,
       claps: claps ?? this.claps,
+      dateCreated: dateCreated ?? this.dateCreated,
     );
   }
 
@@ -84,6 +88,7 @@ final class Post {
       'url_action': urlAction,
       'clap_count': clapCount,
       'claps': claps,
+      'date_created': dateCreated,
     };
   }
 
@@ -109,6 +114,9 @@ final class Post {
       urlAction: map['url_action'] != null ? map['url_action'] as String : null,
       clapCount: map['clap_count'] != null ? map['clap_count'] as int : null,
       claps: map['claps'],
+      dateCreated: map['date_created'] != null
+          ? (map['date_created'] as Timestamp).toDate()
+          : null,
     );
   }
 
@@ -119,7 +127,7 @@ final class Post {
 
   @override
   String toString() {
-    return 'Post(id: $id, enTitle: $enTitle, arTitle: $arTitle, lightArBody: $lightArBody, lightEnBody: $lightEnBody, darkArBody: $darkArBody, darkEnBody: $darkEnBody, coverImage: $coverImage, createdBy: $createdBy, location: $location, urlAction: $urlAction, clapCount: $clapCount, claps: $claps)';
+    return 'Post(id: $id, enTitle: $enTitle, arTitle: $arTitle, lightArBody: $lightArBody, lightEnBody: $lightEnBody, darkArBody: $darkArBody, darkEnBody: $darkEnBody, coverImage: $coverImage, createdBy: $createdBy, location: $location, urlAction: $urlAction, clapCount: $clapCount, claps: $claps, date_created: $dateCreated)';
   }
 
   @override
@@ -138,6 +146,7 @@ final class Post {
         other.location == location &&
         other.urlAction == urlAction &&
         other.clapCount == clapCount &&
+        other.dateCreated == dateCreated &&
         other.claps == claps;
   }
 
@@ -155,6 +164,7 @@ final class Post {
         location.hashCode ^
         urlAction.hashCode ^
         clapCount.hashCode ^
+        dateCreated.hashCode ^
         claps.hashCode;
   }
 }

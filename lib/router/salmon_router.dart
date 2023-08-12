@@ -15,12 +15,14 @@ import 'package:salmon/views/settings/comps/settings_comps.dart';
 import 'package:salmon/views/shared/salmon_fullscreenable/salmon_fullscreenable.dart';
 import 'package:salmon/views/shared/salmon_location_picker/salmon_location_picker.dart';
 import 'package:salmon/views/splash/splash.dart';
+import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 import '../helpers/salmon_const.dart';
 import '../models/post.dart';
 import '../models/submission.dart';
 import '../views/auth/sign_in.dart';
 import '../views/auth/sign_up.dart';
+import '../views/chat/components/channel_view.dart';
 import '../views/not_found/not_found.dart';
 import 'gorouter_refresh_stream.dart';
 
@@ -65,6 +67,18 @@ class SalmonRouter {
                 builder: (context, state) {
                   final extra = state.extra! as Post;
                   return PostView(post: extra);
+                },
+              ),
+              GoRoute(
+                name: SalmonRoutes.chat,
+                path: SalmonRoutes.chat,
+                builder: (context, state) {
+                  final channel = state.extra as Channel;
+                  // TODO refactor into channel view
+                  return StreamChannel(
+                    channel: channel,
+                    child: const ChannelView(),
+                  );
                 },
               ),
               GoRoute(

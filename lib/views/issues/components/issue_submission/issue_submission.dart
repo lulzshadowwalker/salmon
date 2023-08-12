@@ -47,7 +47,7 @@ class IssueSubmission extends ConsumerWidget {
                     child: SalmonStepProgressIndicator(
                       totalSteps: pages.length,
                       currentStep: currentStep + 1,
-                      activeColor: SalmonColors.brown,
+                      activeColor: SalmonColors.blue,
                       inactiveColor: SalmonColors.mutedLight,
                     ),
                   ),
