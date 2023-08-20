@@ -12,18 +12,13 @@ import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:lottie/lottie.dart';
 import 'package:mime/mime.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/models/attachment.dart';
 import 'package:salmon/providers/db/remote_db/remote_db_provider.dart';
-import 'package:salmon/views/interface/interface.dart';
-import 'package:salmon/views/issues/components/issues_components.dart';
 import 'package:salmon/views/shared/salmon_step_progress_indicator/salmon_step_progress_indicator.dart';
-import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:video_player/video_player.dart';
 
-import '../../../../../helpers/salmon_anims.dart';
 import '../../../../../helpers/salmon_helpers.dart';
 import '../../../../../helpers/salmon_images.dart';
 import '../../../../../models/submission.dart';

@@ -5,8 +5,9 @@ class _IssueCard extends StatelessWidget {
     required this.title,
     required this.child,
     required this.backgroundColor,
-    this.size,
     this.onTap,
+    // ignore: unused_element
+    this.size,
   });
 
   static const _bounceDuration = Duration(milliseconds: 80);

@@ -6,12 +6,12 @@ class _SubmissionReviewStepper extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final submission = _SubmissionData.of(context)!.data;
-    final activeStep = useMemoized(() => 1);
+    final activeStep = useMemoized(() => 0);
 
     return EasyStepper(
       activeStep: activeStep,
-      activeStepBackgroundColor: Theme.of(context).colorScheme.primary,
-      finishedStepBackgroundColor: SalmonColors.lightYellow,
+      activeStepBackgroundColor: context.cs.primary,
+      finishedStepBackgroundColor: context.cs.primaryContainer,
       finishedStepTextColor: SalmonColors.muted,
       activeStepIconColor: SalmonColors.black,
       activeStepTextColor: SalmonColors.black,
@@ -26,7 +26,7 @@ class _SubmissionReviewStepper extends HookWidget {
       steps: const [
         EasyStep(
           customStep: Icon(Icons.ac_unit),
-          title: 'Submitted',
+          title: 'Submitted', // TODO tr
         ),
         EasyStep(
           customStep: Icon(Icons.ac_unit),

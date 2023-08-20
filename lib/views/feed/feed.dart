@@ -1,20 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:lottie/lottie.dart';
+import 'package:salmon/helpers/salmon_anims.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
+import 'package:salmon/helpers/salmon_helpers.dart';
+import 'package:salmon/providers/polls/polls_provider.dart';
 import 'package:salmon/providers/posts/posts_provider.dart';
 import 'package:salmon/views/feed/components/post_card.dart';
-import 'package:salmon/views/home/components/home_app_bar.dart';
+import 'package:salmon/views/shared/expandable_page_view/expandable_page_view.dart';
+import 'package:salmon/views/shared/salmon_info_dialog/salmon_info_dialog.dart';
 import 'package:salmon/views/shared/salmon_navigator/salmon_navigator.dart';
 import 'package:shimmer/shimmer.dart';
-
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../theme/salmon_colors.dart';
+import '../shared/salmon_poll/components/salmon_poll_components.dart';
 
-class Feed extends ConsumerWidget {
+class Feed extends HookConsumerWidget {
   const Feed({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final posts = ref.watch(postsProvider);
+    final pageController = usePageController(keepPage: true);
+
+    useEffect(() {
+      // TODO custom hook
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        SalmonHelpers.maybeShowIntroductoryDialog(
+          context: context,
+          builder: (context) {
+            return SalmonInfoDialog(
+              title: 'Stay up to Date',
+              subtitle: 'Keep up with what interests you!',
+              child: Lottie.asset(
+                SalmonAnims.flag,
+                repeat: false,
+              ),
+            );
+          },
+          id: 'feed',
+        );
+      });
+
+      return null;
+    }, const []);
 
     return SalmonNavigator(
       child: Builder(builder: (context) {
@@ -24,55 +54,103 @@ class Feed extends ConsumerWidget {
           backgroundColor: context.cs.primaryContainer,
           color: SalmonColors.black,
           edgeOffset: AppBar().preferredSize.height,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: ListView.builder(
-                    padding: const EdgeInsets.only(top: 18),
-                    physics: const ClampingScrollPhysics(),
-                    itemCount: (posts.value ?? []).length,
-                    itemBuilder: (context, index) {
-                      final isLast = posts.value?.length != null &&
-                          index != (posts.value!.length - 1);
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Consumer(
+                  builder: (context, ref, child) {
+                    final polls = ref.watch(pollsProvider);
+                    const duration = Duration(milliseconds: 750);
 
-                      return Padding(
-                        padding: isLast
-                            ? const EdgeInsets.only(bottom: 24)
-                            : EdgeInsets.zero,
-                        child: posts.when(
-                          data: (data) => PostCard(
-                            post: data[index],
-                          ), // TODO Feed empty state
-                          error: (error, stackTrace) => const Center(
-                            child: Text('unknown error'),
-                          ),
-                          loading: () => ListView.separated(
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) => AspectRatio(
-                              aspectRatio: 1,
-                              child: Shimmer.fromColors(
-                                baseColor: SalmonColors.mutedLight,
-                                highlightColor: SalmonColors.white,
-                                child: Container(
-                                  color: SalmonColors.mutedLight,
-                                  width: double.infinity,
-                                  height: 100,
+                    return AnimatedSwitcher(
+                      duration: duration,
+                      child: AnimatedSize(
+                        duration: duration,
+                        curve: Curves.easeOut,
+                        child: polls.when(
+                          data: (data) => Column(
+                            children: [
+                              ExpandablePageView(
+                                controller: pageController,
+                                children: List.generate(
+                                  data.length,
+                                  (index) => Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12),
+                                    child: SalmonPoll(
+                                      poll: data[index],
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(height: 16),
-                            itemCount: 6,
+                              const SizedBox(height: 16),
+                              SmoothPageIndicator(
+                                controller: pageController,
+                                count: data.length,
+                                effect: WormEffect(
+                                  dotColor: SalmonColors.muted,
+                                  activeDotColor: context.cs.primary,
+                                  dotHeight: 8,
+                                  dotWidth: 8,
+                                  type: WormType.thin,
+                                ),
+                              ),
+                            ],
                           ),
+                          error: (_, __) => const SizedBox.shrink(),
+                          loading: () => const SizedBox.shrink(),
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
               ),
+              SliverPadding(
+                padding: const EdgeInsets.only(
+                  top: 18,
+                  right: 12,
+                  left: 12,
+                ),
+                sliver: SliverList.builder(
+                  itemCount: (posts.value ?? []).length,
+                  itemBuilder: (context, index) {
+                    final isLast = posts.value?.length != null &&
+                        index != (posts.value!.length - 1);
+
+                    return Padding(
+                      padding: isLast
+                          ? const EdgeInsets.only(bottom: 24)
+                          : EdgeInsets.zero,
+                      child: posts.when(
+                        data: (data) => PostCard(
+                          post: data[index],
+                        ), // TODO Feed empty state
+                        error: (error, stackTrace) => const Center(
+                          child: Text('unknown error'),
+                        ),
+                        loading: () => ListView.separated(
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) => AspectRatio(
+                            aspectRatio: 1,
+                            child: Shimmer.fromColors(
+                              baseColor: SalmonColors.mutedLight,
+                              highlightColor: SalmonColors.white,
+                              child: Container(
+                                color: SalmonColors.mutedLight,
+                                width: double.infinity,
+                                height: 100,
+                              ),
+                            ),
+                          ),
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(height: 16),
+                          itemCount: 6,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              )
             ],
           ),
         );

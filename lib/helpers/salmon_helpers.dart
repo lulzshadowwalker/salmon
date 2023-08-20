@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
@@ -318,5 +319,25 @@ final class SalmonHelpers {
       final timeFormat = DateFormat.jm().format(dateTime);
       return '${DateFormat('dd.MM.yyyy').format(dateTime)} - $timeFormat';
     }
+  }
+
+  static void maybeShowIntroductoryDialog({
+    required BuildContext context,
+    required Widget Function(BuildContext context) builder,
+    required String id,
+  }) async {
+    final sk = '${id}_intro_dialog';
+    final box = GetStorage();
+    final wasShown = box.read<bool>(sk) ?? false;
+    if (!kDebugMode && wasShown) return;
+
+    await Future.delayed(const Duration(milliseconds: 280));
+
+    await showDialog(
+      context: context,
+      builder: builder,
+    );
+
+    box.write(sk, true);
   }
 }

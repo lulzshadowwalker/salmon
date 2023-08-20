@@ -2,7 +2,6 @@ part of './issue_submission_components.dart';
 
 class _SubmissionData extends InheritedWidget {
   const _SubmissionData({
-    super.key,
     required this.data,
     required super.child,
   });

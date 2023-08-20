@@ -10,7 +10,6 @@ import 'package:salmon/views/shared/salmon_loading_indicator/salmon_loading_indi
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 import '../../../theme/salmon_colors.dart';
-import 'channel_view.dart';
 import 'chat_avatar.dart';
 
 class ChannelList extends StatefulWidget {

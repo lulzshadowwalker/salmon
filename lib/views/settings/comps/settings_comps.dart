@@ -4,7 +4,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:lottie/lottie.dart';
 import 'package:salmon/controllers/notif/notif_controller.dart';
 import 'package:salmon/helpers/salmon_const.dart';
 import 'package:dash_flags/dash_flags.dart';
@@ -26,17 +25,14 @@ import 'package:salmon/views/shared/salmon_single_child_scroll_view/salmon_singl
 import 'package:salmon/views/shared/salmon_unfocusable_wrapper/salmon_unfocusable_wrapper.dart';
 import 'package:validators/validators.dart';
 
-import '../../../helpers/salmon_anims.dart';
 import '../../../models/salmon_user_credentials.dart';
 import '../../../providers/l10n/async_l10n_provider.dart';
 import '../../../providers/salmon_user_credentials/salmon_user_credentials_provider.dart';
 import '../../../providers/theme_mode/theme_mode_provider.dart';
 import '../../../theme/salmon_colors.dart';
-import '../../home/components/home_app_bar.dart';
 import '../../salmon_drawer/components/salmon_drawer_components.dart';
 import '../../shared/salmon_circle_image_avatar/salmon_circle_image_avatar.dart';
 import '../../shared/salmon_form_field/salmon_form_field.dart';
-import '../../shared/salmon_page_wrapper/slamon_page_wrapper.dart';
 
 part './settings_section.dart';
 part '../settings.dart';

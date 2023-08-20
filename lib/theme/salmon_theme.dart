@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -54,7 +53,7 @@ final class SalmonTheme {
 
   static final _outlinedButtonTheme = OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
-      side: BorderSide(
+      side: const BorderSide(
         color: _seedColor,
       ),
       minimumSize: const Size.fromHeight(42),
@@ -123,13 +122,17 @@ final class SalmonTheme {
           size: 30,
         ),
       ),
+
+      //
+      splashColor: colorScheme.primaryContainer,
+      highlightColor: Colors.transparent,
     );
   }
 
   ThemeData dark() {
     final colorScheme = ColorScheme.fromSeed(
       brightness: Brightness.dark,
-      seedColor: _seedColor,
+      seedColor:const Color.fromARGB(255, 103, 146, 238) ,
     );
 
     return ThemeData.dark().copyWith(
@@ -183,6 +186,10 @@ final class SalmonTheme {
           size: 30,
         ),
       ),
+
+      //
+      splashColor: colorScheme.primaryContainer,
+      highlightColor: Colors.transparent,
     );
   }
 
@@ -237,7 +244,7 @@ final class SalmonTheme {
         h5Padding: const EdgeInsets.only(top: 24, bottom: 4),
         h6Padding: const EdgeInsets.only(top: 24, bottom: 4),
         p: context.textTheme.titleMedium
-            ?.copyWith(color: SalmonColors.black.withOpacity(0.75)),
+            ?.copyWith(color: context.cs.onBackground.withOpacity(0.75)),
         blockquotePadding: const EdgeInsets.symmetric(
           horizontal: 12,
           vertical: 24,

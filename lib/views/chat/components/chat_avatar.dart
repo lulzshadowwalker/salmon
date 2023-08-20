@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 
-import '../../../theme/salmon_colors.dart';
 import '../../shared/salmon_loading_indicator/salmon_loading_indicator.dart';
 
 class ChatAvatar extends StatelessWidget {

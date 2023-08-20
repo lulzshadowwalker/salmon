@@ -2,7 +2,6 @@ part of './salmon_drawer_components.dart';
 
 class _DrawerTile extends StatelessWidget {
   const _DrawerTile({
-    super.key,
     required this.title,
     this.leading,
     this.isActive = false,

@@ -67,6 +67,7 @@ class Home extends HookConsumerWidget {
       ),
       body: SalmonNavigator(
         child: LazyLoadIndexedStack(
+          alignment: Alignment.center,
           index: index,
           children: const [
             Feed(),

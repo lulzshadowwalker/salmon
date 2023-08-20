@@ -13,7 +13,6 @@ import 'package:salmon/views/issues/components/submisison_review.dart';
 import 'package:salmon/views/onboarding/onboarding.dart';
 import 'package:salmon/views/settings/comps/settings_comps.dart';
 import 'package:salmon/views/shared/salmon_fullscreenable/salmon_fullscreenable.dart';
-import 'package:salmon/views/shared/salmon_location_picker/salmon_location_picker.dart';
 import 'package:salmon/views/splash/splash.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 

@@ -4,7 +4,6 @@ import 'package:lottie/lottie.dart';
 import 'package:salmon/helpers/salmon_anims.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 
-import '../../../theme/salmon_colors.dart';
 
 class EyeSlash extends HookWidget {
   const EyeSlash({

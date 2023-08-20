@@ -11,6 +11,7 @@ import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/helpers/salmon_helpers.dart';
 import 'package:salmon/models/comment.dart';
 import 'package:salmon/models/enums/notif_type.dart';
+import 'package:salmon/models/poll.dart';
 import 'package:salmon/models/salmon_user.dart';
 import 'package:salmon/models/submission.dart';
 import 'package:salmon/providers/a12n/a12n_provider.dart';
@@ -19,6 +20,7 @@ import 'package:salmon/providers/storage/remote_storage/remote_storage_provider.
 import 'package:uuid/uuid.dart';
 import '../../l10n/l10n_imports.dart';
 import '../../models/agency.dart';
+import '../../models/poll_vote.dart';
 import '../../models/post.dart';
 import '../../models/typedefs/user_id.dart';
 
@@ -47,6 +49,8 @@ final class RemoteDbController {
   static const String _aName = 'name';
   static const String _aUrl = 'url';
   static const String _aMimeType = 'mime_type';
+  static const String _cPolls = "polls";
+  static const String _cPollVotes = "pollVotes";
   /* -------------------------------------------------------------------------- */
 
   Future<void> createUserRecord({
@@ -172,6 +176,76 @@ registered new user with details:
         );
   }
 
+  Future<List<Poll>> get polls async =>
+      await _db.collection(_cPolls).limit(5).orderBy('dateCreated').get().then(
+            (query) => query.docs
+                .map(
+                  (doc) => Poll.fromMap(doc.data()),
+                )
+                .toList(),
+          );
+
+  Future<void> votePoll({
+    required Poll poll,
+    required String optionId,
+  }) async {
+    try {
+      final uid = ref.read(a12nProvider).userId;
+      final vote = PollVote(
+        id: uid,
+        userId: uid,
+        optionId: optionId,
+      );
+
+      final data = vote.toMap()
+        ..addAll({
+          'dateCreated': DateTime.now().toUtc(),
+        });
+
+      await _db
+          .collection(_cPolls)
+          .doc(poll.id)
+          .collection(_cPollVotes)
+          .doc(uid)
+          .set(data);
+
+      _log.v('''
+✨ Poll Vote
+poll: ${poll.toMap()}
+vote: $data
+''');
+    } catch (e) {
+      SalmonHelpers.handleException(e: e, logger: _log);
+    }
+  }
+
+  Future<PollVote?> checkVote(Poll poll) async {
+    try {
+      final uid = ref.read(a12nProvider).userId;
+
+      final res = await _db
+          .collection(_cPolls)
+          .doc(poll.id)
+          .collection(_cPollVotes)
+          .where('userId', isEqualTo: uid)
+          .get()
+          .then((query) {
+        final doc = query.docs.firstOrNull;
+        return doc != null ? PollVote.fromMap(doc.data()) : null;
+      });
+
+      _log.v('''
+✨ Poll Vote Check 
+vote: ${res?.toMap()}
+''');
+
+      return res;
+    } catch (e) {
+      SalmonHelpers.handleException(e: e, logger: _log);
+      return null;
+    }
+  }
+
   Future<void> createSubmission({
     required BuildContext context,
     required Submission submission,
@@ -222,6 +296,12 @@ registered new user with details:
 created submission successfully with the data
 $data
 ''');
+
+      NotifController.showPopup(
+        context: context,
+        message: 'we shall be in touch shortly', // TODO tr
+        type: NotifType.success,
+      );
     } catch (e) {
       SalmonHelpers.handleException(context: context, e: e, logger: _log);
     }

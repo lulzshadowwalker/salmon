@@ -7,7 +7,6 @@ import 'package:salmon/views/feed/components/comment_data.dart';
 import 'package:salmon/views/feed/components/post_data.dart';
 import 'package:salmon/views/shared/salmon_loading_indicator/salmon_loading_indicator.dart';
 import 'package:salmon/views/shared/salmon_unfocusable_wrapper/salmon_unfocusable_wrapper.dart';
-import '../../../theme/salmon_colors.dart';
 import 'comment_input.dart';
 import 'comment_tile.dart';
 
@@ -64,8 +63,9 @@ class _PostCommentsState extends ConsumerState<PostComments> {
                               itemCount: data.length,
                               itemBuilder: (BuildContext context, int index) {
                                 final comment = data[index];
-                                if (comment == null || comment.comment.isEmpty)
+                                if (comment == null || comment.comment.isEmpty) {
                                   return null;
+                                }
 
                                 return CommentData(
                                   data: comment,

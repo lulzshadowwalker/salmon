@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/helpers/salmon_images.dart';
 import 'package:salmon/views/chat/components/chat_avatar.dart';
-import 'package:salmon/views/salmon_drawer/components/salmon_drawer_components.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 import '../../../theme/salmon_colors.dart';
 import '../../shared/app_bar_divider/app_bar_divider.dart';
-import '../../shared/menu_button/menu_button.dart';
 
 class ChannelView extends StatelessWidget {
   const ChannelView({
@@ -21,7 +19,7 @@ class ChannelView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         bottom: const AppBarDivider(),
-        titleSpacing: 12,
+        centerTitle: false,
         title: Row(
           children: [
             ChatAvatar(

@@ -22,9 +22,9 @@ class Onboarding extends HookConsumerWidget {
   const Onboarding({super.key});
 
   static final _pages = [
-    OnboardingPage1(),
-    OnboardingPage2(),
-    OnboardingPage3(),
+    const OnboardingPage1(),
+    const OnboardingPage2(),
+    const OnboardingPage3(),
   ];
 
   @override

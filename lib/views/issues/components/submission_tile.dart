@@ -70,7 +70,7 @@ class _SubmissionTile extends HookWidget {
                 context.directionality == TextDirection.ltr
                     ? FontAwesomeIcons.angleRight
                     : FontAwesomeIcons.angleLeft,
-                color: SalmonColors.lightYellow,
+                color: context.cs.primary,
               ),
             ],
           ),

@@ -50,7 +50,7 @@ class SalmonImagePickerOptions extends StatelessWidget {
                     (_) => BorderSide(color: SalmonColors.white),
                   ),
                   backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                    (_) => context.cs.primaryContainer,
+                    (_) => context.cs.primaryContainer.withOpacity(0.8),
                   ),
                 ),
             onPressed: () => Navigator.of(context).pop(),

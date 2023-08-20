@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/models/salmon_user.dart';
 
-import '../../../helpers/salmon_images.dart';
 import '../../../theme/salmon_colors.dart';
 
 class CommentAvatar extends StatelessWidget {
@@ -28,6 +27,21 @@ class CommentAvatar extends StatelessWidget {
           width: size,
           fit: BoxFit.cover,
           filterQuality: FilterQuality.low,
+        ),
+      ),
+      placeholder: (context, url) => Container(
+        width: size,
+        height: size,
+        decoration: BoxDecoration(
+          color: context.cs.primaryContainer,
+          shape: BoxShape.circle,
+        ),
+        alignment: Alignment.center,
+        child: Text(
+          user.displayName?[0] ?? 'A',
+          style: TextStyle(
+            color: SalmonColors.white,
+          ),
         ),
       ),
       errorWidget: (context, url, error) => Container(

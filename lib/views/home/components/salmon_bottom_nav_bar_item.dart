@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../theme/salmon_colors.dart';
 
 class SalmonBottomNavbarItem extends StatelessWidget {
   const SalmonBottomNavbarItem({

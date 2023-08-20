@@ -44,7 +44,7 @@ class _PostViewState extends ConsumerState<PostView> {
 
     useEffect(() {
       void listener() {
-        isPanelOpen.value = _slideController.isOpened;
+        isPanelOpen.value = _slideController.value;
       }
 
       _slideController.addListener(listener);
@@ -55,6 +55,12 @@ class _PostViewState extends ConsumerState<PostView> {
     return PostData(
       data: widget.post,
       child: Scaffold(
+        floatingActionButton: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 350),
+          child: isGuest || isPanelOpen.value
+              ? const SizedBox.shrink()
+              : const ClapButton(),
+        ),
         body: WeSlide(
           parallax: true,
           hideAppBar: true,
@@ -73,104 +79,99 @@ class _PostViewState extends ConsumerState<PostView> {
               PostNotificationChip(),
             ],
           ),
-          body: Scaffold(
-            floatingActionButton:
-                isGuest ? const SizedBox.shrink() : const ClapButton(),
-            body: SalmonSingleChildScrollView(
-              physics: const ClampingScrollPhysics(),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Hero(
-                      tag: widget.post.id!,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 16),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
-                          child: CachedNetworkImage(
-                            imageUrl: widget.post.coverImage ??
-                                '', // TODO placeholder
-                            width: double.infinity,
-                            height: 280,
-                            fit: BoxFit.cover,
-                          ),
+          body: SalmonSingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Hero(
+                    tag: widget.post.id!,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              widget.post.coverImage ?? '', // TODO placeholder
+                          width: double.infinity,
+                          height: 280,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 28),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (widget.post.dateCreated != null)
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8),
-                              child: Text(
-                                DateFormat.yMMMMd(SL.of(context).localeName)
-                                    .format(widget.post.dateCreated!),
-                                style: context.textTheme.bodySmall,
-                              ),
-                            ),
-                          Text(
-                            widget.post.enTitle!,
-                            style: context.textTheme.headlineSmall?.copyWith(
-                              fontWeight: FontWeight.bold,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 28),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (widget.post.dateCreated != null)
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: Text(
+                              DateFormat.yMMMMd(SL.of(context).localeName)
+                                  .format(widget.post.dateCreated!),
+                              style: context.textTheme.bodySmall,
                             ),
                           ),
-                          const SizedBox(height: 18),
-                          Consumer(
-                            builder: (context, ref, child) {
-                              final agency = ref.watch(
-                                  agencyProvider(widget.post.createdBy!));
+                        Text(
+                          widget.post.enTitle!,
+                          style: context.textTheme.headlineSmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 18),
+                        Consumer(
+                          builder: (context, ref, child) {
+                            final agency = ref
+                                .watch(agencyProvider(widget.post.createdBy!));
 
-                              return agency.when(
-                                data: (data) => Row(
-                                  children: [
-                                    CachedNetworkImage(
-                                      imageUrl: data?.logo ?? '',
-                                      height: 24,
-                                      width: 24,
-                                      imageBuilder: (context, imageProvider) =>
-                                          Padding(
-                                              padding:
-                                                  const EdgeInsetsDirectional
-                                                      .only(end: 8),
-                                              child: Image(
-                                                image: imageProvider,
-                                              )),
-                                      errorWidget: (context, url, error) =>
-                                          const SizedBox.shrink(),
-                                    ),
+                            return agency.when(
+                              data: (data) => Row(
+                                children: [
+                                  CachedNetworkImage(
+                                    imageUrl: data?.logo ?? '',
+                                    height: 24,
+                                    width: 24,
+                                    imageBuilder: (context, imageProvider) =>
+                                        Padding(
+                                            padding: const EdgeInsetsDirectional
+                                                .only(end: 8),
+                                            child: Image(
+                                              image: imageProvider,
+                                            )),
+                                    errorWidget: (context, url, error) =>
+                                        const SizedBox.shrink(),
+                                  ),
 
-                                    Expanded(
-                                      child: Text(
-                                        data?.enName ?? 'unknown',
-                                        style: TextStyle(
-                                          color: SalmonColors.muted,
-                                        ),
+                                  Expanded(
+                                    child: Text(
+                                      data?.enName ?? 'unknown',
+                                      style: TextStyle(
+                                        color: SalmonColors.muted,
                                       ),
-                                    ), // TODO tr
-                                  ],
-                                ),
-                                error: (error, stackTrace) =>
-                                    const SizedBox.shrink(),
-                                loading: () => const SizedBox.shrink(),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
+                                    ),
+                                  ), // TODO tr
+                                ],
+                              ),
+                              error: (error, stackTrace) =>
+                                  const SizedBox.shrink(),
+                              loading: () => const SizedBox.shrink(),
+                            );
+                          },
+                        ),
+                      ],
                     ),
-                    Expanded(
-                      child: MarkdownBody(
-                        data: widget.post.darkEnBody!.replaceAll('<br>', '\n'),
-                        styleSheet: SalmonTheme.markdownStyleSheet(context),
-                      ),
+                  ),
+                  Expanded(
+                    child: MarkdownBody(
+                      data: widget.post.enBody!.replaceAll('<br>', '\n'),
+                      styleSheet: SalmonTheme.markdownStyleSheet(context),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

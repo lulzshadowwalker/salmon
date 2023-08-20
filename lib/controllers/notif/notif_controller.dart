@@ -87,15 +87,7 @@ class NotifController {
       SnackBar(
         duration: duration,
         backgroundColor: _getNotifConfig(context, type).color,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25),
-        ),
-        behavior: SnackBarBehavior.floating,
         dismissDirection: DismissDirection.horizontal,
-        margin: const EdgeInsets.symmetric(
-          horizontal: 24,
-          vertical: 56,
-        ),
         content: ListTile(
           leading: SizedBox(
             height: double.infinity,

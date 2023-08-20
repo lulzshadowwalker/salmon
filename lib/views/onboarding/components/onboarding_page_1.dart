@@ -3,7 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:salmon/helpers/salmon_anims.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
-import 'package:salmon/providers/theme_data/theme_data_provider.dart';
 import '../../../theme/salmon_colors.dart';
 import 'onboarding_page.dart';
 
@@ -30,9 +29,11 @@ class OnboardingPage1 extends ConsumerWidget {
             ),
           ),
           const SizedBox(height: 8),
-          Text(
-            'Where Citizens Meet Government',
-            style: context.textTheme.headlineSmall,
+          FittedBox(
+            child: Text(
+              'Where Citizens Meet Government',
+              style: context.textTheme.headlineSmall,
+            ),
           )
         ],
       ),

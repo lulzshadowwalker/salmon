@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:salmon/theme/salmon_colors.dart';
 
 import '../../../helpers/salmon_anims.dart';
 

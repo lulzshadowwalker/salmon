@@ -1,6 +1,5 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:salmon/theme/salmon_colors.dart';
 
 /// e.g. "already have an account ? **Sign in**" where the second part
 /// is interactable and has an accent color

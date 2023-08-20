@@ -71,7 +71,7 @@ class IssueSubmissionReview extends HookConsumerWidget {
                             ],
                           ),
                         ),
-                        error: (error, stackTrace) => Text(
+                        error: (error, stackTrace) => const Text(
                           'Unknown error', // TODO SalmonError
                         ),
                         loading: () => const SalmonLoadingIndicator(),
