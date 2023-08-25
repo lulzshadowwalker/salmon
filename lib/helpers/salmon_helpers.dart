@@ -12,7 +12,7 @@ import 'package:mime/mime.dart';
 import 'package:salmon/helpers/salmon_log_printer.dart';
 import 'package:salmon/l10n/l10n_imports.dart';
 import 'package:salmon/views/shared/salmon_image_picker_options/salmon_image_picker_options.dart';
-import '../controllers/notif/notif_controller.dart';
+import '../controllers/notifs/notifs_controller.dart';
 import '../models/enums/notif_type.dart';
 import '../models/salmon_silent_exception.dart';
 
@@ -258,7 +258,7 @@ final class SalmonHelpers {
   ) {
     logger.e('SocketExcepetion, check internet connection.');
 
-    NotifController.showPopup(
+    NotifsController.showPopup(
       context: context,
       message: SL.of(context).networkRequestFailed,
       type: NotifType.oops,
@@ -281,7 +281,7 @@ final class SalmonHelpers {
       "requires-recent-login": SL.of(context).requiresRecentLogin,
     };
 
-    NotifController.showPopup(
+    NotifsController.showPopup(
       context: context,
       message: map[e.code] ?? SL.of(context).unknownError,
       type: NotifType.oops,
@@ -296,7 +296,7 @@ final class SalmonHelpers {
     logger.e(error.toString());
 
     if (context != null) {
-      NotifController.showPopup(
+      NotifsController.showPopup(
         context: context,
         message: SL.of(context).unknownError,
         type: NotifType.oops,
@@ -330,8 +330,6 @@ final class SalmonHelpers {
     final box = GetStorage();
     final wasShown = box.read<bool>(sk) ?? false;
     if (!kDebugMode && wasShown) return;
-
-    await Future.delayed(const Duration(milliseconds: 280));
 
     await showDialog(
       context: context,

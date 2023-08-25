@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
-import '../../../theme/salmon_colors.dart';
 
 class SalmonInfoDialog extends StatelessWidget {
   const SalmonInfoDialog({

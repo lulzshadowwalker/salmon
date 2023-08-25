@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
-import 'package:salmon/controllers/notif/notif_controller.dart';
+import 'package:salmon/controllers/notifs/notifs_controller.dart';
 import 'package:salmon/helpers/salmon_anims.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/providers/agency/agency_provider.dart';
@@ -41,7 +41,7 @@ class _PostNotificationChipState extends ConsumerState<PostNotificationChip> {
       agency.whenData((value) {
         ref
             .read(checkTopicSubscriptionProvider(
-                NotifController.generateTopicName(value?.enName ?? '')))
+                NotifsController.generateTopicName(value?.enName ?? '')))
             .whenData((value) {
           isSubbed.value = value ?? false;
           _initialValue = isSubbed.value;
@@ -62,12 +62,13 @@ class _PostNotificationChipState extends ConsumerState<PostNotificationChip> {
       onWillPop: () async {
         if (isSubbed.value != _initialValue) {
           ref.read(notifControllerProvider).manageTopicSubscription(
-                topic: NotifController.generateTopicName(agency.value!.enName!),
+                topic:
+                    NotifsController.generateTopicName(agency.value!.enName!),
                 subscribe: isSubbed.value,
               );
 
           ref.invalidate(checkTopicSubscriptionProvider(
-              NotifController.generateTopicName(agency.value?.enName ?? '')));
+              NotifsController.generateTopicName(agency.value?.enName ?? '')));
         }
 
         return true;

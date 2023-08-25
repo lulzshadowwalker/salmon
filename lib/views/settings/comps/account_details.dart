@@ -165,7 +165,9 @@ class _AccountDetailsState extends ConsumerState<AccountDetails> {
                                   }
 
                                   // ignore: use_build_context_synchronously
-                                  await ref.read(remoteDbProvider).updateUser(
+                                  await ref
+                                      .read(usersControllerProvider)
+                                      .updateUser(
                                         context,
                                         userOverride.value
                                             .toMap()

@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:salmon/providers/db/remote_db/remote_db_provider.dart';
+import 'package:salmon/controllers/agencies/agencies_controller.dart';
 
 final agenciesProvider = StreamProvider(
-  (ref) => ref.watch(remoteDbProvider).agencies,
+  (ref) => ref.watch(agenciesControllerProvider).agencies,
 );

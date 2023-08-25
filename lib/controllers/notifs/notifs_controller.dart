@@ -19,7 +19,7 @@ import '../../models/notif_config.dart';
 Future<void> _handleFcmBackgroundMessage(RemoteMessage message) async {
   final RemoteNotification? notif = message.notification;
   if (notif != null) {
-    NotifController.show(
+    NotifsController.show(
       id: DateTime.now().second,
       title: notif.title ?? 'We would like to hear your feedback',
       body: notif.body ?? 'feel free to let us know what you have on your mind',
@@ -27,8 +27,8 @@ Future<void> _handleFcmBackgroundMessage(RemoteMessage message) async {
   }
 }
 
-class NotifController {
-  NotifController(this.ref);
+class NotifsController {
+  NotifsController(this.ref);
   final Ref ref;
 
   static final _log = SalmonHelpers.getLogger('NotifController');
@@ -303,7 +303,7 @@ topic ($topic) subscription status: $subscribe
   }
 
   static void showInDevPopup(BuildContext context) {
-    NotifController.showPopup(
+    NotifsController.showPopup(
       context: context,
       title: 'nope',
       message: 'in development 🥱',

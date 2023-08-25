@@ -35,8 +35,10 @@ class _IsGoingButtonState extends State<_IsGoingButton> {
               if (_debounce?.isActive ?? false) _debounce?.cancel();
               _debounce = Timer(_timeout, () async {
                 ref.read(_isGoingProvider(event))
-                    ? await ref.read(remoteDbProvider).interested(event)
-                    : await ref.read(remoteDbProvider).uninterested(event);
+                    ? await ref.read(eventsControllerProvider).interested(event)
+                    : await ref
+                        .read(eventsControllerProvider)
+                        .uninterested(event);
 
                 ref.invalidate(eventUsersProvider(event));
               });

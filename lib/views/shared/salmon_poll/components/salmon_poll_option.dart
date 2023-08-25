@@ -95,8 +95,8 @@ class _SalmonPollOptionState extends ConsumerState<_SalmonPollOption> {
               if (_debounce?.isActive ?? false) _debounce?.cancel();
               _debounce = Timer(_timeout, () {
                 ref
-                    .read(remoteDbProvider)
-                    .votePoll(poll: poll, optionId: widget.option.id ?? '');
+                    .read(pollsControllerProvider)
+                    .vote(poll: poll, optionId: widget.option.id ?? '');
               });
             },
             child: Container(

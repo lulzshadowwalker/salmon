@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:salmon/providers/db/remote_db/remote_db_provider.dart';
+import 'package:salmon/controllers/posts/posts_controller.dart';
 
 final commentCountProvider = FutureProvider.family.autoDispose<int?, String>(
-  (ref, id) => ref.watch(remoteDbProvider).fetchCommentCount(id),
+  (ref, id) => ref.watch(postsControllerProvider).fetchCommentCount(id),
 );

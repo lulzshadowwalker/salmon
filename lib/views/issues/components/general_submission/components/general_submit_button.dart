@@ -15,7 +15,7 @@ class _SubmitButton extends HookConsumerWidget {
         isLoading.value = true;
         final submission = ref.read(_submissionProvider);
 
-        await ref.read(remoteDbProvider).createSubmission(
+        await ref.read(submissionsControllerProvider).createSubmission(
               context: context,
               submission: submission.copyWith(type: 'general'),
             );

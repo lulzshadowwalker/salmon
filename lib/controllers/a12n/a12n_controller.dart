@@ -4,15 +4,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:salmon/controllers/users/users_controller.dart';
 import 'package:salmon/helpers/salmon_helpers.dart';
 import 'package:salmon/models/salmon_silent_exception.dart';
 import 'package:salmon/models/salmon_user_credentials.dart';
-import 'package:salmon/providers/db/remote_db/remote_db_provider.dart';
 import 'package:salmon/providers/salmon_user_credentials/salmon_user_credentials_provider.dart';
 import '../../l10n/l10n_imports.dart';
 import '../../models/enums/notif_type.dart';
 import '../../models/typedefs/user_id.dart';
-import '../notif/notif_controller.dart';
+import '../notifs/notifs_controller.dart';
 
 /// Authentication Controller
 class A12nController {
@@ -46,7 +46,7 @@ class A12nController {
       await _auth.sendPasswordResetEmail(email: user!.email!);
 
       _log.v('password reset email has been sent');
-      NotifController.showPopup(
+      NotifsController.showPopup(
         context: context,
         message: SL.of(context).passwordResetEmailHasBeenSent,
         type: NotifType.success,
@@ -96,7 +96,7 @@ class A12nController {
 
       _log.v('Signed-up with email and password');
 
-      await ref.read(remoteDbProvider).createUserRecord(
+      await ref.read(usersControllerProvider).createUserRecord(
             context: context,
             uid: u.user!.uid,
           );
@@ -142,7 +142,7 @@ class A12nController {
               ),
             );
 
-        await ref.read(remoteDbProvider).createUserRecord(
+        await ref.read(usersControllerProvider).createUserRecord(
               context: context,
               uid: userCredential.user!.uid,
             );

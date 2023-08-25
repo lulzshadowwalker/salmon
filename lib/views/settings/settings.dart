@@ -30,7 +30,7 @@ class Settings extends ConsumerWidget {
                   _SettingsOption(
                     title: const Text('about us'),
                     onTap: () {
-                      NotifController.showInDevPopup(context);
+                      NotifsController.showInDevPopup(context);
                     },
                   ),
                 ],

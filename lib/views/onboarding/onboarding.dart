@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:photo_manager/photo_manager.dart';
-import 'package:salmon/controllers/notif/notif_controller.dart';
+import 'package:salmon/controllers/notifs/notifs_controller.dart';
 import 'package:salmon/helpers/salmon_const.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/providers/theme_data/theme_data_provider.dart';
@@ -100,7 +100,7 @@ class Onboarding extends HookConsumerWidget {
                                           );
 
                                           context.goNamed(SalmonRoutes.home);
-                                          NotifController.init();
+                                          NotifsController.init();
                                           PhotoManager
                                               .requestPermissionExtend();
                                           if (isMounted()) {

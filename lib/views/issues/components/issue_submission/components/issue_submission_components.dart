@@ -13,9 +13,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
+import 'package:salmon/controllers/submissions/submissions_controller.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/models/attachment.dart';
-import 'package:salmon/providers/db/remote_db/remote_db_provider.dart';
 import 'package:salmon/views/shared/salmon_step_progress_indicator/salmon_step_progress_indicator.dart';
 import 'package:video_player/video_player.dart';
 

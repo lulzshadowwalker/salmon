@@ -4,8 +4,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
+import 'package:salmon/controllers/posts/posts_controller.dart';
 import 'package:salmon/helpers/salmon_anims.dart';
-import 'package:salmon/providers/db/remote_db/remote_db_provider.dart';
 import 'package:salmon/providers/theme_mode/theme_mode_provider.dart';
 import 'package:salmon/providers/user_clap_count/user_clap_count_provider.dart';
 import 'package:salmon/views/feed/components/post_data.dart';
@@ -67,7 +67,7 @@ class ClapButtonState extends ConsumerState<ClapButton> {
           ? WillPopScope(
               onWillPop: () async {
                 if (userClapCount.value != counter.value) {
-                  ref.read(remoteDbProvider).clap(post, counter.value);
+                  ref.read(postsControllerProvider).clap(post, counter.value);
                 }
                 return true;
               },
