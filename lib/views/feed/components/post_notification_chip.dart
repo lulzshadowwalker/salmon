@@ -9,7 +9,7 @@ import 'package:salmon/providers/agency/agency_provider.dart';
 import 'package:salmon/providers/check_topic_subscription/check_topic_subscription_provider.dart';
 import 'package:salmon/providers/notif_controller/notif_controller_provider.dart';
 import 'package:salmon/views/feed/components/post_data.dart';
-import 'package:salmon/views/feed/components/post_tag_chip.dart';
+import 'package:salmon/views/shared/salmon_tag_chip/salmon_tag_chip.dart';
 
 class PostNotificationChip extends StatefulHookConsumerWidget {
   const PostNotificationChip({
@@ -77,7 +77,7 @@ class _PostNotificationChipState extends ConsumerState<PostNotificationChip> {
         child: agency.hasValue
             ? Padding(
                 padding: const EdgeInsetsDirectional.only(end: 12),
-                child: PostTagChip(
+                child: SalmonTagChip(
                   onTap: () {
                     isSubbed.value = !isSubbed.value;
                   },

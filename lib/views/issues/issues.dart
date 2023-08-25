@@ -85,7 +85,6 @@ class Issues extends HookConsumerWidget {
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 24),
                 Text(
                   'Previous Submissions', // TODO tr

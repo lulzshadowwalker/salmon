@@ -14,4 +14,5 @@ final class SalmonRoutes {
   static const String fullscreenable = 'fullscreenable';
   // static const String locationPicker = 'location-picker';
   static const String chat = 'chat';
+  static const String eventView = 'event-view';
 }

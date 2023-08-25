@@ -20,6 +20,7 @@ import 'package:salmon/providers/storage/remote_storage/remote_storage_provider.
 import 'package:uuid/uuid.dart';
 import '../../l10n/l10n_imports.dart';
 import '../../models/agency.dart';
+import '../../models/event.dart';
 import '../../models/poll_vote.dart';
 import '../../models/post.dart';
 import '../../models/typedefs/user_id.dart';
@@ -50,6 +51,7 @@ final class RemoteDbController {
   static const String _aUrl = 'url';
   static const String _aMimeType = 'mime_type';
   static const String _cPolls = "polls";
+  static const String _cEvents = "events";
   static const String _cPollVotes = "pollVotes";
   /* -------------------------------------------------------------------------- */
 
@@ -463,6 +465,108 @@ user has added a comment "$comment"
           .count()
           .get()
           .then((value) => value.count);
+    } catch (e) {
+      SalmonHelpers.handleException(e: e, logger: _log);
+      return null;
+    }
+  }
+
+  Future<List<Event>> get events async => await _db
+      .collection(_cEvents)
+      .orderBy('date_created', descending: true)
+      .get()
+      .then(
+        (query) => query.docs
+            .map(
+              (doc) => Event.fromMap(doc.data()),
+            )
+            .toList(),
+      );
+
+  Future<void> interested(Event event) async {
+    try {
+      final uid = ref.read(a12nProvider).userId;
+
+      await _db
+          .collection(_cEvents)
+          .doc(event.id)
+          .collection(_cUsers)
+          .doc(uid)
+          .set({
+        'userId': uid,
+        'submittedOn': DateTime.now().toUtc(),
+      });
+
+      _log.v('''✨ user is interested in the event:
+id: ${event.id}
+title: ${event.enTitle}
+''');
+    } catch (e) {
+      SalmonHelpers.handleException(e: e, logger: _log);
+    }
+  }
+
+  Future<void> uninterested(Event event) async {
+    try {
+      final uid = ref.read(a12nProvider).userId;
+
+      await _db
+          .collection(_cEvents)
+          .doc(event.id)
+          .collection(_cUsers)
+          .doc(uid)
+          .delete();
+
+      _log.v('''🥱 user is uninterested in the event:
+id: ${event.id}
+title: ${event.enTitle}
+''');
+    } catch (e) {
+      SalmonHelpers.handleException(e: e, logger: _log);
+    }
+  }
+
+  Future<List<SalmonUser>?> interestedUsers(Event event) async {
+    try {
+      return await _db
+          .collection(_cEvents)
+          .doc(event.id)
+          .collection(_cUsers)
+          .get()
+          .then(
+            (query) => query.docs
+                .map(
+                  (doc) => SalmonUser.fromMap(doc.data()),
+                )
+                .toList(),
+          );
+    } catch (e) {
+      SalmonHelpers.handleException(e: e, logger: _log);
+      return null;
+    }
+  }
+
+  Future<SalmonUser?> checkEventUser(Event event) async {
+    try {
+      final uid = ref.read(a12nProvider).userId;
+
+      final res = await _db
+          .collection(_cEvents)
+          .doc(event.id)
+          .collection(_cUsers)
+          .where('userId', isEqualTo: uid)
+          .get()
+          .then((query) {
+        final doc = query.docs.firstOrNull;
+        return doc != null ? SalmonUser.fromMap(doc.data()) : null;
+      });
+
+      _log.v('''✨ User is ${res == null ? 'not' : ''} interested in the event:
+id: ${event.id}
+title: ${event.enTitle}
+''');
+
+      return res;
     } catch (e) {
       SalmonHelpers.handleException(e: e, logger: _log);
       return null;

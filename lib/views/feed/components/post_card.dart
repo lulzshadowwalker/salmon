@@ -8,7 +8,7 @@ import 'package:salmon/providers/agency/agency_provider.dart';
 import 'package:salmon/providers/comment_count/comment_count_provider.dart';
 import 'package:salmon/providers/theme_data/theme_data_provider.dart';
 import 'package:salmon/router/salmon_routes.dart';
-import 'package:salmon/views/feed/components/post_tag_chip.dart';
+import 'package:salmon/views/shared/salmon_tag_chip/salmon_tag_chip.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../models/post.dart';
@@ -86,7 +86,7 @@ class PostCard extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               if (agency.hasValue)
-                                PostTagChip(
+                                SalmonTagChip(
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,

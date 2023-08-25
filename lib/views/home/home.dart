@@ -23,7 +23,7 @@ class Home extends HookConsumerWidget {
 
     return Scaffold(
       appBar: const HomeAppBar(),
-      drawer: const Drawer(child: SalmonDrawer()),
+      drawer: const SalmonDrawer(),
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
           splashColor: Colors.transparent,

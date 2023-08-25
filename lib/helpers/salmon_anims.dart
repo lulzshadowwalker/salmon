@@ -38,6 +38,9 @@ final class SalmonAnims {
   /// https://lottiefiles.com/36309-google-icons-analytics
   static const String analytics = 'assets/anims/analytics.json';
 
+  /// https://lottiefiles.com/animations/schedule-for-class-meeting-call-Ugo14JmA1E
+  static const String events = 'assets/anims/events.json';
+
   /// https://lottiefiles.com/65483-setting-icon-animation
   static const String cog = 'assets/anims/cog.json';
 

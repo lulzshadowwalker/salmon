@@ -8,16 +8,14 @@ class MenuButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: const EdgeInsetsDirectional.only(start: 32),
-      child: GestureDetector(
-        onTap: () {
+      padding: const EdgeInsetsDirectional.only(start: 20),
+      child: IconButton(
+        iconSize: 32,
+        onPressed: () {
           final s = Scaffold.of(context);
           s.isDrawerOpen ? s.closeDrawer() : s.openDrawer();
         },
-        child: const Icon(
-          FontAwesomeIcons.barsStaggered,
-          size: 32,
-        ),
+        icon: const Icon(FontAwesomeIcons.bars),
       ),
     );
   }

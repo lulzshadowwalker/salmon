@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../../theme/salmon_colors.dart';
 
-class PostTagChip extends StatelessWidget {
-  const PostTagChip({
+class SalmonTagChip extends StatelessWidget {
+  const SalmonTagChip({
     required this.child,
     this.maxWidth = double.infinity,
     this.onTap,
@@ -23,10 +23,10 @@ class PostTagChip extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
+            borderRadius: BorderRadius.circular(15),
             border: Border.all(
               width: 0.3,
-              color: SalmonColors.muted,
+              color: SalmonColors.mutedLight,
             ),
             color: SalmonColors.muted.withOpacity(0.15),
           ),

@@ -60,7 +60,6 @@ class SalmonInfoDialog extends StatelessWidget {
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     title,
@@ -76,8 +75,12 @@ class SalmonInfoDialog extends StatelessWidget {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                  const SizedBox(height: 16),
-                  Expanded(child: child),
+                  const Spacer(),
+                  FractionallySizedBox(
+                    widthFactor: 0.55,
+                    child: child,
+                  ),
+                  const Spacer(),
                   OutlinedButton(
                     onPressed: () async {
                       if (onTap != null) await onTap!();

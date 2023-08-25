@@ -7,7 +7,7 @@ import 'package:salmon/helpers/salmon_extensions.dart';
 import '../../../helpers/salmon_helpers.dart';
 import '../../../providers/user/user_provider.dart';
 import '../../../theme/salmon_colors.dart';
-import 'comment_avatar.dart';
+import '../../shared/salmon_user_avatar/salmon_user_avatar.dart';
 import 'comment_data.dart';
 
 class CommentTile extends StatelessWidget {
@@ -37,7 +37,7 @@ class CommentTile extends StatelessWidget {
                 ? Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CommentAvatar(
+                      SalmonUserAvatar(
                         user: author.value!,
                         size: 28,
                       ),

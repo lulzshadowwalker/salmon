@@ -13,7 +13,7 @@ class Settings extends ConsumerWidget {
         title: Text(SL.of(context).settings),
         bottom: const AppBarDivider(),
       ),
-      drawer: const Drawer(child: SalmonDrawer()),
+      drawer: const SalmonDrawer(),
       body: SalmonSingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(24, 32, 24, 0),

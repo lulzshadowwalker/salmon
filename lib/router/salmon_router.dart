@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/providers/a12n/a12n_provider.dart';
 import 'package:salmon/router/salmon_routes.dart';
-import 'package:salmon/views/analytics/analytics.dart';
 import 'package:salmon/views/feed/components/post_view.dart';
 import 'package:salmon/views/interface/interface.dart';
 import 'package:salmon/views/issues/components/general_submission/components/general_submission_components.dart';
@@ -18,10 +17,12 @@ import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 import '../helpers/salmon_const.dart';
 import '../models/post.dart';
+import '../models/event.dart' as salmon;
 import '../models/submission.dart';
 import '../views/auth/sign_in.dart';
 import '../views/auth/sign_up.dart';
 import '../views/chat/components/channel_view.dart';
+import '../views/events/components/event_components.dart';
 import '../views/not_found/not_found.dart';
 import 'gorouter_refresh_stream.dart';
 
@@ -69,6 +70,14 @@ class SalmonRouter {
                 },
               ),
               GoRoute(
+                name: SalmonRoutes.eventView,
+                path: SalmonRoutes.eventView,
+                builder: (context, state) {
+                  final extra = state.extra! as salmon.Event;
+                  return EventView(event: extra);
+                },
+              ),
+              GoRoute(
                 name: SalmonRoutes.chat,
                 path: SalmonRoutes.chat,
                 builder: (context, state) {
@@ -95,7 +104,7 @@ class SalmonRouter {
               GoRoute(
                 name: SalmonRoutes.analytics,
                 path: SalmonRoutes.analytics,
-                builder: (context, state) => const Analytics(),
+                builder: (context, state) => const Events(),
               ),
               GoRoute(
                 name: SalmonRoutes.generalSubmission,

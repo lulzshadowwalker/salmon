@@ -9,7 +9,7 @@ import 'package:salmon/views/feed/components/post_data.dart';
 import '../../../providers/current_user/current_user_provider.dart';
 import '../../../providers/db/remote_db/remote_db_provider.dart';
 import '../../../theme/salmon_colors.dart';
-import 'comment_avatar.dart';
+import '../../shared/salmon_user_avatar/salmon_user_avatar.dart';
 
 class CommentInput extends StatefulHookConsumerWidget {
   const CommentInput({super.key});
@@ -35,7 +35,7 @@ class _CommentInputState extends ConsumerState<CommentInput> {
               end: 12,
               bottom: 4,
             ),
-            child: CommentAvatar(user: user.value!),
+            child: SalmonUserAvatar(user: user.value!),
           ),
         Expanded(
           child: DetectableTextField(

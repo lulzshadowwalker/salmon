@@ -5,8 +5,8 @@ import 'package:salmon/models/salmon_user.dart';
 
 import '../../../theme/salmon_colors.dart';
 
-class CommentAvatar extends StatelessWidget {
-  const CommentAvatar({
+class SalmonUserAvatar extends StatelessWidget {
+  const SalmonUserAvatar({
     super.key,
     required this.user,
     this.size = 36,
