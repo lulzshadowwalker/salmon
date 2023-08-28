@@ -54,7 +54,7 @@ class _IssueSubmissionStep1State extends ConsumerState<IssueSubmissionStep1> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'How can we help you', // TODO tr
+                  context.sl.howCanWeHelpYou,
                   style: context.textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -66,7 +66,7 @@ class _IssueSubmissionStep1State extends ConsumerState<IssueSubmissionStep1> {
                     isRepeatingAnimation: false,
                     animatedTexts: [
                       TyperAnimatedText(
-                        'Please provide a brief summary of the issue you are facing. This will help us understand and address your problem more efficiently', // TODO tr
+                        context.sl.provideBriefSummary,
                         speed: const Duration(milliseconds: 24),
                       ),
                     ],
@@ -75,14 +75,13 @@ class _IssueSubmissionStep1State extends ConsumerState<IssueSubmissionStep1> {
                 SalmonFormField(
                   formFieldKey: _formFieldKey,
                   focusNode: _focusNode,
-                  hintText: 'Summarize your problem ..', // TODO tr
+                  hintText: context.sl.summarizeYourProblem,
                   initialValue: submission.summary,
                   maxLines: null,
                   keyboardType: TextInputType.multiline,
                   border: InputBorder.none,
-                  validator: (value) => value.isEmpty
-                      ? 'Please give us a summary of your problem' // TODO tr
-                      : null,
+                  validator: (value) =>
+                      value.isEmpty ? context.sl.giveUsSummary : null,
                   onSaved: (value) {
                     ref.read(_submissionProvider.notifier).set(
                           submission.copyWith(

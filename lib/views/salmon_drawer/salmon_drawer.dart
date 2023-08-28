@@ -49,7 +49,7 @@ class SalmonDrawer extends HookConsumerWidget {
                             child: Text(
                               isGuest
                                   ? SL.of(context).guest
-                                  : (user?.displayName) ?? 'Unknown',
+                                  : (user?.displayName) ?? context.sl.unknown,
                               style: Theme.of(context)
                                   .textTheme
                                   .headlineSmall
@@ -86,7 +86,7 @@ class SalmonDrawer extends HookConsumerWidget {
                       isActive: activePage.runtimeType == Events,
                       inactiveColor: context.theme.textTheme.bodyLarge?.color,
                     ),
-                    title: 'Events', // TODO tr
+                    title: context.sl.events,
                     isActive: activePage.runtimeType == Events,
                   ),
                   _DrawerTile(

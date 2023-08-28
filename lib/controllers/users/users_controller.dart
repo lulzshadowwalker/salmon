@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -53,7 +55,7 @@ final class UsersController {
                 {
                   'created_on': DateTime.now().toUtc(),
                   'id': uid,
-                  'fcm_token': false ? '' : await NotifsController.fcmToken,
+                  'fcm_token': await NotifsController.fcmToken,
                 },
               ),
           );

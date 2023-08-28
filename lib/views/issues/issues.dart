@@ -39,13 +39,12 @@ class Issues extends HookConsumerWidget {
                 Padding(
                   padding: const EdgeInsetsDirectional.only(start: 12),
                   child: Text(
-                    'Submissions',
+                    context.sl.submissions,
                     style: context.textTheme.headlineMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                ), // TODO tr
-
+                ),
                 const SizedBox(height: 12),
                 Row(
                   children: [
@@ -54,7 +53,7 @@ class Issues extends HookConsumerWidget {
                         onTap: () {
                           context.goNamed(SalmonRoutes.issueSubmission);
                         },
-                        title: 'Complaint', // TODO tr
+                        title: context.sl.complaint,
                         backgroundColor: SalmonColors.brown,
                         child: ColorFiltered(
                           colorFilter: ColorFilter.mode(
@@ -74,7 +73,7 @@ class Issues extends HookConsumerWidget {
                         onTap: () {
                           context.goNamed(SalmonRoutes.generalSubmission);
                         },
-                        title: 'General', // TODO tr
+                        title: context.sl.suggestion,
                         backgroundColor: SalmonColors.blue,
                         child: Lottie.asset(
                           SalmonAnims.shapes,
@@ -87,14 +86,12 @@ class Issues extends HookConsumerWidget {
                 ),
                 const SizedBox(height: 24),
                 Text(
-                  'Previous Submissions', // TODO tr
+                  context.sl.previousSubmissions, 
                   style: context.textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-
                 const SizedBox(height: 12),
-
                 Expanded(
                   child: submissions.when(
                     data: (data) => data.isNotEmpty
@@ -118,7 +115,7 @@ class Issues extends HookConsumerWidget {
                                   ),
                                   const SizedBox(height: 12),
                                   Text(
-                                    'feel free to reach out for any suggestions or complaints you may have',
+                                    context.sl.feelFreeToReachOutWithSuggestions,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: SalmonColors.muted,

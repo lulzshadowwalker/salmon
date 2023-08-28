@@ -77,8 +77,8 @@ class _SalmonPollOptionState extends ConsumerState<_SalmonPollOption> {
           FractionallySizedBox(
             widthFactor: fillWidthFactor,
             child: ClipRRect(
-              borderRadius: const BorderRadius.horizontal(
-                left: Radius.circular(_SalmonPollOption._borderRadius),
+              borderRadius: const BorderRadiusDirectional.horizontal(
+                start: Radius.circular(_SalmonPollOption._borderRadius),
               ),
               child: Container(
                 color: context.cs.primaryContainer,
@@ -120,8 +120,13 @@ class _SalmonPollOptionState extends ConsumerState<_SalmonPollOption> {
                         children: [
                           // TODO set overflow and alignment
                           Flexible(
-                            child: Text(widget.option.enTitle ?? 'unknown'),
-                          ), // TODO tr
+                            child: Text(
+                              (context.isEn
+                                      ? widget.option.enTitle
+                                      : widget.option.arTitle) ??
+                                  context.sl.unknown,
+                            ),
+                          ),
                           AnimatedSwitcher(
                             duration: _SalmonPollOption._duration,
                             child: so == widget.option.id && isActive

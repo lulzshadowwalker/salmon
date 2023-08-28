@@ -27,8 +27,7 @@ class _NotifsDetailsState extends ConsumerState<NotifsDetails> {
         if (user.value != null && user.value!.topics != _initialState) {
           NotifsController.showPopup(
             context: context,
-            message:
-                'your notificaions preferences have been updated', // TODO tr
+            message: context.sl.notificationsPrefsUpdated,
             type: NotifType.success,
           );
         }
@@ -38,7 +37,7 @@ class _NotifsDetailsState extends ConsumerState<NotifsDetails> {
       child: SalmonUnfocusableWrapper(
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('Notifications'), // TODO tr
+            title: Text(context.sl.notifications),
             bottom: const AppBarDivider(),
           ),
           body: Consumer(
@@ -61,7 +60,7 @@ class _NotifsDetailsState extends ConsumerState<NotifsDetails> {
                 error: (error, stackTrace) => const Center(
                   child: Text(
                     'unknown error has occurred',
-                  ), // TODO tr
+                  ), // TODO error widget
                 ),
                 loading: () => ListView.separated(
                   physics: const NeverScrollableScrollPhysics(),

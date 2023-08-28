@@ -23,7 +23,7 @@ class _SubmissionPreview extends HookConsumerWidget {
                     start: 36,
                   ),
                   child: Text(
-                    'Submission\nReview', // TODO tr
+                    context.sl.submissionReview.replaceAll(' ', '\n'),
                     style: context.textTheme.headlineLarge?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -35,7 +35,7 @@ class _SubmissionPreview extends HookConsumerWidget {
                     start: 24,
                   ),
                   child: Text(
-                    'Agency', // TODO tr
+                    context.sl.agency,
                     style: context.textTheme.headlineSmall,
                   ),
                 ),
@@ -51,7 +51,7 @@ class _SubmissionPreview extends HookConsumerWidget {
                         underline: const SizedBox.shrink(),
                         dropdownColor: context.theme.scaffoldBackgroundColor,
                         elevation: 4,
-                        hint: const Text('agency'), // TODO tr
+                        hint: Text(context.sl.agency.toLowerCase()),
                         isExpanded: true,
                         value: submission.agency,
                         items: data
@@ -75,13 +75,14 @@ class _SubmissionPreview extends HookConsumerWidget {
                                     const SizedBox(width: 16),
                                     Expanded(
                                       child: Text(
-                                        e.enName ?? 'unknown',
+                                        (context.isEn ? e.enName : e.arName) ??
+                                            context.sl.unknown,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           color: SalmonColors.muted,
                                         ),
                                       ),
-                                    ), // TODO tr
+                                    ),
                                   ],
                                 ),
                               ),
@@ -110,7 +111,7 @@ class _SubmissionPreview extends HookConsumerWidget {
                     start: 24,
                   ),
                   child: Text(
-                    'Message',
+                    context.sl.message,
                     style: context.textTheme.headlineSmall,
                   ),
                 ),
@@ -144,7 +145,7 @@ class _SubmissionPreview extends HookConsumerWidget {
                       start: 24,
                     ),
                     child: Text(
-                      'Attachments',
+                      context.sl.attachments,
                       style: context.textTheme.headlineSmall,
                     ),
                   ),
@@ -166,78 +167,78 @@ class _SubmissionPreview extends HookConsumerWidget {
                               aspectRatio: 1,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8),
-                                child: Builder(builder: (context) {
-                                  final mime = item.mimeType ??
-                                      lookupMimeType(item.name) ??
-                                      '';
+                                child: Builder(
+                                  builder: (context) {
+                                    final mime = item.mimeType ??
+                                        lookupMimeType(item.name) ??
+                                        '';
 
-                                  final mimeNameIndexEnd = mime.indexOf('/');
-                                  if (mimeNameIndexEnd == -1) {
-                                    return const SizedBox.shrink();
-                                  }
+                                    final mimeNameIndexEnd = mime.indexOf('/');
+                                    if (mimeNameIndexEnd == -1) {
+                                      return const SizedBox.shrink();
+                                    }
 
-                                  switch (mime.substring(0, mimeNameIndexEnd)) {
-                                    case 'image':
-                                      return SalmonFullscreenable(
-                                        child: AspectRatio(
-                                          aspectRatio: 1,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                            child: Image.file(
-                                              File(item.path),
-                                              fit: BoxFit.cover,
+                                    switch (
+                                        mime.substring(0, mimeNameIndexEnd)) {
+                                      case 'image':
+                                        return SalmonFullscreenable(
+                                          child: AspectRatio(
+                                            aspectRatio: 1,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              child: Image.file(
+                                                File(item.path),
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    case 'video':
-                                      final controller =
-                                          VideoPlayerController.file(
-                                              File(item.path));
+                                        );
+                                      case 'video':
+                                        final controller =
+                                            VideoPlayerController.file(
+                                                File(item.path));
 
-                                      return SalmonFullscreenable(
-                                        child: SalmonVideoPlayer(
-                                          controller,
-                                          onInitialized: (con) => con.play(),
-                                        ),
-                                      );
-                                    default:
-                                      return Container(
-                                        padding: const EdgeInsets.all(8),
-                                        color: SalmonColors.lightBlue,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            const FractionallySizedBox(
-                                              widthFactor: 1,
-                                              child: Align(
-                                                alignment: Alignment.center,
-                                                child: FaIcon(
-                                                  FontAwesomeIcons.solidFile,
+                                        return SalmonFullscreenable(
+                                          child: SalmonVideoPlayer(
+                                            controller,
+                                            onInitialized: (con) => con.play(),
+                                          ),
+                                        );
+                                      default:
+                                        return Container(
+                                          padding: const EdgeInsets.all(8),
+                                          color: SalmonColors.lightBlue,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              const FractionallySizedBox(
+                                                widthFactor: 1,
+                                                child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: FaIcon(
+                                                    FontAwesomeIcons.solidFile,
+                                                    color: SalmonColors.blue,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(height: 16),
+                                              Text(
+                                                item.name,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(
+                                                  fontSize: 12,
                                                   color: SalmonColors.blue,
                                                 ),
                                               ),
-                                            ),
-                                            const SizedBox(height: 16),
-                                            Text(
-                                              item.name,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: const TextStyle(
-                                                fontSize: 12,
-                                                color: SalmonColors.blue,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                  }
-                                }
-                                    // TODO animated list
-
-                                    ),
+                                            ],
+                                          ),
+                                        );
+                                    }
+                                  },
+                                ),
                               ),
                             ),
                             Positioned(

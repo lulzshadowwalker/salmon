@@ -1,8 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
+import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/helpers/salmon_helpers.dart';
 import 'package:uuid/uuid.dart';
 
@@ -93,7 +96,7 @@ $data
 
       NotifsController.showPopup(
         context: context,
-        message: 'we shall be in touch shortly', // TODO tr
+        message: context.sl.inTouchShortly,
         type: NotifType.success,
       );
     } catch (e) {

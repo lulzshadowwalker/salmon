@@ -91,7 +91,7 @@ class SizeReportingWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _SizeReportingWidgetState createState() => _SizeReportingWidgetState();
+  State createState() => _SizeReportingWidgetState();
 }
 
 class _SizeReportingWidgetState extends State<SizeReportingWidget> {

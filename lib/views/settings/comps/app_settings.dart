@@ -17,7 +17,7 @@ class _AppSettings extends HookConsumerWidget {
       options: [
         if (!isGuest)
           _SettingsOption(
-            title: const Text('notifications'), // TODO tr
+            title: Text(context.sl.notifications.toLowerCase()),
             onTap: () => context.pushNamed(SalmonRoutes.notifsDetails),
             margin: const EdgeInsets.only(bottom: 8),
           ),

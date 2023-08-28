@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +29,7 @@ class _SalmonLocationPickerState extends State<SalmonLocationPicker> {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: Text(
-          'Tap to Select a Location',
+          context.sl.tapToSelectLocation,
           style: context.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
             color: SalmonColors.white,
@@ -133,8 +132,7 @@ class _SalmonLocationPickerState extends State<SalmonLocationPicker> {
                             ),
                         onPressed: () => Navigator.of(context)
                             .maybePop(selectedLocation.value),
-
-                        child: const Text('Save'), // TODO tr
+                        child: Text(context.sl.save),
                       ),
               ),
             ),

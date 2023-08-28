@@ -10,8 +10,6 @@ import 'package:salmon/helpers/salmon_helpers.dart';
 import 'package:salmon/l10n/l10n_imports.dart';
 import 'package:salmon/providers/a12n/a12n_provider.dart';
 import 'package:salmon/providers/current_user/current_user_provider.dart';
-import 'package:salmon/providers/router/router_provider.dart';
-import 'package:salmon/router/salmon_routes.dart';
 import 'package:salmon/theme/salmon_colors.dart';
 import '../../models/enums/notif_type.dart';
 import '../../models/notif_config.dart';
@@ -173,7 +171,7 @@ Popup shown with details
       }
 
       const initializationSettingsAndroid = AndroidInitializationSettings(
-        '@mipmap/ic_launcher', // TODO notif icon
+        '@mipmap/ic_launcher',
       );
 
       const initializationSettingsIOS = DarwinInitializationSettings();

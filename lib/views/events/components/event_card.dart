@@ -174,14 +174,16 @@ class _EventCard extends HookConsumerWidget {
                                         ) =>
                                             const SizedBox.shrink(),
                                       ),
-
                                       Expanded(
                                         child: Text(
-                                          data?.enName ?? 'unknown',
+                                          (context.isEn
+                                                  ? data?.enName
+                                                  : data?.arName) ??
+                                              context.sl.unknown,
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                         ),
-                                      ), // TODO tr
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -195,7 +197,8 @@ class _EventCard extends HookConsumerWidget {
                         FractionallySizedBox(
                           widthFactor: 0.75,
                           child: Text(
-                            event.enTitle ?? 'Read more', // TODO tr
+                            (context.isEn ? event.enTitle : event.arTitle) ??
+                                context.sl.readMore,
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineSmall
@@ -211,7 +214,10 @@ class _EventCard extends HookConsumerWidget {
                             maxWidth: 225,
                           ),
                           child: Text(
-                            event.enSummary ?? '',
+                            (context.isEn
+                                    ? event.enSummary
+                                    : event.arSummary) ??
+                                '',
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(

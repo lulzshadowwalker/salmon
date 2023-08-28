@@ -1,16 +1,17 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/helpers/salmon_images.dart';
 import 'package:search_page/search_page.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
-import '../../../helpers/salmon_const.dart';
 import '../../../models/agency.dart';
 import '../../../providers/a12n/a12n_provider.dart';
 import '../../../providers/agencies/agencies_provider.dart';
 import '../../../providers/chat/chat_provider.dart';
-import '../../../providers/l10n/async_l10n_provider.dart';
 import 'channel_view.dart';
 import 'chat_avatar.dart';
 
@@ -21,20 +22,12 @@ class ChatSearchAgencyButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final agencies = ref.watch(agenciesProvider);
 
-    final locale = ref.watch(asyncL10nProvider).when<Locale>(
-          data: (locale) => locale,
-          error: (_, __) => const Locale(SalmonConst.en),
-          loading: () => const Locale(SalmonConst.en),
-        );
-
-    final isArabic = locale == const Locale(SalmonConst.ar);
-
     return FloatingActionButton(
       onPressed: () => showSearch(
         context: context,
         delegate: SearchPage<Agency>(
           items: agencies.value ?? [],
-          searchLabel: 'connect with us ..', // TODO tr
+          searchLabel: context.sl.connectWithUs,
           suggestion: ListView.builder(
             itemCount: agencies.value?.length ?? 0,
             itemBuilder: (BuildContext context, int index) {
@@ -45,8 +38,8 @@ class ChatSearchAgencyButton extends ConsumerWidget {
                 ),
                 minLeadingWidth: 8,
                 title: Text(
-                  (isArabic ? agency.arName : agency.enName) ??
-                      'Live Chat', // TODO tr
+                  (context.isEn ? agency.enName : agency.arName) ??
+                      context.sl.liveChat,
                 ),
                 onTap: () async {
                   final uid = ref.read(a12nProvider).userId;
@@ -56,7 +49,7 @@ class ChatSearchAgencyButton extends ConsumerWidget {
                     client,
                     'messaging',
                     '$uid${agency.id}',
-                    name: isArabic ? agency.arName : agency.enName,
+                    name: context.isEn ? agency.enName : agency.arName,
                     image: agency.logo,
                     extraData: {
                       'members': [uid, agency.id]
@@ -82,8 +75,8 @@ class ChatSearchAgencyButton extends ConsumerWidget {
               );
             },
           ),
-          failure: const Center(
-            child: Text('Can\'t find what you are looking for?'), // TODO tr
+          failure: Center(
+            child: Text(context.sl.cantFindWhatYoureLookingFor),
           ),
           filter: (agency) => [
             agency.enName,
@@ -95,8 +88,8 @@ class ChatSearchAgencyButton extends ConsumerWidget {
             ),
             minLeadingWidth: 8,
             title: Text(
-              (isArabic ? agency.arName : agency.enName) ??
-                  'Live Chat', // TODO tr
+              (context.isEn ? agency.enName : agency.arName) ??
+                  context.sl.liveChat,
             ),
           ),
         ),

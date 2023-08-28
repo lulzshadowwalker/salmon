@@ -45,7 +45,7 @@ class GeneralSubmissionStep3 extends HookConsumerWidget {
                 child: Consumer(
                   builder: (context, ref, child) {
                     return Text(
-                      'Anything you want to show us', // TODO tr
+                      context.sl.anythingWantToShowUs,
                       style: context.textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -82,7 +82,7 @@ class GeneralSubmissionStep3 extends HookConsumerWidget {
                                 );
                           },
                           hasValue: ref.watch(_hasMediaProvider),
-                          title: 'media', // TODO tr
+                          title: context.sl.media,
                           backgroundColor: SalmonColors.blue,
                           size: _cardSize,
                           child: const FaIcon(FontAwesomeIcons.solidImage),
@@ -110,7 +110,7 @@ class GeneralSubmissionStep3 extends HookConsumerWidget {
                                 );
                           },
                           hasValue: ref.watch(_hasPhotoProvider),
-                          title: 'photo', // TODO tr
+                          title: context.sl.photo,
                           backgroundColor: Colors.deepPurple,
                           size: _cardSize,
                           child: const FaIcon(FontAwesomeIcons.camera),
@@ -138,7 +138,7 @@ class GeneralSubmissionStep3 extends HookConsumerWidget {
                                 );
                           },
                           hasValue: ref.watch(_hasVideoProvider),
-                          title: 'record', // TODO tr
+                          title: context.sl.record,
                           backgroundColor: SalmonColors.orange,
                           size: _cardSize,
                           child: const FaIcon(FontAwesomeIcons.video),
@@ -172,7 +172,7 @@ class GeneralSubmissionStep3 extends HookConsumerWidget {
                                 );
                           },
                           hasValue: ref.watch(_hasLocationProvider),
-                          title: 'location', // TODO tr
+                          title: context.sl.location,
                           backgroundColor: SalmonColors.green,
                           size: _cardSize,
                           child: const FaIcon(FontAwesomeIcons.locationDot),
@@ -199,7 +199,7 @@ class GeneralSubmissionStep3 extends HookConsumerWidget {
                                 );
                           },
                           hasValue: ref.watch(_hasFilesProvider),
-                          title: 'files', // TODO tr
+                          title: context.sl.files,
                           backgroundColor:
                               Theme.of(context).colorScheme.primary,
                           size: _cardSize,

@@ -26,15 +26,13 @@ class Events extends ConsumerWidget {
                     top: 12,
                   ),
                   child: Text(
-                    'Events',
+                    context.sl.events,
                     style: context.textTheme.headlineMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                ), // TODO tr
-
+                ),
                 const SizedBox(height: 12),
-
                 Expanded(
                   child: events.when(
                     data: (data) => Theme(

@@ -53,7 +53,7 @@ class _IssueSubmissionStep1State extends ConsumerState<IssueSubmissionStep1> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Tell us what\'s on your mind', // TODO tr
+                context.sl.tellUsWhatsOnYourMind,
                 style: context.textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -65,7 +65,7 @@ class _IssueSubmissionStep1State extends ConsumerState<IssueSubmissionStep1> {
                   isRepeatingAnimation: false,
                   animatedTexts: [
                     TyperAnimatedText(
-                      'We would very much like to hear anything you have to say\n', // TODO tr
+                      context.sl.wouldLikeToHearWhatYouHave,
                       speed: const Duration(milliseconds: 24),
                     ),
                   ],
@@ -74,14 +74,13 @@ class _IssueSubmissionStep1State extends ConsumerState<IssueSubmissionStep1> {
               SalmonFormField(
                 formFieldKey: _formFieldKey,
                 focusNode: _focusNode,
-                hintText: 'we are listening ..', // TODO tr
+                hintText: context.sl.weAreListening,
                 initialValue: submission.summary,
                 maxLines: null,
                 keyboardType: TextInputType.multiline,
                 border: InputBorder.none,
-                validator: (value) => value.isEmpty
-                    ? 'is there anything you have to say?' // TODO tr
-                    : null,
+                validator: (value) =>
+                    value.isEmpty ? context.sl.anythingYouHaveToSay : null,
                 onSaved: (value) {
                   ref.read(_submissionProvider.notifier).set(
                         submission.copyWith(

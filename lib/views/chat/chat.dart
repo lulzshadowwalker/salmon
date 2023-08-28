@@ -66,7 +66,7 @@ class Chat extends HookConsumerWidget {
                               padding:
                                   const EdgeInsetsDirectional.only(start: 12),
                               child: Text(
-                                'Chat', // TODO tr
+                                context.sl.chat,
                                 style:
                                     context.textTheme.headlineMedium?.copyWith(
                                   fontWeight: FontWeight.bold,
@@ -93,7 +93,9 @@ class Chat extends HookConsumerWidget {
               _log.e(error);
 
               return const Center(
-                child: Text('unknown error has occurred'), // TODO error widget
+                child: Text(
+                  'unknown error has occurred',
+                ), // TODO error widget
               );
             },
             loading: () => const Center(

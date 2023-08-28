@@ -119,7 +119,9 @@ class _PostViewState extends ConsumerState<PostView> {
                               ),
                             ),
                           Text(
-                            widget.post.enTitle!,
+                            (context.isEn
+                                ? widget.post.enTitle
+                                : widget.post.arTitle)!,
                             style: context.textTheme.headlineSmall?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
@@ -148,15 +150,17 @@ class _PostViewState extends ConsumerState<PostView> {
                                       errorWidget: (context, url, error) =>
                                           const SizedBox.shrink(),
                                     ),
-
                                     Expanded(
                                       child: Text(
-                                        data?.enName ?? 'unknown',
+                                        (context.isEn
+                                                ? data?.enName
+                                                : data?.arName) ??
+                                            context.sl.unknown,
                                         style: TextStyle(
                                           color: SalmonColors.muted,
                                         ),
                                       ),
-                                    ), // TODO tr
+                                    ),
                                   ],
                                 ),
                                 error: (error, stackTrace) =>
@@ -170,7 +174,10 @@ class _PostViewState extends ConsumerState<PostView> {
                     ),
                     Expanded(
                       child: MarkdownBody(
-                        data: widget.post.enBody!.replaceAll('<br>', '\n'),
+                        data: (context.isEn
+                                ? widget.post.enBody
+                                : widget.post.arBody)!
+                            .replaceAll('<br>', '\n'),
                         styleSheet: SalmonTheme.markdownStyleSheet(context),
                       ),
                     ),
@@ -186,14 +193,14 @@ class _PostViewState extends ConsumerState<PostView> {
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 32),
               color: context.theme.scaffoldBackgroundColor,
-              child: const Row(
+              child: Row(
                 children: [
-                  FaIcon(
+                  const FaIcon(
                     FontAwesomeIcons.comments,
                     size: 14,
                   ),
-                  SizedBox(width: 8),
-                  Text('comments'),
+                  const SizedBox(width: 8),
+                  Text(context.sl.comments),
                 ],
               ),
             ),

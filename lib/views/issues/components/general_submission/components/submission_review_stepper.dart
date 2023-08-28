@@ -5,7 +5,6 @@ class _SubmissionReviewStepper extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final submission = _SubmissionData.of(context)!.data;
     final activeStep = useMemoized(() => 0);
 
     return EasyStepper(

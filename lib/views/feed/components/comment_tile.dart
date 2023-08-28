@@ -50,7 +50,7 @@ class CommentTile extends StatelessWidget {
                               children: [
                                 Text(
                                   author.value?.displayName ??
-                                      'unknown', // TODO tr
+                                      context.sl.unknown,
                                   style:
                                       context.textTheme.titleMedium?.copyWith(
                                     fontWeight: FontWeight.bold,

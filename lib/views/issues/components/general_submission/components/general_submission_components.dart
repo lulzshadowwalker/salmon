@@ -41,6 +41,5 @@ part 'general_submission_preview.dart';
 part 'general_submission_review.dart';
 part 'submission_provider.dart';
 part 'submission_review_stepper.dart';
-part 'submission_data.dart';
 part '../general_submission.dart';
 part 'general_submit_button.dart';

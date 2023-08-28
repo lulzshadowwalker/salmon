@@ -109,8 +109,8 @@ class Onboarding extends HookConsumerWidget {
                                             isLoading.value = false;
                                           }
                                         },
-                                        child: const Text(
-                                          'Continue to Salmon', // TODO tr
+                                        child: Text(
+                                          context.sl.continueToSalmon,
                                         ),
                                       ),
                               ),

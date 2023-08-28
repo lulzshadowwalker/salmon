@@ -21,14 +21,14 @@ class OnboardingPage2 extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'We Listen\nWe Act', // TODO tr
+            context.sl.weListenWeAct,
             style: context.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 8),
           Text(
-            'Your Government, Your Trust', // TODO tr
+            context.sl.yourGovYourTrust,
             style: context.textTheme.headlineSmall,
           )
         ],

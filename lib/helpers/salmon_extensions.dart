@@ -2,6 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:salmon/helpers/salmon_const.dart';
+
+import '../l10n/l10n_imports.dart';
 
 extension NullAwareString on String? {
   int get length => '$this'.length;
@@ -78,4 +81,8 @@ extension ContextHeleprs on BuildContext {
   MediaQueryData get mq => MediaQuery.of(this);
 
   ColorScheme get cs => Theme.of(this).colorScheme;
+
+  SL get sl => SL.of(this);
+
+  bool get isEn => SL.of(this).localeName == SalmonConst.en;
 }

@@ -59,7 +59,7 @@ class _SubmissionTile extends HookWidget {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  submission.summary ?? 'unknown', // TODO tr
+                  submission.summary ?? context.sl.unknown,
                   maxLines: 1,
                   style: const TextStyle(
                     color: SalmonColors.black,

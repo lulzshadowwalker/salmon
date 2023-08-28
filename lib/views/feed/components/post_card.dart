@@ -4,6 +4,7 @@ import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/providers/agency/agency_provider.dart';
 import 'package:salmon/providers/comment_count/comment_count_provider.dart';
 import 'package:salmon/providers/theme_data/theme_data_provider.dart';
@@ -113,7 +114,10 @@ class PostCard extends ConsumerWidget {
                                           maxWidth: 150,
                                         ),
                                         child: Text(
-                                          agency.value?.enName ?? '',
+                                          (context.isEn
+                                                  ? agency.value?.enName
+                                                  : agency.value?.arName) ??
+                                              '',
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                         ),
@@ -125,7 +129,10 @@ class PostCard extends ConsumerWidget {
                               FractionallySizedBox(
                                 widthFactor: 0.75,
                                 child: Text(
-                                  post.enTitle ?? 'Read more', // TODO tr
+                                  (context.isEn
+                                          ? post.enTitle
+                                          : post.arTitle) ??
+                                      context.sl.readMore,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineSmall

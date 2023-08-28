@@ -46,17 +46,17 @@ class _IsGoingButtonState extends State<_IsGoingButton> {
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 450),
               child: isGoing
-                  ? const Row(
+                  ? Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsetsDirectional.only(end: 8),
                           child: FaIcon(FontAwesomeIcons.check),
                         ),
-                        Text('Going'),
+                        Text(context.sl.going),
                       ],
                     )
-                  : const Text('interested?'),
+                  : Text('${context.sl.interested}?'),
             ),
           );
         },

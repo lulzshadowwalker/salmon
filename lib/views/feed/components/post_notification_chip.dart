@@ -114,7 +114,10 @@ class _PostNotificationChipState extends ConsumerState<PostNotificationChip> {
                       if (!isSubbed.value)
                         Expanded(
                           child: Text(
-                            agency.value?.enName ?? '',
+                            (context.isEn
+                                    ? agency.value?.enName
+                                    : agency.value?.arName) ??
+                                '',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),

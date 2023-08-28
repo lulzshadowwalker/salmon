@@ -54,7 +54,7 @@ class _IssueSubmissionStep3State extends ConsumerState<IssueSubmissionStep3> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Help us\nhelp you', // TODO tr
+                  context.sl.helpUsHelpYou,
                   style: context.textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -63,12 +63,12 @@ class _IssueSubmissionStep3State extends ConsumerState<IssueSubmissionStep3> {
                   formFieldKey: _formFieldKey,
                   focusNode: _focusNode,
                   initialValue: submission.details,
-                  hintText: 'Tell us more about your problem', // TODO tr
+                  hintText: context.sl.tellUsMoreAboutYourProblem,
                   maxLines: null,
                   keyboardType: TextInputType.multiline,
                   border: InputBorder.none,
                   validator: (value) => value.isEmpty
-                      ? 'Please give us more details about your problem' // TODO tr
+                      ? context.sl.giveUsMoreDetailsAboutProblem
                       : null,
                   onSaved: (value) {
                     ref.read(_submissionProvider.notifier).set(

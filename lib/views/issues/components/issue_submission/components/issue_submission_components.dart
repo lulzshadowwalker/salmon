@@ -42,6 +42,5 @@ part './issue_submission_step_4.dart';
 part 'issue_submission_review.dart';
 part 'submission_provider.dart';
 part 'submission_review_stepper.dart';
-part 'submission_data.dart';
 part 'issue_submission_preview.dart';
 part 'issue_submit_button.dart';

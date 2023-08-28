@@ -29,7 +29,7 @@ class ChannelView extends StatelessWidget {
             const SizedBox(width: 8),
             Expanded(
               child: Text(
-                channel.name ?? 'Live Chat', // TODO tr
+                channel.name ?? context.sl.liveChat,
                 maxLines: 2,
                 style: context.textTheme.titleMedium?.copyWith(
                   color: SalmonColors.white,

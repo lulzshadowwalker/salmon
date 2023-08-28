@@ -10,123 +10,125 @@ class GeneralSubmissionReview extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return _SubmissionData(
-      data: submission,
-      child: SalmonUnfocusableWrapper(
-        child: Scaffold(
-          appBar: context.canAnyPop ? AppBar() : null,
-          body: SafeArea(
-            child: SalmonSingleChildScrollView(
-              physics: const ClampingScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(
-                      start: 36,
-                      top: 24,
-                    ),
-                    child: Text(
-                      'Submission\nReview', // TODO tr
-                      style: context.textTheme.headlineLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+    return SalmonUnfocusableWrapper(
+      child: Scaffold(
+        appBar: context.canAnyPop ? AppBar() : null,
+        body: SafeArea(
+          child: SalmonSingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(
+                    start: 36,
+                    top: 24,
+                  ),
+                  child: Text(
+                    context.sl.submissionReview.replaceAll(' ', '\n'),
+                    style: context.textTheme.headlineLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 48),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(
-                      start: 24,
-                    ),
-                    child: Text(
-                      'Agency', // TODO tr
-                      style: context.textTheme.headlineSmall,
-                    ),
+                ),
+                const SizedBox(height: 48),
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(
+                    start: 24,
                   ),
-                  const SizedBox(height: 12),
-                  Consumer(
-                    builder: (context, ref, child) {
-                      final agency =
-                          ref.watch(agencyProvider(submission.agency!));
+                  child: Text(
+                    context.sl.agency,
+                    style: context.textTheme.headlineSmall,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Consumer(
+                  builder: (context, ref, child) {
+                    final agency =
+                        ref.watch(agencyProvider(submission.agency!));
 
-                      return agency.when(
-                        data: (data) => Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 14),
-                          child: Row(
-                            children: [
-                              CachedNetworkImage(
-                                imageUrl: data?.logo ?? '',
-                                height: 28,
-                                width: 28,
-                              ), // TODO placeholder
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Text(
-                                  data?.enName ?? 'unknown',
-                                  style: TextStyle(
-                                    color: SalmonColors.muted,
-                                  ),
-                                ),
-                              ), // TODO tr
-                            ],
-                          ),
-                        ),
-                        error: (error, stackTrace) => const Text(
-                          'Unknown error', // TODO SalmonError
-                        ),
-                        loading: () => const SalmonLoadingIndicator(),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 48),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(
-                      start: 24,
-                    ),
-                    child: Text(
-                      'Message',
-                      style: context.textTheme.headlineSmall,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 14),
-                    child: Text(
-                      submission.summary!,
-                      style: TextStyle(
-                        color: SalmonColors.muted,
-                      ),
-                    ),
-                  ),
-                  if ((submission.attachments ?? []).isNotEmpty) ...[
-                    const SizedBox(height: 48),
-                    Padding(
-                      padding: const EdgeInsetsDirectional.only(
-                        start: 24,
-                      ),
-                      child: Text(
-                        'Attachments',
-                        style: context.textTheme.headlineSmall,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    SizedBox(
-                      height: 128,
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
+                    return agency.when(
+                      data: (data) => Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 14),
-                        separatorBuilder: (context, index) =>
-                            const SizedBox(width: 12),
-                        itemCount: (submission.attachments ?? []).length,
-                        itemBuilder: (context, index) {
-                          final item =
-                              submission.attachments![index] as Attachment;
+                        child: Row(
+                          children: [
+                            CachedNetworkImage(
+                              imageUrl: data?.logo ?? '',
+                              height: 28,
+                              width: 28,
+                            ), // TODO placeholder
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                (context.isEn
+                                        ? data?.enName
+                                        : data?.arName) ??
+                                    context.sl.unknown,
+                                style: TextStyle(
+                                  color: SalmonColors.muted,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      error: (error, stackTrace) => const Text(
+                        'Unknown error', // TODO SalmonError
+                      ),
+                      loading: () => const SalmonLoadingIndicator(),
+                    );
+                  },
+                ),
+                const SizedBox(height: 48),
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(
+                    start: 24,
+                  ),
+                  child: Text(
+                    context.sl.message,
+                    style: context.textTheme.headlineSmall,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
+                  child: Text(
+                    submission.summary!,
+                    style: TextStyle(
+                      color: SalmonColors.muted,
+                    ),
+                  ),
+                ),
+                if ((submission.attachments ?? []).isNotEmpty) ...[
+                  const SizedBox(height: 48),
+                  Padding(
+                    padding: const EdgeInsetsDirectional.only(
+                      start: 24,
+                    ),
+                    child: Text(
+                      context.sl.attachments,
+                      style: context.textTheme.headlineSmall,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  SizedBox(
+                    height: 128,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      padding: const EdgeInsets.symmetric(horizontal: 14),
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(width: 12),
+                      itemCount: (submission.attachments ?? []).length,
+                      itemBuilder: (context, index) {
+                        final item =
+                            submission.attachments![index] as Attachment;
 
-                          return AspectRatio(
-                            aspectRatio: 1,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Builder(builder: (context) {
+                        return AspectRatio(
+                          aspectRatio: 1,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Builder(
+                              builder: (context) {
                                 final mime = item.mimeType ?? '';
                                 final mimeNameIndexEnd = mime.indexOf('/');
                                 if (mimeNameIndexEnd == -1) {
@@ -182,7 +184,7 @@ class GeneralSubmissionReview extends HookConsumerWidget {
                                           ),
                                           const SizedBox(height: 16),
                                           Text(
-                                            item.name ?? 'unknown', // TODO tr
+                                            item.name ?? context.sl.unknown,
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(
@@ -194,27 +196,27 @@ class GeneralSubmissionReview extends HookConsumerWidget {
                                       ),
                                     );
                                 }
-                              }),
+                              },
                             ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                  const SizedBox(height: 48),
-                  Padding(
-                    padding: const EdgeInsetsDirectional.only(
-                      start: 24,
-                    ),
-                    child: Text(
-                      'Status',
-                      style: context.textTheme.headlineSmall,
+                          ),
+                        );
+                      },
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  const _SubmissionReviewStepper(),
                 ],
-              ),
+                const SizedBox(height: 48),
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(
+                    start: 24,
+                  ),
+                  child: Text(
+                    context.sl.status,
+                    style: context.textTheme.headlineSmall,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const _SubmissionReviewStepper(),
+              ],
             ),
           ),
         ),

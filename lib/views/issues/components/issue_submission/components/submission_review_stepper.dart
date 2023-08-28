@@ -5,7 +5,6 @@ class _SubmissionReviewStepper extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final submission = _SubmissionData.of(context)!.data;
     final activeStep = useMemoized(() => 0);
 
     return EasyStepper(
@@ -23,18 +22,18 @@ class _SubmissionReviewStepper extends HookWidget {
       unreachedStepBorderColor: Colors.transparent,
       enableStepTapping: false,
       stepBorderRadius: 5,
-      steps: const [
+      steps: [
         EasyStep(
-          customStep: Icon(Icons.ac_unit),
-          title: 'Submitted', // TODO tr
+          customStep: const Icon(Icons.ac_unit),
+          title: context.sl.submitted,
         ),
         EasyStep(
-          customStep: Icon(Icons.ac_unit),
-          title: 'Under Review',
+          customStep: const Icon(Icons.ac_unit),
+          title: context.sl.underReview,
         ),
         EasyStep(
-          customStep: Icon(Icons.ac_unit),
-          title: 'Resolved',
+          customStep: const Icon(Icons.ac_unit),
+          title: context.sl.resolved,
         ),
       ],
     );

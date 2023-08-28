@@ -17,7 +17,7 @@ class SalmonPoll extends HookConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Commnuity Question', // TODO tr
+            context.sl.communityQuestion,
             style: TextStyle(
               color: SalmonColors.muted,
             ),
@@ -41,12 +41,13 @@ class SalmonPoll extends HookConsumerWidget {
                     ),
                     Expanded(
                       child: Text(
-                        data?.enName ?? 'unknown',
+                        (context.isEn ? data?.enName : data?.arName) ??
+                            context.sl.unknown,
                         style: context.textTheme.labelMedium?.copyWith(
                           color: SalmonColors.muted,
                         ),
                       ),
-                    ), // TODO tr
+                    ),
                   ],
                 ),
                 error: (_, __) => const SizedBox.shrink(),
@@ -56,7 +57,7 @@ class SalmonPoll extends HookConsumerWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            poll.enTitle ?? 'unknown', // TODO tr
+            (context.isEn ? poll.enTitle : poll.arTitle) ?? context.sl.unknown,
             style: context.textTheme.titleLarge?.copyWith(
               fontWeight: FontWeight.bold,
             ),

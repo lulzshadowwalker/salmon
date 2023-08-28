@@ -53,8 +53,7 @@ class _ChannelListState extends State<ChannelList> {
                 isRepeatingAnimation: false,
                 animatedTexts: [
                   RotateAnimatedText(
-                    // TODO tr
-                    'fetching your messages',
+                    context.sl.fetchingMessages,
                   ),
                 ],
               )
@@ -81,8 +80,7 @@ class _ChannelListState extends State<ChannelList> {
                   isRepeatingAnimation: false,
                   animatedTexts: [
                     TyperAnimatedText(
-                      // TODO tr
-                      'Start by having your first chat\ntell us what you think!',
+                      context.sl.startByHavingYourFirstChat,
                       textAlign: TextAlign.center,
                       speed: const Duration(milliseconds: 36),
                     ),

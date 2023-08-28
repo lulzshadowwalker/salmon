@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:mime/mime.dart';
+import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/helpers/salmon_log_printer.dart';
 import 'package:salmon/l10n/l10n_imports.dart';
 import 'package:salmon/views/shared/salmon_image_picker_options/salmon_image_picker_options.dart';
@@ -309,9 +310,9 @@ final class SalmonHelpers {
     final difference = now.difference(dateTime);
 
     if (difference.inMinutes <= 1) {
-      return 'Just now'; // TODO tr
+      return context.sl.justNow;
     } else if (difference.inMinutes <= 59) {
-      return '${difference.inMinutes} minutes ago';
+      return '${difference.inMinutes} ${context.sl.minutesAgo}';
     } else if (difference.inHours <= 24) {
       final timeFormat = DateFormat.jm().format(dateTime);
       return timeFormat;

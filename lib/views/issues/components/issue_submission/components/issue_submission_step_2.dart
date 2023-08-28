@@ -40,7 +40,7 @@ class IssueSubmissionStep2 extends HookConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'To which agency is your issue related', // TODO tr
+                context.sl.toWhichAgencyIsYourProblemRelated,
                 style: context.textTheme.headlineMedium?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
@@ -52,7 +52,7 @@ class IssueSubmissionStep2 extends HookConsumerWidget {
                   isRepeatingAnimation: false,
                   animatedTexts: [
                     TyperAnimatedText(
-                      'select the relevant agency for your issue to receive personalized support',
+                      context.sl.selectRelevantAgency,
                       speed: const Duration(milliseconds: 24),
                     ),
                   ],
@@ -70,7 +70,7 @@ class IssueSubmissionStep2 extends HookConsumerWidget {
                         underline: const SizedBox.shrink(),
                         dropdownColor: context.theme.scaffoldBackgroundColor,
                         elevation: 4,
-                        hint: const Text('agency'), // TODO tr
+                        hint: Text(context.sl.agency.toLowerCase()),
                         isExpanded: true,
                         value: submission.agency,
                         items: data
@@ -94,10 +94,11 @@ class IssueSubmissionStep2 extends HookConsumerWidget {
                                     const SizedBox(width: 16),
                                     Expanded(
                                       child: Text(
-                                        e.enName ?? 'unknown',
+                                        (context.isEn ? e.enName : e.arName) ??
+                                            context.sl.unknown,
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                    ), // TODO tr
+                                    ),
                                   ],
                                 ),
                               ),
@@ -116,7 +117,7 @@ class IssueSubmissionStep2 extends HookConsumerWidget {
                         duration: const Duration(milliseconds: 250),
                         child: showRequired.value
                             ? Text(
-                                'Please tell us the agency that you\'re facing an issue with', // TODO tr
+                                context.sl.tellUsAgencyHaveIssueWith,
                                 style: context.textTheme.labelMedium?.copyWith(
                                   color: context.theme.colorScheme.error,
                                 ),

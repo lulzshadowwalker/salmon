@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/providers/post_comments/post_comments_provider.dart';
-import 'package:salmon/providers/theme_data/theme_data_provider.dart';
 import 'package:salmon/views/feed/components/comment_data.dart';
 import 'package:salmon/views/feed/components/post_data.dart';
 import 'package:salmon/views/shared/salmon_loading_indicator/salmon_loading_indicator.dart';
 import 'package:salmon/views/shared/salmon_unfocusable_wrapper/salmon_unfocusable_wrapper.dart';
+import '../../../l10n/l10n_imports.dart';
 import 'comment_input.dart';
 import 'comment_tile.dart';
 
@@ -23,7 +23,6 @@ class _PostCommentsState extends ConsumerState<PostComments> {
   @override
   Widget build(BuildContext context) {
     final post = PostData.of(context)!.data;
-    final theme = ref.watch(salmonThemeProvider);
     final comments = ref.watch(postCommentsProvider(post.id!));
 
     return SalmonUnfocusableWrapper(
@@ -41,7 +40,7 @@ class _PostCommentsState extends ConsumerState<PostComments> {
                     top: 24,
                   ),
                   child: Text(
-                    'Comments', // TODO tr
+                   SL.of(context).comments,
                     style: context.textTheme.headlineMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),

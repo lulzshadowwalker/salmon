@@ -5,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/controllers/posts/posts_controller.dart';
+import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/views/feed/components/post_data.dart';
 
 import '../../../providers/current_user/current_user_provider.dart';
@@ -49,7 +50,7 @@ class _CommentInputState extends ConsumerState<CommentInput> {
               fontSize: 14,
             ),
             decoration: InputDecoration(
-              hintText: 'share your thoughts ..', // TODO tr
+              hintText: context.sl.shareYourThoughts,
               suffixIcon: GestureDetector(
                 onTap: () async {
                   final value = inputController.value.text.trim();

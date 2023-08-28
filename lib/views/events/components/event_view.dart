@@ -53,7 +53,10 @@ class EventView extends StatelessWidget {
                                     maxWidth: context.mq.size.width * 0.65,
                                   ),
                                   child: Text(
-                                    event.enTitle ?? '',
+                                    (context.isEn
+                                            ? event.enTitle
+                                            : event.arTitle) ??
+                                        '',
                                     style: context.textTheme.headlineSmall
                                         ?.copyWith(
                                       color: SalmonColors.white,
@@ -84,12 +87,17 @@ class EventView extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            if (event.enSummary != null)
+                                            if ((context.isEn
+                                                    ? event.enSummary
+                                                    : event.arSummary) !=
+                                                null)
                                               Padding(
                                                 padding: const EdgeInsets.only(
                                                     bottom: 8),
-                                                child:
-                                                    Text(event.enSummary ?? ''),
+                                                child: Text((context.isEn
+                                                        ? event.enSummary
+                                                        : event.arSummary) ??
+                                                    ''),
                                               ),
                                             Consumer(
                                               builder: (context, ref, child) {
@@ -122,17 +130,21 @@ class EventView extends StatelessWidget {
                                                             const SizedBox
                                                                 .shrink(),
                                                       ),
-
                                                       Expanded(
                                                         child: Text(
-                                                          data?.enName ??
-                                                              'unknown',
+                                                          (context.isEn
+                                                                  ? data?.enName
+                                                                  : data
+                                                                      ?.arName) ??
+                                                              SL
+                                                                  .of(context)
+                                                                  .unknown,
                                                           style: TextStyle(
                                                             color: SalmonColors
                                                                 .muted,
                                                           ),
                                                         ),
-                                                      ), // TODO tr
+                                                      ),
                                                     ],
                                                   ),
                                                   error: (error, stackTrace) =>
@@ -187,8 +199,12 @@ class EventView extends StatelessWidget {
                                       color: Colors.red,
                                     ),
                                     const SizedBox(width: 8),
-                                    Text(event.enLocationTitle ??
-                                        'See location on map'),
+                                    Text(
+                                      (context.isEn
+                                              ? event.enLocationTitle
+                                              : event.arLocationTitle) ??
+                                          SL.of(context).seeLocationOnMap,
+                                    ),
                                   ],
                                 ),
                                 const SizedBox(height: 12),
@@ -215,7 +231,9 @@ class EventView extends StatelessWidget {
                                   child: SafeArea(
                                     top: false,
                                     child: MarkdownBody(
-                                      data: event.enBody ??
+                                      data: (context.isEn
+                                              ? event.enBody
+                                              : event.arBody) ??
                                           ''.replaceAll('<br>', '\n'),
                                       styleSheet:
                                           SalmonTheme.markdownStyleSheet(

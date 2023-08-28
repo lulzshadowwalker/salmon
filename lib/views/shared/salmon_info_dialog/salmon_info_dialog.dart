@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 
-
 class SalmonInfoDialog extends StatelessWidget {
   const SalmonInfoDialog({
     super.key,
@@ -95,7 +94,7 @@ class SalmonInfoDialog extends StatelessWidget {
                         (_) => context.cs.primary.withOpacity(0.2),
                       ),
                     ),
-                    child: Text(buttonText ?? 'Continue'), // TODO tr
+                    child: Text(buttonText ?? context.sl.cont),
                   ),
                 ],
               ),
