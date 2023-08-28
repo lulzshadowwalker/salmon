@@ -14,6 +14,11 @@ class Analytics extends ConsumerWidget {
     return const Scaffold(
       drawer: SalmonDrawer(),
       appBar: HomeAppBar(),
+      body: Center(
+        child: Text(
+          'Statistics',
+        ),
+      ),
     );
   }
 }

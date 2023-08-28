@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:salmon/helpers/salmon_anims.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/router/salmon_routes.dart';
 
+import '../../providers/notifs_controller/notifs_controller_provider.dart';
 import '../../theme/salmon_colors.dart';
 
-class Splash extends HookWidget {
+class Splash extends HookConsumerWidget {
   const Splash({super.key});
 
   static final min = 105.normalized(maxVal: 360);
   static final max = 180.normalized(maxVal: 360);
 
-  static void coolFunction(BuildContext context) async {
-    context.goNamed(SalmonRoutes.home);
-  }
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final controller = useAnimationController(
       duration: const Duration(),
       lowerBound: min,
@@ -29,7 +27,8 @@ class Splash extends HookWidget {
     useEffect(() {
       controller.addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          coolFunction(context);
+          context.goNamed(SalmonRoutes.home);
+          ref.read(notifsControllerProvider).init();
         }
       });
 

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:salmon/helpers/salmon_extensions.dart';
 
 import '../../shared/menu_button/menu_button.dart';
 
@@ -18,16 +16,6 @@ class HomeAppBar extends ConsumerWidget implements PreferredSizeWidget {
     return AppBar(
       title: title,
       leading: const MenuButton(),
-      actions: [
-        Padding(
-          padding: const EdgeInsetsDirectional.only(end: 32),
-          child: FaIcon(
-            FontAwesomeIcons.bell,
-            size: 32,
-            color: context.textTheme.bodyLarge?.color,
-          ),
-        ),
-      ],
     );
   }
 

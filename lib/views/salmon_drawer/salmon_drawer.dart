@@ -91,7 +91,9 @@ class SalmonDrawer extends HookConsumerWidget {
                   ),
                   _DrawerTile(
                     onTap: () {
-                      ref.read(drawerPageProvider.notifier).set(const Events());
+                      ref
+                          .read(drawerPageProvider.notifier)
+                          .set(const Analytics());
                       Navigator.of(context).pop();
                     },
                     leading: AnimatedAnalyticsIcon(

@@ -40,8 +40,7 @@ class _SettingsOption extends StatelessWidget {
           children: [
             leading,
             SizedBox(width: leading == null ? 0 : 8),
-            title,
-            const Spacer(),
+            Expanded(child: title),
             trailing ??
                 Icon(
                   Directionality.of(context) == TextDirection.ltr

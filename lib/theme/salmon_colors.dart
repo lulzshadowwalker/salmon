@@ -8,7 +8,7 @@ final class SalmonColors {
 
   static const Color black = Color(0xFF1C1C23);
   static final Color white = fromHex('F4FAFF');
-  static final Color green = fromHex('#59C58F');
+  static final Color green = fromHex('#59c55b');
   static final Color red = fromHex('#EE4B6A');
   static final Color yellow = fromHex('F5C04E');
   static final Color lightYellow = yellow.withOpacity(0.6);

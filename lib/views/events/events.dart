@@ -37,44 +37,44 @@ class Events extends ConsumerWidget {
 
                 Expanded(
                   child: events.when(
-                      data: (data) => Theme(
-                            data: theme,
-                            child: DefaultTextStyle(
-                              style: TextStyle(
-                                color: SalmonColors.white,
-                              ),
-                              child: ListView.builder(
-                                itemCount: data.length,
-                                itemBuilder:
-                                    (BuildContext context, int index) =>
-                                        _EventCard(
-                                  event: data[index],
-                                ),
-                              ),
-                            ),
+                    data: (data) => Theme(
+                      data: theme,
+                      child: DefaultTextStyle(
+                        style: TextStyle(
+                          color: SalmonColors.white,
+                        ),
+                        child: ListView.builder(
+                          itemCount: data.length,
+                          itemBuilder: (BuildContext context, int index) =>
+                              _EventCard(
+                            event: data[index],
                           ),
-                      error: (error, stackTrace) => const Center(
-                            child: Text(
-                                'unknown error has occurred'), // TODO error wiget
+                        ),
+                      ),
+                    ),
+                    error: (error, stackTrace) => const Center(
+                      child: Text(
+                          'unknown error has occurred'), // TODO error wiget
+                    ),
+                    loading: () => ListView.separated(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) => AspectRatio(
+                        aspectRatio: 1,
+                        child: Shimmer.fromColors(
+                          baseColor: SalmonColors.mutedLight,
+                          highlightColor: SalmonColors.white,
+                          child: Container(
+                            color: SalmonColors.mutedLight,
+                            width: double.infinity,
+                            height: 100,
                           ),
-                      loading: () => ListView.separated(
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) => AspectRatio(
-                              aspectRatio: 1,
-                              child: Shimmer.fromColors(
-                                baseColor: SalmonColors.mutedLight,
-                                highlightColor: SalmonColors.white,
-                                child: Container(
-                                  color: SalmonColors.mutedLight,
-                                  width: double.infinity,
-                                  height: 100,
-                                ),
-                              ),
-                            ),
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(height: 16),
-                            itemCount: 6,
-                          )),
+                        ),
+                      ),
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 16),
+                      itemCount: 6,
+                    ),
+                  ),
                 ),
               ],
             );

@@ -99,6 +99,11 @@ class SalmonRouter {
                     path: SalmonRoutes.accountDetails,
                     builder: (context, state) => const AccountDetails(),
                   ),
+                  GoRoute(
+                    name: SalmonRoutes.notifsDetails,
+                    path: SalmonRoutes.notifsDetails,
+                    builder: (context, state) => const NotifsDetails(),
+                  ),
                 ],
               ),
               GoRoute(

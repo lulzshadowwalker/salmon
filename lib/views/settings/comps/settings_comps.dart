@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -10,10 +13,15 @@ import 'package:salmon/helpers/salmon_const.dart';
 import 'package:dash_flags/dash_flags.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/l10n/l10n_imports.dart';
+import 'package:salmon/models/agency.dart';
+import 'package:salmon/models/enums/notif_type.dart';
 import 'package:salmon/providers/a12n/a12n_provider.dart';
+import 'package:salmon/providers/agencies/agencies_provider.dart';
+import 'package:salmon/providers/check_topic_subscription/check_topic_subscription_provider.dart';
 import 'package:salmon/providers/current_user/current_user_provider.dart';
 import 'package:salmon/providers/is_light_theme/is_light_theme_provider.dart';
 import 'package:salmon/providers/l10n/supported_locales_provider.dart';
+import 'package:salmon/providers/notifs_controller/notifs_controller_provider.dart';
 import 'package:salmon/router/salmon_routes.dart';
 import 'package:salmon/views/shared/app_bar_divider/app_bar_divider.dart';
 import 'package:salmon/views/shared/image_picker_circle_avatar/image_picker_circle_avatar.dart';
@@ -23,8 +31,10 @@ import 'package:salmon/views/shared/salmon_loading_indicator/salmon_loading_indi
 import 'package:salmon/views/shared/salmon_password_field/salmon_password_field.dart';
 import 'package:salmon/views/shared/salmon_single_child_scroll_view/salmon_single_child_scroll_view.dart';
 import 'package:salmon/views/shared/salmon_unfocusable_wrapper/salmon_unfocusable_wrapper.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:validators/validators.dart';
 
+import '../../../helpers/salmon_images.dart';
 import '../../../models/salmon_user_credentials.dart';
 import '../../../providers/l10n/async_l10n_provider.dart';
 import '../../../providers/salmon_user_credentials/salmon_user_credentials_provider.dart';
@@ -42,3 +52,5 @@ part 'settings_option.dart';
 part 'settings_profile_header.dart';
 part './dark_mode_switch.dart';
 part 'account_details.dart';
+part './notifs_details.dart';
+part './notifs_switch.dart';

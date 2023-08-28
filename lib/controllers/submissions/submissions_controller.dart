@@ -40,7 +40,7 @@ final class SubmissionsController {
         );
   }
 
-  Future<void> createSubmission({
+  Future<void> submit({
     required BuildContext context,
     required Submission submission,
   }) async {

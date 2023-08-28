@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
@@ -54,8 +53,7 @@ final class UsersController {
                 {
                   'created_on': DateTime.now().toUtc(),
                   'id': uid,
-                  'fcm_token':
-                      kDebugMode ? '' : await NotifsController.fcmToken,
+                  'fcm_token': false ? '' : await NotifsController.fcmToken,
                 },
               ),
           );

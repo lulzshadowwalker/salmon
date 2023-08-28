@@ -5,16 +5,22 @@ class _AppSettings extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     final locale = ref.watch(asyncL10nProvider).asData?.value ??
         const Locale(SalmonConst.en);
 
     final supportedLocales = ref.watch(supportedLocalesProvider);
 
+    final isGuest = ref.watch(a12nProvider).isGuest;
 
     return _SettingsSection(
       title: SL.of(context).applicationSettings,
       options: [
+        if (!isGuest)
+          _SettingsOption(
+            title: const Text('notifications'), // TODO tr
+            onTap: () => context.pushNamed(SalmonRoutes.notifsDetails),
+            margin: const EdgeInsets.only(bottom: 8),
+          ),
         _SettingsOption(
           title: Text(SL.of(context).language),
           trailing: DropdownButton(
@@ -61,7 +67,7 @@ class _AppSettings extends HookConsumerWidget {
             padding: EdgeInsetsDirectional.only(end: 12),
             child: _DarkModeSwitch(),
           ),
-        )
+        ),
       ],
     );
   }

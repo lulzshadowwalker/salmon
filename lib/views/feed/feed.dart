@@ -16,13 +16,19 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../theme/salmon_colors.dart';
 import '../shared/salmon_poll/components/salmon_poll_components.dart';
 
-class Feed extends HookConsumerWidget {
+class Feed extends StatefulHookConsumerWidget {
   const Feed({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<Feed> createState() => _FeedState();
+}
+
+class _FeedState extends ConsumerState<Feed> {
+  final pageController = PageController();
+
+  @override
+  Widget build(BuildContext context) {
     final posts = ref.watch(postsProvider);
-    final pageController = usePageController(keepPage: true);
 
     useEffect(() {
       // TODO custom hook

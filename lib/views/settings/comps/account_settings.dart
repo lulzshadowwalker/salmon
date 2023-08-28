@@ -12,12 +12,6 @@ class _AccountSettings extends HookConsumerWidget {
       options: [
         _SettingsOption(
           title: Text(SL.of(context).accountDetails),
-          trailing: Icon(
-            Directionality.of(context) == TextDirection.ltr
-                ? FontAwesomeIcons.angleRight
-                : FontAwesomeIcons.angleLeft,
-            size: 18,
-          ),
           onTap: () => context.pushNamed(SalmonRoutes.accountDetails),
         )
       ],

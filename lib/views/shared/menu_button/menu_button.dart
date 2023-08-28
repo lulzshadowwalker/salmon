@@ -10,7 +10,7 @@ class MenuButton extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsetsDirectional.only(start: 20),
       child: IconButton(
-        iconSize: 32,
+        iconSize: 26,
         onPressed: () {
           final s = Scaffold.of(context);
           s.isDrawerOpen ? s.closeDrawer() : s.openDrawer();

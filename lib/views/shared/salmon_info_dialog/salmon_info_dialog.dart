@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 
+
 class SalmonInfoDialog extends StatelessWidget {
   const SalmonInfoDialog({
     super.key,
@@ -29,7 +30,10 @@ class SalmonInfoDialog extends StatelessWidget {
         Transform.scale(
           scale: 2,
           child: Container(
-            color: context.cs.primary.withOpacity(0.2),
+            color: HSLColor.fromColor(context.cs.primary)
+                .withLightness(0.5)
+                .toColor()
+                .withOpacity(0.2),
             child: BackdropFilter(
               filter: ImageFilter.blur(
                 sigmaX: 1.1,

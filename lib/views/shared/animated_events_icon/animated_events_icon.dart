@@ -23,7 +23,7 @@ class AnimatedEventsIcon extends HookWidget {
   Widget build(BuildContext context) {
     final con = useAnimationController(
       duration: const Duration(milliseconds: 3000),
-    )..reset();
+    );
 
     useEffect(() {
       if (isActive) {

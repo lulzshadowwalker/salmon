@@ -10,6 +10,8 @@ import 'package:salmon/helpers/salmon_helpers.dart';
 import 'package:salmon/l10n/l10n_imports.dart';
 import 'package:salmon/providers/a12n/a12n_provider.dart';
 import 'package:salmon/providers/current_user/current_user_provider.dart';
+import 'package:salmon/providers/router/router_provider.dart';
+import 'package:salmon/router/salmon_routes.dart';
 import 'package:salmon/theme/salmon_colors.dart';
 import '../../models/enums/notif_type.dart';
 import '../../models/notif_config.dart';
@@ -17,6 +19,9 @@ import '../../models/notif_config.dart';
 // ! must be a top level function [read more](https://firebase.flutter.dev/docs/messaging/usage#:~:text=Handling%20messages%20whilst,which%20requires%20initialization)
 @pragma('vm:entry-point')
 Future<void> _handleFcmBackgroundMessage(RemoteMessage message) async {
+  SalmonHelpers.getLogger('NotifsController')
+      .v('received a background cloud message:\n${message.toString()}');
+
   final RemoteNotification? notif = message.notification;
   if (notif != null) {
     NotifsController.show(
@@ -127,8 +132,8 @@ Popup shown with details
     android: AndroidNotificationDetails(
       'main_channel',
       'General',
-      importance: Importance.max,
-      priority: Priority.max,
+      importance: Importance.high,
+      priority: Priority.high,
       color: SalmonColors.blue,
     ),
 
@@ -140,7 +145,7 @@ Popup shown with details
     ),
   );
 
-  static Future<void> init() async {
+  Future<void> init() async {
     try {
       if (Platform.isAndroid) {
         final isGranted = await _flutterLocalNotificationsPlugin
@@ -217,8 +222,18 @@ local push notification has been shown
     _log.v('all notifications have been cancelled');
   }
 
-  static Future<void> _initCloudMessaging() async {
+  Future<void> _initCloudMessaging() async {
     await FirebaseMessaging.instance.setAutoInitEnabled(true);
+
+    // TODO deeplinking
+    // final route =
+    //     await FirebaseMessaging.instance.getInitialMessage().then((msg) {
+    //   _log.v('inital cloud message:\n${msg.toString()}');
+    //   return msg?.data['named-route'] as String?;
+    // });
+    // if (SalmonRoutes.validate(route ?? '')) {
+    //   ref.read(routerProvider).goNamed(route!);
+    // }
 
     if (Platform.isIOS) {
       final settings = await FirebaseMessaging.instance.requestPermission();
@@ -229,6 +244,7 @@ local push notification has been shown
 
     FirebaseMessaging.onMessage.listen(
       (message) {
+        _log.v('received a foreground cloud message:\n${message.toString()}');
         final RemoteNotification? notif = message.notification;
         if (notif != null) {
           show(

@@ -1,6 +1,6 @@
 {
-    "name": "salmon",
-    "short_name": "salmon",
+    "name": "Salmon",
+    "short_name": "Salmon",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

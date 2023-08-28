@@ -69,12 +69,22 @@ class _SubmissionPreview extends HookConsumerWidget {
                                         child: CachedNetworkImage(
                                           imageUrl:
                                               e.logo ?? SalmonImages.notFound,
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  Padding(
+                                            padding: const EdgeInsetsDirectional
+                                                .only(
+                                              end: 16,
+                                            ),
+                                            child: Image(
+                                              image: imageProvider,
+                                            ),
+                                          ),
                                           placeholder: (context, url) =>
-                                              const SalmonLoadingIndicator(),
+                                              const SizedBox.shrink(),
                                         ),
                                       ),
                                     ),
-                                    const SizedBox(width: 16),
                                     Expanded(
                                       child: Text(
                                         e.enName ?? 'unknown',
