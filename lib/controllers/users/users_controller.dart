@@ -72,7 +72,7 @@ registered new user with details:
   Stream<SalmonUser> get currentUserData {
     final uid = ref.read(a12nProvider).userId;
     final isGuest = ref.read(a12nProvider).isGuest;
-    if (uid == null || isGuest) return const Stream.empty();
+    if (uid == null || isGuest) return Stream.value(SalmonUser());
 
     return _db
         .collection('users')

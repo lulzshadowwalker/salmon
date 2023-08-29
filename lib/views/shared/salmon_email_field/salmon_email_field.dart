@@ -27,7 +27,7 @@ class SalmonEmailField extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SalmonFormField(
-      key: fieldKey,
+      formFieldKey: fieldKey,
       controller: controller,
       initialValue: initialValue,
       onSaved: onSaved,

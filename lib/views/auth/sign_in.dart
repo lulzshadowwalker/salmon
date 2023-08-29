@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/l10n/l10n_imports.dart';
 import 'package:salmon/router/salmon_routes.dart';
 import 'package:salmon/views/auth/components/google_auth_button.dart';
@@ -12,10 +15,12 @@ import 'package:salmon/views/shared/salmon_password_field/salmon_password_field.
 import 'package:salmon/views/shared/salmon_rich_text_button/salmon_rich_text_button.dart';
 import 'package:salmon/views/shared/salmon_single_child_scroll_view/salmon_single_child_scroll_view.dart';
 import 'package:salmon/views/shared/salmon_unfocusable_wrapper/salmon_unfocusable_wrapper.dart';
+
 import '../../models/enums/auth_type.dart';
 import '../../providers/a12n/a12n_provider.dart';
 import '../../providers/salmon_user_credentials/salmon_user_credentials_provider.dart';
 import '../shared/salmon_divider/salmon_divider.dart';
+import 'components/password_reset.dart';
 
 class SignIn extends StatefulHookConsumerWidget {
   const SignIn({super.key});
@@ -64,7 +69,29 @@ class _SignInState extends ConsumerState<SignIn> {
                             ),
                           );
                     }),
-                    const SizedBox(height: 38),
+                    const SizedBox(height: 16),
+                    Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            backgroundColor:
+                                context.theme.scaffoldBackgroundColor,
+                            builder: (context) => const PasswordReset(),
+                            elevation: 0,
+                            constraints: const BoxConstraints(maxWidth: 500),
+                          );
+                        },
+                        child: Text(
+                          context.sl.forgotPassword,
+                          style: context.textTheme.bodySmall?.copyWith(
+                            color: context.cs.primary,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 28),
                     isLoading.value
                         ? const SalmonLoadingIndicator()
                         : OutlinedButton(

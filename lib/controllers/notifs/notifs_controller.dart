@@ -270,7 +270,7 @@ local push notification has been shown
     try {
       final user = await ref.read(currentUserProvider.future);
 
-      final isSubbed = user.topics?.contains(topic) ?? false;
+      final isSubbed = user?.topics?.contains(topic) ?? false;
 
       _log.v('''
 topic ($topic) subscription status check: $isSubbed

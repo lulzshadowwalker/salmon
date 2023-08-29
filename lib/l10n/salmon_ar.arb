@@ -43,6 +43,7 @@
     "language": "اللغة",
     "darkMode": "الوضع الداكن",
     "resetPassword": "إعادة تعيين كلمة المرور",
+    "resetPasswordHeader": "إعادة تعيين كلمة المرور",
     "accountDetails": "تفاصيل الحساب",
     "confirmPassword": "تأكيد كلمة المرور",
     "infoHasBeenUpdated": "تم تحديث معلوماتك",
@@ -111,6 +112,9 @@
 "communityQuestion": "سؤال للمجتمع",
 "minutesAgo": "دقيقة مضت",
 "going": "ذاهب",
-"interested": "مهتم"
+"interested": "مهتم",
+ "enterEmailAndWeWillSendYouPasswordResetLink": "أدخل بريدك الإلكتروني وسنرسل لك رابط إعادة تعيين كلمة المرور",
+  "sendPasswordResetEmail": "إرسال رابط إعادة تعيين كلمة المرور",
+    "forgotPassword": "هل نسيت كلمة المرور ؟"
 
 }

@@ -115,8 +115,9 @@ class _AccountDetailsState extends ConsumerState<AccountDetails> {
                   ),
                   const Spacer(),
                   Bounceable(
-                    onTap: () =>
-                        ref.read(a12nProvider).sendPasswordResetEmail(context),
+                    onTap: () => ref
+                        .read(a12nProvider)
+                        .sendPasswordResetEmail(context, user!.email!),
                     child: _SettingsOption(
                       margin: const EdgeInsets.only(bottom: 16),
                       title: Text(

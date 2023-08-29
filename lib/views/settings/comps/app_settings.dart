@@ -28,6 +28,7 @@ class _AppSettings extends HookConsumerWidget {
             borderRadius: BorderRadius.circular(10),
             underline: const SizedBox.shrink(),
             elevation: 4,
+            dropdownColor: context.theme.scaffoldBackgroundColor,
             items: List.generate(
               supportedLocales.length,
               (index) {

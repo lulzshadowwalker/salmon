@@ -29,7 +29,7 @@ class SalmonPasswordField extends HookConsumerWidget {
           (val) => val.length >= 8 ? null : SL.of(context).pickStrongPassword,
       onSaved: onSaved,
       prefixIcon: const Icon(FontAwesomeIcons.lock),
-      hintText: hintText ?? 'password',
+      hintText: hintText ?? context.sl.password,
       obscureText: isObscure,
       suffixIcon: IconButton(
         highlightColor: Colors.transparent,

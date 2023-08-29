@@ -38,12 +38,13 @@ class A12nController {
     }
   }
 
-  Future<void> sendPasswordResetEmail(BuildContext context) async {
+  Future<void> sendPasswordResetEmail(
+      BuildContext context, String email) async {
     try {
-      if (isGuest) {
+      if (user?.isAnonymous ?? false) {
         throw Exception('tried resetting the password for a guest user');
       }
-      await _auth.sendPasswordResetEmail(email: user!.email!);
+      await _auth.sendPasswordResetEmail(email: email);
 
       _log.v('password reset email has been sent');
       NotifsController.showPopup(

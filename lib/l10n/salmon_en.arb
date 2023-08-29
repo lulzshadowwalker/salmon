@@ -42,7 +42,8 @@
     "applicationSettings": "Application Settings",
     "language": "language",
     "darkMode": "Dark mode",
-    "resetPassword": "reset password",
+    "resetPassword": "Reset Password",
+    "resetPasswordHeader": "Reset\nPassword",
     "accountDetails": "Account Details",
     "confirmPassword": "Confirm password",
     "infoHasBeenUpdated": "your information has been updated",
@@ -111,5 +112,8 @@
     "communityQuestion": "Commnuity Question",
     "minutesAgo": "minutes ago",
     "going": "Going",
-    "interested": "interested"
+    "interested": "interested",
+    "enterEmailAndWeWillSendYouPasswordResetLink": "enter your email and we will send you a password reset link",
+    "sendPasswordResetEmail": "Send password reset email",
+    "forgotPassword": "forgot password ?"
 }

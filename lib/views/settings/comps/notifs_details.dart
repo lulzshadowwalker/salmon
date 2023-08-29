@@ -16,7 +16,7 @@ class _NotifsDetailsState extends ConsumerState<NotifsDetails> {
 
     useEffect(() {
       ref.read(currentUserProvider).whenData(
-            (u) => _initialState = u.topics,
+            (u) => _initialState = u?.topics,
           );
 
       return null;
