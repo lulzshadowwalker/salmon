@@ -5,11 +5,7 @@ import 'package:salmon/providers/a12n/a12n_provider.dart';
 
 final currentUserProvider = StreamProvider<SalmonUser?>(
   (ref) {
-    final u = ref.watch(authStateProvider);
-    if (u.value == null) {
-      ref.invalidateSelf();
-    }
-
+    ref.watch(authStateProvider);
     return ref.watch(usersControllerProvider).currentUserData;
   },
 );

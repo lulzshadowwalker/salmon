@@ -49,14 +49,17 @@ class _EventCard extends HookConsumerWidget {
               imageBuilder: (context, imageProvider) => Stack(
                 children: [
                   Positioned.fill(
-                    child: ColorFiltered(
-                      colorFilter: ColorFilter.mode(
-                        Colors.black.withOpacity(0.15),
-                        BlendMode.srcATop,
-                      ),
-                      child: Image(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
+                    child: Hero(
+                      tag: '${event.id}${event.coverImage}',
+                      child: ColorFiltered(
+                        colorFilter: ColorFilter.mode(
+                          Colors.black.withOpacity(0.15),
+                          BlendMode.srcATop,
+                        ),
+                        child: Image(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
@@ -102,32 +105,39 @@ class _EventCard extends HookConsumerWidget {
                     right: 0,
                     child: Padding(
                       padding: const EdgeInsets.all(18),
-                      child: SalmonTagChip(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 18,
-                          ),
-                          child: Builder(builder: (context) {
-                            final monthDay = intl.DateFormat(
-                              'MMM dd',
-                              SL.of(context).localeName,
-                            )
-                                .format(
-                                  event.date ?? DateTime.now(),
-                                )
-                                .split(' ');
-
-                            final month = monthDay[0];
-                            final day = monthDay[1];
-                            return Text(
-                              '$month\n$day',
-                              style: context.textTheme.titleMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
+                      child: Hero(
+                        tag: '${event.id}-date',
+                        child: Material(
+                          color: Colors.transparent,
+                          child: SalmonTagChip(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 18,
                               ),
-                              textAlign: TextAlign.center,
-                            );
-                          }),
+                              child: Builder(builder: (context) {
+                                final monthDay = intl.DateFormat(
+                                  'MMM dd',
+                                  SL.of(context).localeName,
+                                )
+                                    .format(
+                                      event.date ?? DateTime.now(),
+                                    )
+                                    .split(' ');
+
+                                final month = monthDay[0];
+                                final day = monthDay[1];
+                                return Text(
+                                  '$month\n$day',
+                                  style:
+                                      context.textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                );
+                              }),
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -139,73 +149,83 @@ class _EventCard extends HookConsumerWidget {
                       children: [
                         const Spacer(),
                         if (!event.createdBy.isEmpty)
-                          Consumer(
-                            builder: (context, ref, child) {
-                              final agency = ref.watch(
-                                agencyProvider(
-                                  event.createdBy!,
-                                ),
-                              );
+                          Hero(
+                            tag: '${event.id}-agency',
+                            child: Material(
+                              color: Colors.transparent,
+                              child: Consumer(
+                                builder: (context, ref, child) {
+                                  final agency = ref.watch(
+                                    agencyProvider(
+                                      event.createdBy!,
+                                    ),
+                                  );
 
-                              return agency.when(
-                                data: (data) => ConstrainedBox(
-                                  constraints: const BoxConstraints(
-                                    maxWidth: 225,
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      CachedNetworkImage(
-                                        imageUrl: data?.logo ?? '',
-                                        height: 24,
-                                        width: 24,
-                                        imageBuilder:
-                                            (context, imageProvider) => Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.only(
-                                                  end: 6),
-                                          child: Image(
-                                            image: imageProvider,
+                                  return agency.when(
+                                    data: (data) => ConstrainedBox(
+                                      constraints: const BoxConstraints(
+                                        maxWidth: 225,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          CachedNetworkImage(
+                                            imageUrl: data?.logo ?? '',
+                                            height: 24,
+                                            width: 24,
+                                            imageBuilder:
+                                                (context, imageProvider) =>
+                                                    Padding(
+                                              padding:
+                                                  const EdgeInsetsDirectional
+                                                      .only(end: 6),
+                                              child: Image(
+                                                image: imageProvider,
+                                              ),
+                                            ),
+                                            errorWidget: (
+                                              context,
+                                              url,
+                                              error,
+                                            ) =>
+                                                const SizedBox.shrink(),
                                           ),
-                                        ),
-                                        errorWidget: (
-                                          context,
-                                          url,
-                                          error,
-                                        ) =>
-                                            const SizedBox.shrink(),
+                                          Expanded(
+                                            child: Text(
+                                              (context.isEn
+                                                      ? data?.enName
+                                                      : data?.arName) ??
+                                                  context.sl.unknown,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      Expanded(
-                                        child: Text(
-                                          (context.isEn
-                                                  ? data?.enName
-                                                  : data?.arName) ??
-                                              context.sl.unknown,
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                error: (error, stackTrace) =>
-                                    const SizedBox.shrink(),
-                                loading: () => const SizedBox.shrink(),
-                              );
-                            },
+                                    ),
+                                    error: (error, stackTrace) =>
+                                        const SizedBox.shrink(),
+                                    loading: () => const SizedBox.shrink(),
+                                  );
+                                },
+                              ),
+                            ),
                           ),
                         const SizedBox(height: 6),
                         FractionallySizedBox(
                           widthFactor: 0.75,
-                          child: Text(
-                            (context.isEn ? event.enTitle : event.arTitle) ??
-                                context.sl.readMore,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall
-                                ?.copyWith(
-                                  color: SalmonColors.mutedLight,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                          child: Hero(
+                            tag: '${event.id}-title',
+                            child: Text(
+                              (context.isEn ? event.enTitle : event.arTitle) ??
+                                  context.sl.readMore,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall
+                                  ?.copyWith(
+                                    color: SalmonColors.mutedLight,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
                           ),
                         ),
                         const SizedBox(height: 2),
@@ -213,15 +233,21 @@ class _EventCard extends HookConsumerWidget {
                           constraints: const BoxConstraints(
                             maxWidth: 225,
                           ),
-                          child: Text(
-                            (context.isEn
-                                    ? event.enSummary
-                                    : event.arSummary) ??
-                                '',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: SalmonColors.mutedLight,
+                          child: Hero(
+                            tag: '${event.id}-summary',
+                            child: Material(
+                              color: Colors.transparent,
+                              child: Text(
+                                (context.isEn
+                                        ? event.enSummary
+                                        : event.arSummary) ??
+                                    '',
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: SalmonColors.mutedLight,
+                                ),
+                              ),
                             ),
                           ),
                         ),

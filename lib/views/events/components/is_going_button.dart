@@ -13,54 +13,58 @@ class _IsGoingButtonState extends State<_IsGoingButton> {
 
   @override
   Widget build(BuildContext context) {
-    final event = _EventData.of(context)!.data;
+    final event = _EventData.of(context)?.data;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 12,
-      ),
-      child: Consumer(
-        builder: (context, ref, child) {
-          final isGoing = ref.watch(_isGoingProvider(event));
-
-          return OutlinedButton(
-            style: context.theme.outlinedButtonTheme.style?.copyWith(
-              backgroundColor: MaterialStateProperty.resolveWith(
-                (_) => context.cs.primary.withOpacity(0.2),
-              ),
+    return event == null
+        ? const SizedBox.shrink()
+        : Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 12,
             ),
-            onPressed: () {
-              ref.read(_isGoingProvider(event).notifier).state = !isGoing;
+            child: Consumer(
+              builder: (context, ref, child) {
+                final isGoing = ref.watch(_isGoingProvider(event));
 
-              if (_debounce?.isActive ?? false) _debounce?.cancel();
-              _debounce = Timer(_timeout, () async {
-                ref.read(_isGoingProvider(event))
-                    ? await ref.read(eventsControllerProvider).interested(event)
-                    : await ref
-                        .read(eventsControllerProvider)
-                        .uninterested(event);
+                return OutlinedButton(
+                  style: context.theme.outlinedButtonTheme.style?.copyWith(
+                    backgroundColor: MaterialStateProperty.resolveWith(
+                      (_) => context.cs.primary.withOpacity(0.2),
+                    ),
+                  ),
+                  onPressed: () {
+                    ref.read(_isGoingProvider(event).notifier).state = !isGoing;
 
-                ref.invalidate(eventUsersProvider(event));
-              });
-            },
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 450),
-              child: isGoing
-                  ? Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsetsDirectional.only(end: 8),
-                          child: FaIcon(FontAwesomeIcons.check),
-                        ),
-                        Text(context.sl.going),
-                      ],
-                    )
-                  : Text('${context.sl.interested}?'),
+                    if (_debounce?.isActive ?? false) _debounce?.cancel();
+                    _debounce = Timer(_timeout, () async {
+                      ref.read(_isGoingProvider(event))
+                          ? await ref
+                              .read(eventsControllerProvider)
+                              .interested(event)
+                          : await ref
+                              .read(eventsControllerProvider)
+                              .uninterested(event);
+
+                      ref.invalidate(eventUsersProvider(event));
+                    });
+                  },
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 450),
+                    child: isGoing
+                        ? Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Padding(
+                                padding: EdgeInsetsDirectional.only(end: 8),
+                                child: FaIcon(FontAwesomeIcons.check),
+                              ),
+                              Text(context.sl.going),
+                            ],
+                          )
+                        : Text('${context.sl.interested}?'),
+                  ),
+                );
+              },
             ),
           );
-        },
-      ),
-    );
   }
 }

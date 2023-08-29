@@ -121,7 +121,7 @@ class _AccountDetailsState extends ConsumerState<AccountDetails> {
                     child: _SettingsOption(
                       margin: const EdgeInsets.only(bottom: 16),
                       title: Text(
-                        SL.of(context).resetPassword,
+                        SL.of(context).resetPassword.toLowerCase(),
                         style: const TextStyle(
                           color: SalmonColors.black,
                         ),

@@ -46,137 +46,141 @@ class PostCard extends ConsumerWidget {
             scaleFactor: 0.95,
             duration: const Duration(milliseconds: 30),
             reverseDuration: null,
-            child: AspectRatio(
-              aspectRatio: 1,
-              child: Card(
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  child: CachedNetworkImage(
-                    imageUrl: post.coverImage ?? // TODO placeholder image
-                        'https://images.unsplash.com/photo-1615023691139-47180d57138f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
-                    maxHeightDiskCache: 480,
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) {
-                      return Shimmer.fromColors(
-                        baseColor: SalmonColors.mutedLight,
-                        highlightColor: SalmonColors.white,
-                        child: Container(
-                          color: SalmonColors.mutedLight,
-                          width: double.infinity,
-                          height: 100,
-                        ),
-                      );
-                    },
-                    imageBuilder: (context, imageProvider) => Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Positioned.fill(
-                          child: ColorFiltered(
-                            colorFilter: ColorFilter.mode(
-                              Colors.black.withOpacity(0.15),
-                              BlendMode.srcATop,
-                            ),
-                            child: Image(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
+            child: Hero(
+              tag: '${post.id}${post.coverImage}',
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: Card(
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    child: CachedNetworkImage(
+                      imageUrl: post.coverImage ?? // TODO placeholder image
+                          'https://images.unsplash.com/photo-1615023691139-47180d57138f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
+                      maxHeightDiskCache: 480,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) {
+                        return Shimmer.fromColors(
+                          baseColor: SalmonColors.mutedLight,
+                          highlightColor: SalmonColors.white,
+                          child: Container(
+                            color: SalmonColors.mutedLight,
+                            width: double.infinity,
+                            height: 100,
+                          ),
+                        );
+                      },
+                      imageBuilder: (context, imageProvider) => Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Positioned.fill(
+                            child: ColorFiltered(
+                              colorFilter: ColorFilter.mode(
+                                Colors.black.withOpacity(0.15),
+                                BlendMode.srcATop,
+                              ),
+                              child: Image(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (agency.hasValue)
-                                SalmonTagChip(
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      CachedNetworkImage(
-                                        imageUrl: agency.value!.logo!,
-                                        errorWidget: (context, url, error) =>
-                                            const SizedBox.shrink(),
-                                        imageBuilder:
-                                            (context, imageProvider) => Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.only(
-                                            end: 8,
+                          Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (agency.hasValue)
+                                  SalmonTagChip(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        CachedNetworkImage(
+                                          imageUrl: agency.value!.logo!,
+                                          errorWidget: (context, url, error) =>
+                                              const SizedBox.shrink(),
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  Padding(
+                                            padding: const EdgeInsetsDirectional
+                                                .only(
+                                              end: 8,
+                                            ),
+                                            child: Image(
+                                              image: imageProvider,
+                                              height: 24,
+                                            ),
                                           ),
-                                          child: Image(
-                                            image: imageProvider,
-                                            height: 24,
+                                        ),
+                                        ConstrainedBox(
+                                          constraints: const BoxConstraints(
+                                            maxWidth: 150,
+                                          ),
+                                          child: Text(
+                                            (context.isEn
+                                                    ? agency.value?.enName
+                                                    : agency.value?.arName) ??
+                                                '',
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
-                                      ),
-                                      ConstrainedBox(
-                                        constraints: const BoxConstraints(
-                                          maxWidth: 150,
+                                      ],
+                                    ),
+                                  ),
+                                const Spacer(),
+                                FractionallySizedBox(
+                                  widthFactor: 0.75,
+                                  child: Text(
+                                    (context.isEn
+                                            ? post.enTitle
+                                            : post.arTitle) ??
+                                        context.sl.readMore,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall
+                                        ?.copyWith(
+                                          color: SalmonColors.mutedLight,
+                                          fontWeight: FontWeight.bold,
                                         ),
-                                        child: Text(
-                                          (context.isEn
-                                                  ? agency.value?.enName
-                                                  : agency.value?.arName) ??
-                                              '',
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ],
                                   ),
                                 ),
-                              const Spacer(),
-                              FractionallySizedBox(
-                                widthFactor: 0.75,
-                                child: Text(
-                                  (context.isEn
-                                          ? post.enTitle
-                                          : post.arTitle) ??
-                                      context.sl.readMore,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall
-                                      ?.copyWith(
-                                        color: SalmonColors.mutedLight,
-                                        fontWeight: FontWeight.bold,
+                                const SizedBox(height: 18),
+                                Row(
+                                  children: [
+                                    if ((post.clapCount ?? 0) != 0) ...[
+                                      const FaIcon(
+                                        FontAwesomeIcons.handsClapping,
+                                        size: 18,
                                       ),
-                                ),
-                              ),
-                              const SizedBox(height: 18),
-                              Row(
-                                children: [
-                                  if ((post.clapCount ?? 0) != 0) ...[
-                                    const FaIcon(
-                                      FontAwesomeIcons.handsClapping,
-                                      size: 18,
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Text(
-                                      '·  ${post.clapCount}',
-                                      style: const TextStyle(fontSize: 12),
-                                    ),
-                                    const SizedBox(width: 16),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        '·  ${post.clapCount}',
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+                                      const SizedBox(width: 16),
+                                    ],
+                                    if (commentCount.hasValue &&
+                                        ((commentCount.value ?? 0) != 0)) ...[
+                                      const FaIcon(
+                                        FontAwesomeIcons.solidComments,
+                                        size: 18,
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        '·  ${commentCount.value}',
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+                                    ]
                                   ],
-                                  if (commentCount.hasValue &&
-                                      ((commentCount.value ?? 0) != 0)) ...[
-                                    const FaIcon(
-                                      FontAwesomeIcons.solidComments,
-                                      size: 18,
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Text(
-                                      '·  ${commentCount.value}',
-                                      style: const TextStyle(fontSize: 12),
-                                    ),
-                                  ]
-                                ],
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  )),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    )),
+              ),
             ),
           );
         }),

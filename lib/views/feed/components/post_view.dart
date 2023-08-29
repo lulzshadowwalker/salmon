@@ -88,12 +88,12 @@ class _PostViewState extends ConsumerState<PostView> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Hero(
-                      tag: widget.post.id!,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 16),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Hero(
+                          tag: '${widget.post.id}${widget.post.coverImage}',
                           child: CachedNetworkImage(
                             imageUrl: widget.post.coverImage ??
                                 '', // TODO placeholder
