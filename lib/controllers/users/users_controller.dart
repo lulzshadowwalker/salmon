@@ -118,4 +118,17 @@ registered new user with details:
       return null;
     }
   }
+
+  Future<int?> usersCount() async {
+    try {
+      return await _db
+          .collection('users')
+          .count()
+          .get()
+          .then((value) => value.count);
+    } catch (e) {
+      SalmonHelpers.handleException(e: e, logger: _log);
+      return null;
+    }
+  }
 }

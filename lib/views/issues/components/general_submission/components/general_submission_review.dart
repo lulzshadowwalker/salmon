@@ -31,6 +31,18 @@ class GeneralSubmissionReview extends HookConsumerWidget {
                     ),
                   ),
                 ),
+                const SizedBox(height: 28),
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(
+                    start: 24,
+                  ),
+                  child: Text(
+                    '${context.sl.refNo}: ${submission.id?.split('-')[0]}',
+                    style: TextStyle(
+                      color: SalmonColors.muted,
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 48),
                 Padding(
                   padding: const EdgeInsetsDirectional.only(
@@ -60,9 +72,7 @@ class GeneralSubmissionReview extends HookConsumerWidget {
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
-                                (context.isEn
-                                        ? data?.enName
-                                        : data?.arName) ??
+                                (context.isEn ? data?.enName : data?.arName) ??
                                     context.sl.unknown,
                                 style: TextStyle(
                                   color: SalmonColors.muted,

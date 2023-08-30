@@ -31,6 +31,18 @@ class IssueSubmissionReview extends HookConsumerWidget {
                     ),
                   ),
                 ),
+                const SizedBox(height: 28),
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(
+                    start: 24,
+                  ),
+                  child: Text(
+                    '${context.sl.refNo}: ${submission.id?.split('-')[0]}',
+                    style: TextStyle(
+                      color: SalmonColors.muted,
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 48),
                 Padding(
                   padding: const EdgeInsetsDirectional.only(

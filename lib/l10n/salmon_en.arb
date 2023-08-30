@@ -32,7 +32,7 @@
     "issues": "Issues",
     "chat": "Chat",
     "home": "Home",
-    "analytics": "Analytics",
+    "analytics": "Statistics",
     "settings": "Settings",
     "signOut": "Sign out",
     "createAnAccount": "Create an account",
@@ -115,5 +115,7 @@
     "interested": "interested",
     "enterEmailAndWeWillSendYouPasswordResetLink": "enter your email and we will send you a password reset link",
     "sendPasswordResetEmail": "Send password reset email",
-    "forgotPassword": "forgot password ?"
+    "forgotPassword": "forgot password ?",
+    "refNo": "reference number",
+    "activeCitizensOnSalmon": "active citizens\non Salmon"
 }

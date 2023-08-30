@@ -103,4 +103,31 @@ $data
       SalmonHelpers.handleException(context: context, e: e, logger: _log);
     }
   }
+
+  Future<int?> submissionsCount() async {
+    try {
+      return await _db
+          .collection('submissions')
+          .count()
+          .get()
+          .then((value) => value.count);
+    } catch (e) {
+      SalmonHelpers.handleException(e: e, logger: _log);
+      return null;
+    }
+  }
+
+  Future<int?> resolvedSubmissionsCount() async {
+    try {
+      return await _db
+          .collection('submissions')
+          .where('status', isEqualTo: 'resolved')
+          .count()
+          .get()
+          .then((value) => value.count);
+    } catch (e) {
+      SalmonHelpers.handleException(e: e, logger: _log);
+      return null;
+    }
+  }
 }
