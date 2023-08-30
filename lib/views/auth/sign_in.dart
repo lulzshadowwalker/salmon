@@ -76,8 +76,7 @@ class _SignInState extends ConsumerState<SignIn> {
                         onTap: () {
                           showModalBottomSheet(
                             context: context,
-                            backgroundColor:
-                                context.theme.scaffoldBackgroundColor,
+                            backgroundColor: Colors.transparent,
                             builder: (context) => const PasswordReset(),
                             elevation: 0,
                             constraints: const BoxConstraints(maxWidth: 500),

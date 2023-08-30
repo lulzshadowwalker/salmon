@@ -112,10 +112,12 @@
     "communityQuestion": "Commnuity Question",
     "minutesAgo": "minutes ago",
     "going": "Going",
-    "interested": "interested",
+    "interested": "interested ?",
     "enterEmailAndWeWillSendYouPasswordResetLink": "enter your email and we will send you a password reset link",
     "sendPasswordResetEmail": "Send password reset email",
     "forgotPassword": "forgot password ?",
     "refNo": "reference number",
-    "activeCitizensOnSalmon": "active citizens\non Salmon"
+    "activeCitizensOnSalmon": "active citizens\non Salmon",
+    "agencies": "agencies",
+    "filter": "Filter"
 }

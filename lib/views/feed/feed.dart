@@ -8,6 +8,7 @@ import 'package:salmon/helpers/salmon_helpers.dart';
 import 'package:salmon/providers/polls/polls_provider.dart';
 import 'package:salmon/providers/posts/posts_provider.dart';
 import 'package:salmon/views/feed/components/post_card.dart';
+import 'package:salmon/views/shared/content_filter_button/content_filter_button.dart';
 import 'package:salmon/views/shared/expandable_page_view/expandable_page_view.dart';
 import 'package:salmon/views/shared/salmon_info_dialog/salmon_info_dialog.dart';
 import 'package:salmon/views/shared/salmon_navigator/salmon_navigator.dart';
@@ -28,7 +29,7 @@ class _FeedState extends ConsumerState<Feed> {
 
   @override
   Widget build(BuildContext context) {
-    final posts = ref.watch(postsProvider);
+    final posts = ref.watch(filteredPostsProvider);
 
     useEffect(() {
       // TODO custom hook
@@ -123,36 +124,48 @@ class _FeedState extends ConsumerState<Feed> {
                     final isLast = posts.value?.length != null &&
                         index != (posts.value!.length - 1);
 
-                    return Padding(
-                      padding: isLast
-                          ? const EdgeInsets.only(bottom: 24)
-                          : EdgeInsets.zero,
-                      child: posts.when(
-                        data: (data) => PostCard(
-                          post: data[index],
-                        ), // TODO Feed empty state
-                        error: (error, stackTrace) => const Center(
-                          child: Text('unknown error'),
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 4.0,
+                            vertical: 4,
+                          ),
+                          child: ContentFilterButton(),
                         ),
-                        loading: () => ListView.separated(
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) => AspectRatio(
-                            aspectRatio: 1,
-                            child: Shimmer.fromColors(
-                              baseColor: SalmonColors.mutedLight,
-                              highlightColor: SalmonColors.white,
-                              child: Container(
-                                color: SalmonColors.mutedLight,
-                                width: double.infinity,
-                                height: 100,
+                        Padding(
+                          padding: isLast
+                              ? const EdgeInsets.only(bottom: 24)
+                              : EdgeInsets.zero,
+                          child: posts.when(
+                            data: (data) => PostCard(
+                              post: data[index],
+                            ), // TODO Feed empty state
+                            error: (error, stackTrace) => const Center(
+                              child: Text('unknown error'),
+                            ),
+                            loading: () => ListView.separated(
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) => AspectRatio(
+                                aspectRatio: 1,
+                                child: Shimmer.fromColors(
+                                  baseColor: SalmonColors.mutedLight,
+                                  highlightColor: SalmonColors.white,
+                                  child: Container(
+                                    color: SalmonColors.mutedLight,
+                                    width: double.infinity,
+                                    height: 100,
+                                  ),
+                                ),
                               ),
+                              separatorBuilder: (context, index) =>
+                                  const SizedBox(height: 16),
+                              itemCount: 6,
                             ),
                           ),
-                          separatorBuilder: (context, index) =>
-                              const SizedBox(height: 16),
-                          itemCount: 6,
                         ),
-                      ),
+                      ],
                     );
                   },
                 ),

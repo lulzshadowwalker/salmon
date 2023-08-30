@@ -60,7 +60,7 @@ class _IsGoingButtonState extends State<_IsGoingButton> {
                               Text(context.sl.going),
                             ],
                           )
-                        : Text('${context.sl.interested}?'),
+                        : Text(context.sl.interested),
                   ),
                 );
               },

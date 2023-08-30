@@ -269,10 +269,11 @@ class EventView extends StatelessWidget {
                                   child: SafeArea(
                                     top: false,
                                     child: MarkdownBody(
-                                      data: (context.isEn
-                                              ? event.enBody
-                                              : event.arBody) ??
-                                          ''.replaceAll('<br>', '\n'),
+                                      data: ((context.isEn
+                                                  ? event.enBody
+                                                  : event.arBody) ??
+                                              '')
+                                          .replaceAll('<br>', '\n'),
                                       styleSheet:
                                           SalmonTheme.markdownStyleSheet(
                                               context),

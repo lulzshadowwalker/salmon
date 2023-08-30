@@ -86,7 +86,7 @@ class Issues extends HookConsumerWidget {
                 ),
                 const SizedBox(height: 24),
                 Text(
-                  context.sl.previousSubmissions, 
+                  context.sl.previousSubmissions,
                   style: context.textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -115,7 +115,8 @@ class Issues extends HookConsumerWidget {
                                   ),
                                   const SizedBox(height: 12),
                                   Text(
-                                    context.sl.feelFreeToReachOutWithSuggestions,
+                                    context
+                                        .sl.feelFreeToReachOutWithSuggestions,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: SalmonColors.muted,

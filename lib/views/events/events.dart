@@ -8,34 +8,32 @@ class Events extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(salmonThemeProvider).dark();
-    final events = ref.watch(eventsProvider);
+    final events = ref.watch(filteredEventsProvider);
 
     return Scaffold(
       drawer: const SalmonDrawer(),
+      appBar: AppBar(
+        leading: const MenuButton(),
+        title: Text(SL.of(context).events),
+        bottom: const AppBarDivider(),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Builder(builder: (context) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const HomeAppBar(),
-                Padding(
-                  padding: const EdgeInsetsDirectional.only(
-                    start: 12,
-                    top: 12,
-                  ),
-                  child: Text(
-                    context.sl.events,
-                    style: context.textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
+            return events.when(
+              data: (data) => Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 4.0,
+                      vertical: 4,
                     ),
+                    child: ContentFilterButton(),
                   ),
-                ),
-                const SizedBox(height: 12),
-                Expanded(
-                  child: events.when(
-                    data: (data) => Theme(
+                  Expanded(
+                    child: Theme(
                       data: theme,
                       child: DefaultTextStyle(
                         style: TextStyle(
@@ -50,31 +48,30 @@ class Events extends ConsumerWidget {
                         ),
                       ),
                     ),
-                    error: (error, stackTrace) => const Center(
-                      child: Text(
-                          'unknown error has occurred'), // TODO error wiget
-                    ),
-                    loading: () => ListView.separated(
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) => AspectRatio(
-                        aspectRatio: 1,
-                        child: Shimmer.fromColors(
-                          baseColor: SalmonColors.mutedLight,
-                          highlightColor: SalmonColors.white,
-                          child: Container(
-                            color: SalmonColors.mutedLight,
-                            width: double.infinity,
-                            height: 100,
-                          ),
-                        ),
-                      ),
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 16),
-                      itemCount: 6,
+                  ),
+                ],
+              ),
+              error: (error, stackTrace) => const Center(
+                child: Text('unknown error has occurred'), // TODO error wiget
+              ),
+              loading: () => ListView.separated(
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) => AspectRatio(
+                  aspectRatio: 1,
+                  child: Shimmer.fromColors(
+                    baseColor: SalmonColors.mutedLight,
+                    highlightColor: SalmonColors.white,
+                    child: Container(
+                      color: SalmonColors.mutedLight,
+                      width: double.infinity,
+                      height: 100,
                     ),
                   ),
                 ),
-              ],
+                separatorBuilder: (context, index) =>
+                    const SizedBox(height: 16),
+                itemCount: 6,
+              ),
             );
           }),
         ),

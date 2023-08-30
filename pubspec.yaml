@@ -58,6 +58,7 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   fl_chart: ^0.63.0
   animated_flip_counter: ^0.2.6
+  collection: ^1.17.1
 
 dev_dependencies:
   flutter_test:

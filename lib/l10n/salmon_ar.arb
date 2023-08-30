@@ -112,12 +112,13 @@
 "communityQuestion": "سؤال للمجتمع",
 "minutesAgo": "دقيقة مضت",
 "going": "ذاهب",
-"interested": "مهتم",
+"interested": "مهتم ؟",
  "enterEmailAndWeWillSendYouPasswordResetLink": "أدخل بريدك الإلكتروني وسنرسل لك رابط إعادة تعيين كلمة المرور",
   "sendPasswordResetEmail": "إرسال رابط إعادة تعيين كلمة المرور",
     "forgotPassword": "هل نسيت كلمة المرور ؟",
     "refNo": "الرقم المرجعي",
-    "activeCitizensOnSalmon": "مواطنون نشطون\nعلى السلمون"
-
+    "activeCitizensOnSalmon": "مواطنون نشطون\nعلى السلمون",
+ "agencies": "الجهات",
+    "filter": "الفلترة"
 
 }

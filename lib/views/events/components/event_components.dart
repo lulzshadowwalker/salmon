@@ -19,7 +19,6 @@ import 'package:salmon/providers/events/events_provider.dart';
 import 'package:salmon/providers/theme_data/theme_data_provider.dart';
 import 'package:salmon/router/salmon_routes.dart';
 import 'package:salmon/theme/salmon_theme.dart';
-import 'package:salmon/views/home/components/home_app_bar.dart';
 import 'package:salmon/views/salmon_drawer/components/salmon_drawer_components.dart';
 import 'package:salmon/views/shared/salmon_single_child_scroll_view/salmon_single_child_scroll_view.dart';
 import 'package:salmon/views/shared/salmon_tag_chip/salmon_tag_chip.dart';
@@ -28,6 +27,9 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../providers/agency/agency_provider.dart';
 import '../../../theme/salmon_colors.dart';
+import '../../shared/app_bar_divider/app_bar_divider.dart';
+import '../../shared/content_filter_button/content_filter_button.dart';
+import '../../shared/menu_button/menu_button.dart';
 import '../../shared/salmon_animated_overlapping_stack/salmon_animated_overlapping_stack.dart';
 
 part './event_card.dart';

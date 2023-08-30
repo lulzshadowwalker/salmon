@@ -174,9 +174,10 @@ class _PostViewState extends ConsumerState<PostView> {
                     ),
                     Expanded(
                       child: MarkdownBody(
-                        data: (context.isEn
-                                ? widget.post.enBody
-                                : widget.post.arBody)!
+                        data: ((context.isEn
+                                    ? widget.post.enBody
+                                    : widget.post.arBody) ??
+                                '')
                             .replaceAll('<br>', '\n'),
                         styleSheet: SalmonTheme.markdownStyleSheet(context),
                       ),

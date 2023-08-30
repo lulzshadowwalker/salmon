@@ -5,13 +5,11 @@ import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/providers/submissions_count/submissions_count_provider.dart';
 import 'package:salmon/providers/users_count/users_count_provider.dart';
 import 'package:salmon/views/shared/salmon_poll/components/salmon_poll_pie_chart.dart';
-import 'package:salmon/views/shared/salmon_single_child_scroll_view/salmon_single_child_scroll_view.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../l10n/l10n_imports.dart';
 import '../../providers/polls/polls_provider.dart';
 import '../../theme/salmon_colors.dart';
-import '../home/components/home_app_bar.dart';
 import '../salmon_drawer/components/salmon_drawer_components.dart';
 import '../shared/app_bar_divider/app_bar_divider.dart';
 import '../shared/expandable_page_view/expandable_page_view.dart';

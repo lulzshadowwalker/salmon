@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lazy_load_indexed_stack/lazy_load_indexed_stack.dart';
+import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/l10n/l10n_imports.dart';
 import 'package:salmon/views/home/components/salmon_bottom_nav_bar_item.dart';
 import 'package:salmon/views/salmon_drawer/components/salmon_drawer_components.dart';
@@ -29,40 +30,50 @@ class Home extends HookConsumerWidget {
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
         ),
-        child: BottomNavigationBar(
-          currentIndex: index,
-          onTap: ref.read(homeProvider.notifier).set,
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          enableFeedback: true,
-          items: [
-            BottomNavigationBarItem(
-              label: SL.of(context).feed,
-              icon: SalmonBottomNavbarItem(
-                isActive: index == 0,
-                child: AnimatedHomeIcon(
+        child: Container(
+          decoration: BoxDecoration(
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: context.cs.onBackground.withOpacity(0.15),
+                blurRadius: 32,
+                spreadRadius: 2,
+              ),
+            ],
+          ),
+          child: BottomNavigationBar(
+            currentIndex: index,
+            onTap: ref.read(homeProvider.notifier).set,
+            backgroundColor: context.theme.scaffoldBackgroundColor,
+            enableFeedback: true,
+            items: [
+              BottomNavigationBarItem(
+                label: SL.of(context).feed,
+                icon: SalmonBottomNavbarItem(
                   isActive: index == 0,
-                  scale: 1.1,
+                  child: AnimatedHomeIcon(
+                    isActive: index == 0,
+                    scale: 1.1,
+                  ),
                 ),
               ),
-            ),
-            BottomNavigationBarItem(
-              label: SL.of(context).issues,
-              icon: AnimatedIssuesIcon(
-                isActive: index == 1,
+              BottomNavigationBarItem(
+                label: SL.of(context).issues,
+                icon: AnimatedIssuesIcon(
+                  isActive: index == 1,
+                ),
               ),
-            ),
-            BottomNavigationBarItem(
-              label: SL.of(context).chat,
-              icon: SalmonBottomNavbarItem(
-                isActive: index == 2,
-                child: AnimatedChatIcon(
+              BottomNavigationBarItem(
+                label: SL.of(context).chat,
+                icon: SalmonBottomNavbarItem(
                   isActive: index == 2,
-                  scale: 1.2,
+                  child: AnimatedChatIcon(
+                    isActive: index == 2,
+                    scale: 1.2,
+                  ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
       body: SalmonNavigator(

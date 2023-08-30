@@ -40,79 +40,86 @@ class _PasswordResetState extends ConsumerState<PasswordReset> {
 
     final isLoading = useState(false);
 
-    return Padding(
-      padding: const EdgeInsets.all(32),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const FaIcon(
-                FontAwesomeIcons.solidEnvelope,
-                size: 28,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                child: const FaIcon(
-                  FontAwesomeIcons.solidCircleXmark,
-                  size: 22,
+    return SafeArea(
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 8),
+        padding: const EdgeInsets.all(32),
+        decoration: BoxDecoration(
+          color: context.theme.scaffoldBackgroundColor,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const FaIcon(
+                  FontAwesomeIcons.solidEnvelope,
+                  size: 28,
                 ),
-              )
-            ],
-          ),
-          const SizedBox(height: 16),
-          Text(
-            context.sl.resetPasswordHeader,
-            style: context.textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.bold,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const FaIcon(
+                    FontAwesomeIcons.solidCircleXmark,
+                    size: 22,
+                  ),
+                )
+              ],
             ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            context.sl.enterEmailAndWeWillSendYouPasswordResetLink,
-            style: TextStyle(color: SalmonColors.muted),
-          ),
-          SalmonEmailField(
-            fieldKey: _emailKey,
-            controller: controller,
-          ),
-          Center(
-            child: SizedBox(
-              height: 92,
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 550),
-                reverseDuration: const Duration(milliseconds: 650),
-                child: hasValue.value
-                    ? !isLoading.value
-                        ? ElevatedButton(
-                            onPressed: () async {
-                              if (_emailKey.currentState == null ||
-                                  !_emailKey.currentState!.validate()) return;
-
-                              _emailKey.currentState!.save();
-
-                              isLoading.value = true;
-                              await ref
-                                  .read(a12nProvider)
-                                  .sendPasswordResetEmail(
-                                    context,
-                                    controller.text.trim(),
-                                  );
-                              if (isMounted()) isLoading.value = false;
-                              Navigator.of(context).pop();
-                            },
-                            child: Text(context.sl.sendPasswordResetEmail),
-                          )
-                        : const SalmonLoadingIndicator()
-                    : const SizedBox.shrink(),
+            const SizedBox(height: 16),
+            Text(
+              context.sl.resetPasswordHeader,
+              style: context.textTheme.headlineMedium?.copyWith(
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-        ],
+            const SizedBox(height: 8),
+            Text(
+              context.sl.enterEmailAndWeWillSendYouPasswordResetLink,
+              style: TextStyle(color: SalmonColors.muted),
+            ),
+            SalmonEmailField(
+              fieldKey: _emailKey,
+              controller: controller,
+            ),
+            Center(
+              child: SizedBox(
+                height: 92,
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 550),
+                  reverseDuration: const Duration(milliseconds: 650),
+                  child: hasValue.value
+                      ? !isLoading.value
+                          ? ElevatedButton(
+                              onPressed: () async {
+                                if (_emailKey.currentState == null ||
+                                    !_emailKey.currentState!.validate()) return;
+
+                                _emailKey.currentState!.save();
+
+                                isLoading.value = true;
+                                await ref
+                                    .read(a12nProvider)
+                                    .sendPasswordResetEmail(
+                                      context,
+                                      controller.text.trim(),
+                                    );
+                                if (isMounted()) isLoading.value = false;
+                                Navigator.of(context).pop();
+                              },
+                              child: Text(context.sl.sendPasswordResetEmail),
+                            )
+                          : const SalmonLoadingIndicator()
+                      : const SizedBox.shrink(),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
