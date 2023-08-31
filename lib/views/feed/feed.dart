@@ -112,9 +112,21 @@ class _FeedState extends ConsumerState<Feed> {
                   },
                 ),
               ),
+              const SliverToBoxAdapter(
+                child: Padding(
+                  padding:    EdgeInsetsDirectional.only(
+                    top: 16,
+                    end: 12,
+                  ),
+                  child: Align(
+                    alignment: AlignmentDirectional.centerEnd,
+                    child: ContentFilterButton(),
+                  ),
+                ),
+              ),
               SliverPadding(
                 padding: const EdgeInsets.only(
-                  top: 18,
+                  top: 12,
                   right: 12,
                   left: 12,
                 ),
@@ -124,48 +136,36 @@ class _FeedState extends ConsumerState<Feed> {
                     final isLast = posts.value?.length != null &&
                         index != (posts.value!.length - 1);
 
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 4.0,
-                            vertical: 4,
-                          ),
-                          child: ContentFilterButton(),
+                    return Padding(
+                      padding: isLast
+                          ? const EdgeInsets.only(bottom: 24)
+                          : EdgeInsets.zero,
+                      child: posts.when(
+                        data: (data) => PostCard(
+                          post: data[index],
+                        ), // TODO Feed empty state
+                        error: (error, stackTrace) => const Center(
+                          child: Text('unknown error'),
                         ),
-                        Padding(
-                          padding: isLast
-                              ? const EdgeInsets.only(bottom: 24)
-                              : EdgeInsets.zero,
-                          child: posts.when(
-                            data: (data) => PostCard(
-                              post: data[index],
-                            ), // TODO Feed empty state
-                            error: (error, stackTrace) => const Center(
-                              child: Text('unknown error'),
-                            ),
-                            loading: () => ListView.separated(
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) => AspectRatio(
-                                aspectRatio: 1,
-                                child: Shimmer.fromColors(
-                                  baseColor: SalmonColors.mutedLight,
-                                  highlightColor: SalmonColors.white,
-                                  child: Container(
-                                    color: SalmonColors.mutedLight,
-                                    width: double.infinity,
-                                    height: 100,
-                                  ),
-                                ),
+                        loading: () => ListView.separated(
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) => AspectRatio(
+                            aspectRatio: 1,
+                            child: Shimmer.fromColors(
+                              baseColor: SalmonColors.mutedLight,
+                              highlightColor: SalmonColors.white,
+                              child: Container(
+                                color: SalmonColors.mutedLight,
+                                width: double.infinity,
+                                height: 100,
                               ),
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(height: 16),
-                              itemCount: 6,
                             ),
                           ),
+                          separatorBuilder: (context, index) =>
+                              const SizedBox(height: 16),
+                          itemCount: 6,
                         ),
-                      ],
+                      ),
                     );
                   },
                 ),

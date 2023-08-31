@@ -36,14 +36,7 @@ class ContentFilterButton extends ConsumerWidget {
             horizontal: 8,
             vertical: 4,
           ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            border: Border.all(
-              width: 1,
-              color: SalmonColors.muted,
-            ),
-          ),
-          child:  Row(
+          child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               const FaIcon(

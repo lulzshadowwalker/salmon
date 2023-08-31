@@ -70,8 +70,8 @@ class _PostViewState extends ConsumerState<PostView> {
           appBar: AppBar(
             // TODO long ass back button with an arrow
             backgroundColor: context.theme.scaffoldBackgroundColor,
-            actions: const [
-              PostNotificationChip(),
+            actions: [
+              if (!isGuest) const PostNotificationChip(),
             ],
           ),
           body: Scaffold(

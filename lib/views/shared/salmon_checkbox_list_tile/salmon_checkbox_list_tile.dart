@@ -17,6 +17,7 @@ class SalmonCheckboxListTile extends HookWidget {
   @override
   Widget build(BuildContext context) {
     return CheckboxListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 8),
       title: title,
       activeColor: context.cs.primary,
       checkColor: context.cs.primaryContainer,

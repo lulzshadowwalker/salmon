@@ -137,14 +137,16 @@ class EventView extends StatelessWidget {
                                                             imageBuilder: (context,
                                                                     imageProvider) =>
                                                                 Padding(
-                                                                    padding: const EdgeInsetsDirectional
-                                                                            .only(
-                                                                        end: 8),
-                                                                    child:
-                                                                        Image(
-                                                                      image:
-                                                                          imageProvider,
-                                                                    )),
+                                                              padding:
+                                                                  const EdgeInsetsDirectional
+                                                                      .only(
+                                                                end: 8,
+                                                              ),
+                                                              child: Image(
+                                                                image:
+                                                                    imageProvider,
+                                                              ),
+                                                            ),
                                                             errorWidget: (context,
                                                                     url,
                                                                     error) =>

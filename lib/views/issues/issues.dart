@@ -6,6 +6,7 @@ class Issues extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final submissions = ref.watch(submissionsProvider);
+    final isGuest = ref.watch(a12nProvider).isGuest;
 
     useEffect(() {
       // TODO custom hook
@@ -51,6 +52,11 @@ class Issues extends HookConsumerWidget {
                     Expanded(
                       child: _IssueCard(
                         onTap: () {
+                          if (isGuest) {
+                            NotifsController.showAuthGuardSnackbar(context);
+                            return;
+                          }
+
                           context.goNamed(SalmonRoutes.issueSubmission);
                         },
                         title: context.sl.complaint,
@@ -71,6 +77,11 @@ class Issues extends HookConsumerWidget {
                     Expanded(
                       child: _IssueCard(
                         onTap: () {
+                          if (isGuest) {
+                            NotifsController.showAuthGuardSnackbar(context);
+                            return;
+                          }
+
                           context.goNamed(SalmonRoutes.generalSubmission);
                         },
                         title: context.sl.suggestion,

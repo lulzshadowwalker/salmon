@@ -6,8 +6,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/controllers/posts/posts_controller.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
+import 'package:salmon/providers/a12n/a12n_provider.dart';
 import 'package:salmon/views/feed/components/post_data.dart';
 
+import '../../../controllers/notifs/notifs_controller.dart';
 import '../../../providers/current_user/current_user_provider.dart';
 import '../../../theme/salmon_colors.dart';
 import '../../shared/salmon_user_avatar/salmon_user_avatar.dart';
@@ -25,6 +27,7 @@ class _CommentInputState extends ConsumerState<CommentInput> {
     final user = ref.watch(currentUserProvider);
     final inputController = useTextEditingController();
     final post = PostData.of(context)!.data;
+    final isGuest = ref.watch(a12nProvider).isGuest;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -40,6 +43,13 @@ class _CommentInputState extends ConsumerState<CommentInput> {
           ),
         Expanded(
           child: DetectableTextField(
+            readOnly: isGuest,
+            onTap: () {
+              if (isGuest) {
+                NotifsController.showAuthGuardSnackbar(context);
+                return;
+              }
+            },
             controller: inputController,
             detectionRegExp: hashTagAtSignUrlRegExp,
             decoratedStyle: TextStyle(

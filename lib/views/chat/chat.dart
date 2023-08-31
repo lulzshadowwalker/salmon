@@ -4,6 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/helpers/salmon_helpers.dart';
+import 'package:salmon/providers/a12n/a12n_provider.dart';
+import 'package:salmon/views/chat/components/channel_list_empty_state.dart';
 import 'package:salmon/views/shared/salmon_navigator/salmon_navigator.dart';
 import 'package:salmon/views/shared/salmon_single_child_scroll_view/salmon_single_child_scroll_view.dart';
 
@@ -22,6 +24,7 @@ class Chat extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final chatUser = ref.watch(chatUserProvider);
+    final isGuest = ref.watch(a12nProvider).isGuest;
 
     useEffect(() {
       // TODO custom hook
@@ -49,9 +52,10 @@ class Chat extends HookConsumerWidget {
         builder: (context) {
           return chatUser.when(
             data: (user) => Scaffold(
-              floatingActionButton: user != null
-                  ? const ChatSearchAgencyButton()
-                  : const SizedBox.shrink(),
+              floatingActionButton: const Padding(
+                padding: EdgeInsets.only(bottom: 16),
+                child: ChatSearchAgencyButton(),
+              ),
               body: SalmonSingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,12 +78,9 @@ class Chat extends HookConsumerWidget {
                               ),
                             ),
                             Expanded(
-                              child: user != null
-                                  ? const ChannelList()
-                                  : const Center(
-                                      child: Text(
-                                          'needs auth'), // TODO chat auth wrapper ui
-                                    ),
+                              child: isGuest
+                                  ? const ChannelListEmptyState()
+                                  : const ChannelList(),
                             )
                           ],
                         ),

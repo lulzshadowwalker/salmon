@@ -34,9 +34,9 @@ class Home extends HookConsumerWidget {
           decoration: BoxDecoration(
             boxShadow: <BoxShadow>[
               BoxShadow(
-                color: context.cs.onBackground.withOpacity(0.15),
-                blurRadius: 32,
-                spreadRadius: 2,
+                color: context.cs.onBackground.withOpacity(0.1),
+                blurRadius: 16,
+                spreadRadius: 1,
               ),
             ],
           ),

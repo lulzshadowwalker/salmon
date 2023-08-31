@@ -10,6 +10,7 @@ import 'package:salmon/views/shared/salmon_loading_indicator/salmon_loading_indi
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 import '../../../theme/salmon_colors.dart';
+import 'channel_list_empty_state.dart';
 import 'chat_avatar.dart';
 
 class ChannelList extends StatefulWidget {
@@ -60,36 +61,7 @@ class _ChannelListState extends State<ChannelList> {
             ],
           ),
         ),
-        emptyBuilder: (context) => Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ColorFiltered(
-                colorFilter: const ColorFilter.mode(
-                  SalmonColors.lightBlue,
-                  BlendMode.srcIn,
-                ),
-                child: Lottie.asset(
-                  SalmonAnims.chatBubble,
-                ),
-              ),
-              const SizedBox(height: 24),
-              SizedBox(
-                height: 48,
-                child: AnimatedTextKit(
-                  isRepeatingAnimation: false,
-                  animatedTexts: [
-                    TyperAnimatedText(
-                      context.sl.startByHavingYourFirstChat,
-                      textAlign: TextAlign.center,
-                      speed: const Duration(milliseconds: 36),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
+        emptyBuilder: (context) => const ChannelListEmptyState(),
         separatorBuilder: (context, values, index) => const SizedBox(height: 8),
         itemBuilder: (context, items, index, defaultWidget) {
           final channel = items[index];

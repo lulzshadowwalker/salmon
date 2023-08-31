@@ -23,11 +23,11 @@ class Events extends ConsumerWidget {
           child: Builder(builder: (context) {
             return events.when(
               data: (data) => Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   const Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: 4.0,
+                      horizontal: 8.0,
                       vertical: 4,
                     ),
                     child: ContentFilterButton(),

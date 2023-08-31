@@ -6,6 +6,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:salmon/helpers/salmon_anims.dart';
+import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/helpers/salmon_helpers.dart';
 import 'package:salmon/l10n/l10n_imports.dart';
 import 'package:salmon/providers/a12n/a12n_provider.dart';
@@ -321,6 +322,15 @@ topic ($topic) subscription status: $subscribe
       context: context,
       title: 'nope',
       message: 'in development 🥱',
+      type: NotifType.tip,
+    );
+  }
+
+  static void showAuthGuardSnackbar(BuildContext context) {
+    NotifsController.showPopup(
+      context: context,
+      title: context.sl.authRequired,
+      message: context.sl.anAccountIsNeededToAccessThisFeature,
       type: NotifType.tip,
     );
   }

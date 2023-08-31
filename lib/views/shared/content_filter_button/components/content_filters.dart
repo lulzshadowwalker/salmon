@@ -1,9 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 
+import '../../../../l10n/l10n_imports.dart';
 import '../../../../providers/content_filter/content_filter_provider.dart';
+import '../../../../theme/salmon_colors.dart';
 import '../../salmon_checkbox_list_tile/salmon_checkbox_list_tile.dart';
 import '../../salmon_constrained_box/salmon_constrained_box.dart';
 
@@ -19,14 +23,15 @@ class ContentFilters extends ConsumerWidget {
 
     return SalmonConstrainedBox(
       child: SafeArea(
+        bottom: kFlutterMemoryAllocationsEnabled,
         child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 8),
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.vertical(
               top: Radius.circular(12),
             ),
             color: context.theme.scaffoldBackgroundColor,
           ),
-          margin: const EdgeInsets.symmetric(horizontal: 16),
           child: DraggableScrollableSheet(
             expand: false,
             minChildSize: 0.25,
@@ -73,9 +78,36 @@ class ContentFilters extends ConsumerWidget {
                             final tag = tags[index];
 
                             return SalmonCheckboxListTile(
-                              title: Text(
-                                (context.isEn ? tag.enName : tag.arName) ??
-                                    context.sl.unknown,
+                              title: Row(
+                                children: [
+                                  CachedNetworkImage(
+                                    imageUrl: tag.logo ?? '',
+                                    height: 36,
+                                    width: 36,
+                                    imageBuilder: (context, imageProvider) =>
+                                        Padding(
+                                      padding: const EdgeInsetsDirectional.only(
+                                        end: 16,
+                                      ),
+                                      child: Image(
+                                        image: imageProvider,
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        const SizedBox.shrink(),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      (context.isEn
+                                              ? tag.enName
+                                              : tag.arName) ??
+                                          SL.of(context).unknown,
+                                      style: TextStyle(
+                                        color: SalmonColors.muted,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                               value: selectedTags.tags.contains(tag),
                               onChanged: (val) {

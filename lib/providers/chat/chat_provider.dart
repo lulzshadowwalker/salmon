@@ -10,6 +10,9 @@ final chatClientProvider = Provider(
 
 final chatUserProvider = FutureProvider<OwnUser?>(
   (ref) async {
+    final isGuest = ref.watch(a12nProvider).isGuest;
+    if (isGuest) return null;
+
     final client = ref.watch(chatClientProvider);
 
     ref.watch(authStateProvider);
