@@ -119,5 +119,9 @@
     "refNo": "reference number",
     "activeCitizensOnSalmon": "active citizens\non Salmon",
     "agencies": "agencies",
-    "filter": "Filter"
+    "filter": "Filter",
+    "buildingTrustBridgingTheGap": "Building Trust\nBridging the Gap",
+    "whereCitizensMeetTheGovernment": "Where Citizens Meet Government",
+    "authRequired": "Authentication Required",
+    "anAccountIsNeededToAccessThisFeature": "an account is required to access this feature"
 }

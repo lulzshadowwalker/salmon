@@ -59,6 +59,7 @@ dependencies:
   fl_chart: ^0.63.0
   animated_flip_counter: ^0.2.6
   collection: ^1.17.1
+  concentric_transition: ^1.0.3
 
 dev_dependencies:
   flutter_test:

@@ -23,7 +23,7 @@ class OnboardingPage1 extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Building Trust\nBridging the Gap',
+            context.sl.buildingTrustBridgingTheGap,
             style: context.textTheme.headlineMedium?.copyWith(
               fontWeight: FontWeight.bold,
             ),
@@ -31,7 +31,7 @@ class OnboardingPage1 extends ConsumerWidget {
           const SizedBox(height: 8),
           FittedBox(
             child: Text(
-              'Where Citizens Meet Government',
+              context.sl.whereCitizensMeetTheGovernment,
               style: context.textTheme.headlineSmall,
             ),
           )

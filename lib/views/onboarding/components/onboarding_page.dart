@@ -14,26 +14,23 @@ class OnboardingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: color,
-      width: double.infinity,
-      child: Padding(
-        padding: const EdgeInsetsDirectional.only(
-          start: 24,
-          end: 36,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            header,
-            const SizedBox(height: 16),
-            SizedBox(
-              height: 128,
-              child: title,
-            ),
-          ],
-        ),
+    return Padding(
+      padding: const EdgeInsetsDirectional.only(
+        start: 24,
+        end: 36,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Spacer(flex: 1),
+          header,
+          const SizedBox(height: 16),
+          SizedBox(
+            height: 128,
+            child: title,
+          ),
+          const Spacer(flex: 2),
+        ],
       ),
     );
   }

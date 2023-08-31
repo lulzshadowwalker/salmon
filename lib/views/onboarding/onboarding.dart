@@ -1,3 +1,6 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:concentric_transition/page_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -5,10 +8,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:liquid_swipe/liquid_swipe.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:salmon/helpers/salmon_const.dart';
-import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/providers/notifs_controller/notifs_controller_provider.dart';
 import 'package:salmon/providers/theme_data/theme_data_provider.dart';
 import 'package:salmon/router/salmon_routes.dart';
@@ -16,7 +17,6 @@ import 'package:salmon/theme/salmon_colors.dart';
 import 'package:salmon/views/onboarding/components/onboarding_page_1.dart';
 import 'package:salmon/views/onboarding/components/onboarding_page_2.dart';
 import 'package:salmon/views/onboarding/components/onboarding_page_3.dart';
-import 'package:salmon/views/shared/salmon_loading_indicator/salmon_loading_indicator.dart';
 
 class Onboarding extends HookConsumerWidget {
   const Onboarding({super.key});
@@ -25,6 +25,12 @@ class Onboarding extends HookConsumerWidget {
     const OnboardingPage1(),
     const OnboardingPage2(),
     const OnboardingPage3(),
+  ];
+
+  static final List<Color> _colors = [
+    SalmonColors.blue,
+    SalmonColors.yellow,
+    SalmonColors.blue,
   ];
 
   @override
@@ -44,82 +50,31 @@ class Onboarding extends HookConsumerWidget {
       child: Builder(
         builder: (context) {
           return Scaffold(
-            body: Stack(
-              children: [
-                LiquidSwipe(
-                  positionSlideIcon: 0.8,
-                  fullTransitionValue: 380,
-                  slideIconWidget: isLast
-                      ? const SizedBox.shrink()
-                      : const Icon(
-                          FontAwesomeIcons.angleLeft,
-                          size: 28,
-                        ),
-                  preferDragFromRevealedArea: true,
-                  enableSideReveal: true,
-                  ignoreUserGestureWhileAnimating: true,
-                  enableLoop: false,
-                  waveType: WaveType.circularReveal,
-                  pages: _pages,
-                  onPageChangeCallback: (activePage) =>
-                      currentPage.value = activePage,
-                ),
-                AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 250),
-                  child: isLast
-                      ? Align(
-                          alignment: Alignment.bottomCenter,
-                          child: SafeArea(
-                            child: Padding(
-                              padding: const EdgeInsets.all(24),
-                              child: AnimatedSwitcher(
-                                duration: const Duration(milliseconds: 250),
-                                child: isLoading.value
-                                    ? const ColorFiltered(
-                                        colorFilter: ColorFilter.mode(
-                                          SalmonColors.blue,
-                                          BlendMode.srcIn,
-                                        ),
-                                        child: SalmonLoadingIndicator(),
-                                      )
-                                    : ElevatedButton(
-                                        style: context
-                                            .theme.elevatedButtonTheme.style
-                                            ?.copyWith(
-                                          backgroundColor: MaterialStateProperty
-                                              .resolveWith<Color?>(
-                                            (_) => SalmonColors.blue,
-                                          ),
-                                        ),
-                                        onPressed: () async {
-                                          isLoading.value = true;
+            body: ConcentricPageView(
+              colors: _colors,
+              itemCount: _pages.length,
+              onChange: (page) => currentPage.value = page,
+              physics: const NeverScrollableScrollPhysics(),
+              nextButtonBuilder: (context) => Icon(
+                isLast ? FontAwesomeIcons.play : FontAwesomeIcons.angleRight,
+                size: 32,
+                color: isLast ? SalmonColors.yellow : SalmonColors.white,
+              ),
+              itemBuilder: (int index) => _pages[index],
+              radius: 50,
+              onFinish: () async {
+                await GetStorage().write(
+                  SalmonConst.skIsFirstLaunch,
+                  false,
+                );
 
-                                          await GetStorage().write(
-                                            SalmonConst.skIsFirstLaunch,
-                                            false,
-                                          );
-
-                                          context.goNamed(SalmonRoutes.home);
-                                          ref
-                                              .read(notifsControllerProvider)
-                                              .init();
-                                          PhotoManager
-                                              .requestPermissionExtend();
-                                          if (isMounted()) {
-                                            isLoading.value = false;
-                                          }
-                                        },
-                                        child: Text(
-                                          context.sl.continueToSalmon,
-                                        ),
-                                      ),
-                              ),
-                            ),
-                          ),
-                        )
-                      : const SizedBox.shrink(),
-                )
-              ],
+                context.goNamed(SalmonRoutes.home);
+                ref.read(notifsControllerProvider).init();
+                PhotoManager.requestPermissionExtend();
+                if (isMounted()) {
+                  isLoading.value = false;
+                }
+              },
             ),
           );
         },
