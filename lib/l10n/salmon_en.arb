@@ -123,5 +123,6 @@
     "buildingTrustBridgingTheGap": "Building Trust\nBridging the Gap",
     "whereCitizensMeetTheGovernment": "Where Citizens Meet Government",
     "authRequired": "Authentication Required",
-    "anAccountIsNeededToAccessThisFeature": "an account is required to access this feature"
+    "anAccountIsNeededToAccessThisFeature": "an account is required to access this feature",
+    "nameHasToBeAtLeastThreeChars": "name has to be at least 3 characters"
 }

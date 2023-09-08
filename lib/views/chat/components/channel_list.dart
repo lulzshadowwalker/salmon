@@ -1,8 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
-import 'package:salmon/helpers/salmon_anims.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/helpers/salmon_images.dart';
 import 'package:salmon/router/salmon_routes.dart';

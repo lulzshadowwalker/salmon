@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/helpers/salmon_helpers.dart';
 
@@ -82,27 +83,39 @@ registered new user with details:
   }
 
   Future<void> updateUser(
-      BuildContext context, Map<String, dynamic> data) async {
+    BuildContext context,
+    Map<String, dynamic> data,
+  ) async {
     try {
+      final d = data;
       final uid = ref.read(a12nProvider).userId;
 
-      if (data['pfp_raw'] != null) {
+      if (d['pfp_raw'] != null) {
+        if (d['pfp_raw'] is XFile) {
+          d['pfp_raw'] = await (d['pfp_raw'] as XFile).readAsBytes();
+        }
+
         final pfpUrl = await ref.read(remoteStorageProvider).upload(
               context: context,
               childName: 'users',
-              file: data['pfp_raw'],
+              file: d['pfp_raw'],
             );
-
-        data.addAll({'pfp': pfpUrl});
+        d
+          ..addAll({'pfp_url': pfpUrl})
+          ..remove('pfp_raw');
       }
 
-      await _db.collection('users').doc(uid).update(data.compact);
+      await _db.collection('users').doc(uid).update(
+            d.compact,
+          );
 
       NotifsController.showPopup(
         context: context,
         message: SL.of(context).infoHasBeenUpdated,
         type: NotifType.success,
       );
+
+      _log.v('user data updated');
     } catch (e) {
       SalmonHelpers.handleException(context: context, e: e, logger: _log);
     }

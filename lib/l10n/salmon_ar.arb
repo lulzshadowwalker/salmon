@@ -123,6 +123,6 @@
     "buildingTrustBridgingTheGap": "بناء الثقة\nتلافي الفجوة",
     "whereCitizensMeetTheGovernment": "حيث يلتقي المواطنون الحكومة",
     "authRequired": "تسجيل الدخول مطلوب",
-    "anAccountIsNeededToAccessThisFeature": "استخدام هذه الميزة يتطلب تسجيل الدخول"
-
+    "anAccountIsNeededToAccessThisFeature": "استخدام هذه الميزة يتطلب تسجيل الدخول",
+    "nameHasToBeAtLeastThreeChars": "يجب أن يتكون الاسم من ثلاثة أحرف على الأقل"
 }

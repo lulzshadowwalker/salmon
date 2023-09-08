@@ -262,7 +262,7 @@ class EventView extends StatelessWidget {
                                                 event.location!.latitude!,
                                               )
                                             : const LatLng(31.9454, 35.9284),
-                                        zoom: 15.0,
+                                        zoom: 10.0,
                                       ),
                                     ),
                                   ),

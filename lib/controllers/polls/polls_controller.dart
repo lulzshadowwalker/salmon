@@ -32,6 +32,7 @@ final class PollsController {
   }) async {
     try {
       final uid = ref.read(a12nProvider).userId;
+
       final vote = PollVote(
         id: uid,
         userId: uid,

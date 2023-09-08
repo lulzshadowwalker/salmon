@@ -68,7 +68,6 @@ class _PostViewState extends ConsumerState<PostView> {
           appBarHeight: 120.0,
           controller: _slideController,
           appBar: AppBar(
-            // TODO long ass back button with an arrow
             backgroundColor: context.theme.scaffoldBackgroundColor,
             actions: [
               if (!isGuest) const PostNotificationChip(),

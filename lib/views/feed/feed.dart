@@ -32,7 +32,6 @@ class _FeedState extends ConsumerState<Feed> {
     final posts = ref.watch(filteredPostsProvider);
 
     useEffect(() {
-      // TODO custom hook
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         SalmonHelpers.maybeShowIntroductoryDialog(
           context: context,
@@ -67,13 +66,12 @@ class _FeedState extends ConsumerState<Feed> {
                 child: Consumer(
                   builder: (context, ref, child) {
                     final polls = ref.watch(pollsProvider);
-                    const duration = Duration(milliseconds: 750);
+                    const duration = Duration(milliseconds: 650);
 
                     return AnimatedSwitcher(
                       duration: duration,
                       child: AnimatedSize(
                         duration: duration,
-                        curve: Curves.easeOut,
                         child: polls.when(
                           data: (data) => Column(
                             children: [
@@ -83,14 +81,16 @@ class _FeedState extends ConsumerState<Feed> {
                                   data.length,
                                   (index) => Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 12),
+                                      horizontal: 12,
+                                      vertical: 24,
+                                    ),
                                     child: SalmonPoll(
                                       poll: data[index],
                                     ),
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 16),
+                              const SizedBox(height: 8),
                               SmoothPageIndicator(
                                 controller: pageController,
                                 count: data.length,
@@ -114,7 +114,7 @@ class _FeedState extends ConsumerState<Feed> {
               ),
               const SliverToBoxAdapter(
                 child: Padding(
-                  padding:    EdgeInsetsDirectional.only(
+                  padding: EdgeInsetsDirectional.only(
                     top: 16,
                     end: 12,
                   ),

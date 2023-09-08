@@ -35,10 +35,11 @@ class _SalmonPollOptionState extends ConsumerState<_SalmonPollOption> {
     final so = ref.watch(_selectedOptProvider(poll));
 
     final interactionPercentage = useMemoized<int>(() {
-      final totalCount = poll.totalInteractions ?? 1;
+      final totalCount =
+          (poll.totalInteractions ?? 0) == 0 ? 1 : poll.totalInteractions;
       final optionCount = widget.option.interactionCount ?? 0;
 
-      return (optionCount * 100 ~/ totalCount).clamp(0, 100);
+      return (optionCount * 100 ~/ totalCount!).clamp(0, 100);
     }, [poll]);
 
     final fillController =

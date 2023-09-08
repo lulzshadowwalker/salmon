@@ -82,11 +82,7 @@ class SalmonRouter {
                 path: SalmonRoutes.chat,
                 builder: (context, state) {
                   final channel = state.extra as Channel;
-                  // TODO refactor into channel view
-                  return StreamChannel(
-                    channel: channel,
-                    child: const ChannelView(),
-                  );
+                  return ChannelView(channel: channel);
                 },
               ),
               GoRoute(

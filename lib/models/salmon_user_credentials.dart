@@ -30,6 +30,7 @@ class SalmonUserCredentials {
     return <String, dynamic>{
       'display_name': displayName,
       'email': email,
+      'pfp_raw': pfpRaw,
       'pfp_url': pfpUrl,
       'id': id,
     };

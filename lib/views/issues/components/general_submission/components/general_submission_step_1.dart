@@ -60,7 +60,7 @@ class _IssueSubmissionStep1State extends ConsumerState<IssueSubmissionStep1> {
               ),
               const SizedBox(height: 8),
               SizedBox(
-                height: 48,
+                height: 64,
                 child: AnimatedTextKit(
                   isRepeatingAnimation: false,
                   animatedTexts: [

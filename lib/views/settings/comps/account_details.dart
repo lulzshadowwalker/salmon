@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 part of './settings_comps.dart';
 
 class AccountDetails extends StatefulHookConsumerWidget {
@@ -63,18 +65,21 @@ class _AccountDetailsState extends ConsumerState<AccountDetails> {
                         userOverride.value = userOverride.value.copyWith(
                           pfpRaw: image,
                         );
+
+                        isAnyModified.value = image != null;
                       },
                     ),
                   ),
                   SalmonFormField(
-                    validator: (val) =>
-                        val.isEmpty ? SL.of(context).whatShouldWeCallYou : null,
+                    validator: (val) => (!val.isEmpty && val!.trim().length < 3)
+                        ? SL.of(context).nameHasToBeAtLeastThreeChars
+                        : null,
                     prefixIcon: const Icon(FontAwesomeIcons.solidUser),
                     controller: nameController,
                     hintText: user?.displayName ?? SL.of(context).name,
                     onSaved: (name) {
                       userOverride.value = userOverride.value.copyWith(
-                        displayName: name,
+                        displayName: name!.trim(),
                       );
                     },
                   ),
@@ -151,7 +156,11 @@ class _AccountDetailsState extends ConsumerState<AccountDetails> {
                                     ref
                                         .read(salmonUserCredentialsProvider
                                             .notifier)
-                                        .set(userOverride.value);
+                                        .set(
+                                          userOverride.value.copyWith(
+                                            email: user!.email,
+                                          ),
+                                        );
 
                                     try {
                                       await ref
@@ -165,7 +174,6 @@ class _AccountDetailsState extends ConsumerState<AccountDetails> {
                                     }
                                   }
 
-                                  // ignore: use_build_context_synchronously
                                   await ref
                                       .read(usersControllerProvider)
                                       .updateUser(

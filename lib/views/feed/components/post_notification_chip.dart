@@ -34,26 +34,24 @@ class _PostNotificationChipState extends ConsumerState<PostNotificationChip> {
   @override
   Widget build(BuildContext context) {
     final post = PostData.of(context)!.data;
-    final agency = ref.watch(agencyProvider(post.createdBy!));
     final isSubbed = useState(false);
-    final animController = useAnimationController(
-      duration: const Duration(),
-      upperBound: _upperBound,
-    );
-    final isLoaded = useState(false);
 
-    useEffect(() {
-      agency.whenData((value) {
+    final agency = ref.watch(agencyProvider(post.createdBy!))
+      ..whenData((value) {
         ref
-            .read(checkTopicSubscriptionProvider(
+            .watch(checkTopicSubscriptionProvider(
                 NotifsController.generateTopicName(value?.enName ?? '')))
             .whenData((value) {
           isSubbed.value = value ?? false;
           _prev = isSubbed.value;
         });
       });
-      return null;
-    }, const []);
+
+    final animController = useAnimationController(
+      duration: const Duration(),
+      upperBound: _upperBound,
+    );
+    final isLoaded = useState(false);
 
     useEffect(() {
       if (!isLoaded.value) return;

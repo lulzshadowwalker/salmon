@@ -7,6 +7,7 @@ import 'package:salmon/views/home/components/salmon_bottom_nav_bar_item.dart';
 import 'package:salmon/views/salmon_drawer/components/salmon_drawer_components.dart';
 import 'package:salmon/views/shared/salmon_navigator/salmon_navigator.dart';
 import '../../providers/home/home_provider.dart';
+import '../../theme/salmon_colors.dart';
 import '../chat/chat.dart';
 import '../feed/feed.dart';
 import '../issues/components/issues_components.dart';
@@ -34,9 +35,9 @@ class Home extends HookConsumerWidget {
           decoration: BoxDecoration(
             boxShadow: <BoxShadow>[
               BoxShadow(
-                color: context.cs.onBackground.withOpacity(0.1),
-                blurRadius: 16,
-                spreadRadius: 1,
+                color: SalmonColors.black.withOpacity(0.1),
+                blurRadius: 1,
+                spreadRadius: 0.05,
               ),
             ],
           ),

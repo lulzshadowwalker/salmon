@@ -1,4 +1,5 @@
-import 'dart:ui';
+
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
@@ -33,13 +34,7 @@ class SalmonInfoDialog extends StatelessWidget {
                 .withLightness(0.5)
                 .toColor()
                 .withOpacity(0.2),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(
-                sigmaX: 1.1,
-                sigmaY: 1.1,
-              ),
-              child: Container(),
-            ),
+            child: Container(),
           ),
         ),
         Dialog(

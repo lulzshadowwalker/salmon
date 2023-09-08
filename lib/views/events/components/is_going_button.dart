@@ -1,21 +1,22 @@
 part of 'event_components.dart';
 
-class _IsGoingButton extends StatefulWidget {
+class _IsGoingButton extends StatefulHookConsumerWidget {
   const _IsGoingButton();
 
   @override
-  State<_IsGoingButton> createState() => _IsGoingButtonState();
+  ConsumerState<_IsGoingButton> createState() => _IsGoingButtonState();
 }
 
-class _IsGoingButtonState extends State<_IsGoingButton> {
+class _IsGoingButtonState extends ConsumerState<_IsGoingButton> {
   static const _timeout = Duration(milliseconds: 1500);
   Timer? _debounce;
 
   @override
   Widget build(BuildContext context) {
     final event = _EventData.of(context)?.data;
+    final isGuest = ref.watch(a12nProvider).isGuest;
 
-    return event == null
+    return event == null || isGuest
         ? const SizedBox.shrink()
         : Padding(
             padding: const EdgeInsets.symmetric(

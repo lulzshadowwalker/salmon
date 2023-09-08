@@ -165,11 +165,4 @@ class A12nController {
       SalmonHelpers.handleException(context: context, e: e, logger: _log);
     }
   }
-
-  Future<void> appleAuth() async {
-    // TODO implement [appleAuth].
-    //  ..
-    //  requires an Apple developer account.
-    throw UnimplementedError('Apple auth has not been implemnted');
-  }
 }

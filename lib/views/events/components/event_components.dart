@@ -13,6 +13,7 @@ import 'package:salmon/controllers/events/events_controller.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/l10n/l10n_imports.dart';
 import 'package:salmon/models/event.dart';
+import 'package:salmon/providers/a12n/a12n_provider.dart';
 import 'package:salmon/providers/check_event_user/check_event_user_provider.dart';
 import 'package:salmon/providers/event_users/event_users_provider.dart';
 import 'package:salmon/providers/events/events_provider.dart';

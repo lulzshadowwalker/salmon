@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/helpers/salmon_images.dart';
@@ -13,7 +14,7 @@ import '../../../models/agency.dart';
 import '../../../providers/a12n/a12n_provider.dart';
 import '../../../providers/agencies/agencies_provider.dart';
 import '../../../providers/chat/chat_provider.dart';
-import 'channel_view.dart';
+import '../../../router/salmon_routes.dart';
 import 'chat_avatar.dart';
 
 class ChatSearchAgencyButton extends ConsumerWidget {
@@ -67,18 +68,12 @@ class ChatSearchAgencyButton extends ConsumerWidget {
                     await channel.create();
                     await channel.watch();
 
-                    await Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return StreamChannel(
-                            channel: channel,
-                            child: const ChannelView(),
-                          );
-                        },
-                      ),
+                    context.goNamed(
+                      SalmonRoutes.chat,
+                      extra: channel,
                     );
 
-                    await channel.stopWatching();
+                    Navigator.of(context).pop();
                   },
                 );
               },

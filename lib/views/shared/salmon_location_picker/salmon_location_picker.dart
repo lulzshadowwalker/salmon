@@ -73,7 +73,6 @@ class _SalmonLocationPickerState extends State<SalmonLocationPicker> {
                 ),
               };
             },
-            // TODO handle Google maps locationEnabled for android
             myLocationEnabled: true,
             initialCameraPosition: const CameraPosition(
               target: LatLng(31.9454, 35.9284),

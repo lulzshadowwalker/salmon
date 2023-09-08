@@ -47,7 +47,7 @@ class GeneralSubmissionStep2 extends HookConsumerWidget {
               ),
               const SizedBox(height: 8),
               SizedBox(
-                height: 48,
+                height: 64,
                 child: AnimatedTextKit(
                   isRepeatingAnimation: false,
                   animatedTexts: [
@@ -117,7 +117,7 @@ class GeneralSubmissionStep2 extends HookConsumerWidget {
                         duration: const Duration(milliseconds: 250),
                         child: showRequired.value
                             ? Text(
-                                context.sl.tellUsAgency, 
+                                context.sl.tellUsAgency,
                                 style: context.textTheme.labelMedium?.copyWith(
                                   color: context.theme.colorScheme.error,
                                 ),

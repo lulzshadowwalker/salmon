@@ -29,6 +29,7 @@ class ImagePickerCircleAvatar extends HookWidget {
     final image = useState<XFile?>(null);
     final imageData = useState<Uint8List?>(null);
     final plusIconAnimCon = useAnimationController(duration: const Duration());
+    final isMounted = useIsMounted();
 
     useEffect(() {
       /// if no callback is provided, don't add listeners :D
@@ -88,7 +89,11 @@ class ImagePickerCircleAvatar extends HookWidget {
 
                     Future.delayed(
                       const Duration(milliseconds: 150),
-                      () => plusIconAnimCon.forward(),
+                      () {
+                        if (isMounted()) {
+                          return plusIconAnimCon.forward();
+                        }
+                      },
                     );
                   },
                   addRepaintBoundary: true,

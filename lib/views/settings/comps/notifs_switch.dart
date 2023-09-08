@@ -18,49 +18,56 @@ class _NotifSwitchState extends ConsumerState<_NotifSwitch> {
   @override
   Widget build(BuildContext context) {
     final isSubbed = useState<bool>(false);
+    final topic = useMemoized(
+      () => NotifsController.generateTopicName(widget.agency.enName ?? ''),
+    );
 
     ref.listen(
-      checkTopicSubscriptionProvider(
-        NotifsController.generateTopicName(widget.agency.enName ?? ''),
-      ),
+      checkTopicSubscriptionProvider(topic),
       (previous, next) {
         isSubbed.value = next.value ?? false;
       },
     );
 
-    return _SettingsOption(
-      leading: CachedNetworkImage(
-        imageUrl: widget.agency.logo ?? SalmonImages.notFound,
-        imageBuilder: (context, imageProvider) => Padding(
-          padding: const EdgeInsetsDirectional.only(
-            end: 16,
+    return WillPopScope(
+      onWillPop: () async {
+        ref.invalidate(checkTopicSubscriptionProvider(topic));
+        return true;
+      },
+      child: _SettingsOption(
+        leading: CachedNetworkImage(
+          imageUrl: widget.agency.logo ?? SalmonImages.notFound,
+          imageBuilder: (context, imageProvider) => Padding(
+            padding: const EdgeInsetsDirectional.only(
+              end: 16,
+            ),
+            child: Image(
+              image: imageProvider,
+              width: 24,
+            ),
           ),
-          child: Image(
-            image: imageProvider,
-            width: 24,
-          ),
+          placeholder: (context, url) => const SizedBox.shrink(),
+          memCacheHeight: 56,
         ),
-        placeholder: (context, url) => const SizedBox.shrink(),
-        memCacheHeight: 56,
-      ),
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      title: Text(widget.agency.enName!),
-      trailing: Switch(
-        value: isSubbed.value,
-        onChanged: (_) {
-          isSubbed.value = !isSubbed.value;
+        margin: const EdgeInsets.symmetric(horizontal: 16),
+        title: Text(widget.agency.enName!),
+        trailing: Switch(
+          value: isSubbed.value,
+          onChanged: (_) {
+            isSubbed.value = !isSubbed.value;
 
-          final topic =
-              NotifsController.generateTopicName(widget.agency.enName ?? '');
+            final topic =
+                NotifsController.generateTopicName(widget.agency.enName ?? '');
 
-          if (_debounce?.isActive ?? false) _debounce?.cancel();
-          _debounce = Timer(_timeout, () {
-            ref.read(notifsControllerProvider).manageTopicSubscription(
-                  topic: topic,
-                  subscribe: isSubbed.value,
-                );
-          });
-        },
+            if (_debounce?.isActive ?? false) _debounce?.cancel();
+            _debounce = Timer(_timeout, () {
+              ref.read(notifsControllerProvider).manageTopicSubscription(
+                    topic: topic,
+                    subscribe: isSubbed.value,
+                  );
+            });
+          },
+        ),
       ),
     );
   }

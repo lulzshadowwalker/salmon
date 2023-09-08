@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/providers/content_filter/content_filter_provider.dart';
 
-import '../../../theme/salmon_colors.dart';
 import 'components/content_filters.dart';
 
 class ContentFilterButton extends ConsumerWidget {
