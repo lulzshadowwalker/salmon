@@ -124,5 +124,9 @@
     "whereCitizensMeetTheGovernment": "حيث يلتقي المواطنون الحكومة",
     "authRequired": "تسجيل الدخول مطلوب",
     "anAccountIsNeededToAccessThisFeature": "استخدام هذه الميزة يتطلب تسجيل الدخول",
-    "nameHasToBeAtLeastThreeChars": "يجب أن يتكون الاسم من ثلاثة أحرف على الأقل"
+    "nameHasToBeAtLeastThreeChars": "يجب أن يتكون الاسم من ثلاثة أحرف على الأقل",
+    "pageNotFound": "لم يتم العثور على الصفحة",
+    "goBackHome": "العودة إلى الصفحة الرئيسية",
+    "noEventsAreScheduled": "لا توجد أحداث مجدولة في الوقت الحالي\nسنعلمك عند تنظيم أحداث جديدة",
+    "cannotFindWhatYoureLookingFor": "لم نتمكن من العثور على ما تبحث عنه"
 }

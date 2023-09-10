@@ -29,7 +29,7 @@ class ChatAvatar extends StatelessWidget {
           imageUrl: imageUrl,
           placeholder: (context, url) => const Center(
             child:
-                SalmonLoadingIndicator(), // TODO add placeholder and error builder
+                SalmonLoadingIndicator(),
           ),
           memCacheHeight: 256,
         ),

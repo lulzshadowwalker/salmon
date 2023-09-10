@@ -127,11 +127,7 @@ class IssueSubmissionStep2 extends HookConsumerWidget {
                     ],
                   );
                 },
-                error: (error, stackTrace) => const Center(
-                  child: Text(
-                    'Unknown error', // TODO SalmonError
-                  ),
-                ),
+                error: (error, stackTrace) => const SalmonUnknownError(),
                 loading: () => const Align(
                   alignment: Alignment.topCenter,
                   child: SalmonLoadingIndicator(),

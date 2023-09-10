@@ -8,6 +8,7 @@ import 'package:salmon/providers/a12n/a12n_provider.dart';
 import 'package:salmon/views/chat/components/channel_list_empty_state.dart';
 import 'package:salmon/views/shared/salmon_navigator/salmon_navigator.dart';
 import 'package:salmon/views/shared/salmon_single_child_scroll_view/salmon_single_child_scroll_view.dart';
+import 'package:salmon/views/shared/salmon_unknown_error/salmon_unknown_error.dart';
 
 import '../../helpers/salmon_anims.dart';
 import '../../providers/chat/chat_provider.dart';
@@ -92,12 +93,7 @@ class Chat extends HookConsumerWidget {
             ),
             error: (error, stackTrace) {
               _log.e(error);
-
-              return const Center(
-                child: Text(
-                  'unknown error has occurred',
-                ), // TODO error widget
-              );
+              return const SalmonUnknownError();
             },
             loading: () => const Center(
               child: SalmonLoadingIndicator(),

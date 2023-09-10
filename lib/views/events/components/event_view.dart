@@ -26,8 +26,7 @@ class EventView extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         CachedNetworkImage(
-                          imageUrl: event.coverImage ??
-                              'https://images.unsplash.com/photo-1615023691139-47180d57138f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80', // TODO placeholder
+                          imageUrl: event.coverImage ?? SalmonImages.wadiRum,
                           width: double.infinity,
                           height: context.mq.size.height * .42,
                           fit: BoxFit.cover,

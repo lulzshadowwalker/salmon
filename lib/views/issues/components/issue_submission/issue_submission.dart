@@ -36,8 +36,6 @@ class IssueSubmission extends ConsumerWidget {
                     ref.read(_currentStepProvider.notifier).state--;
                   },
                 ),
-
-                // TODO implement custom animated stepper widget
                 Expanded(
                   child: Padding(
                     padding: EdgeInsetsDirectional.only(

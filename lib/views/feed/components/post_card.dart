@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
+import 'package:salmon/helpers/salmon_images.dart';
 import 'package:salmon/providers/agency/agency_provider.dart';
 import 'package:salmon/providers/comment_count/comment_count_provider.dart';
 import 'package:salmon/providers/theme_data/theme_data_provider.dart';
@@ -53,8 +54,7 @@ class PostCard extends ConsumerWidget {
                 child: Card(
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     child: CachedNetworkImage(
-                      imageUrl: post.coverImage ?? // TODO placeholder image
-                          'https://images.unsplash.com/photo-1615023691139-47180d57138f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
+                      imageUrl: post.coverImage ?? SalmonImages.jordanFlag,
                       maxHeightDiskCache: 480,
                       fit: BoxFit.cover,
                       placeholder: (context, url) {

@@ -130,45 +130,65 @@ class _FeedState extends ConsumerState<Feed> {
                   right: 12,
                   left: 12,
                 ),
-                sliver: SliverList.builder(
-                  itemCount: (posts.value ?? []).length,
-                  itemBuilder: (context, index) {
-                    final isLast = posts.value?.length != null &&
-                        index != (posts.value!.length - 1);
-
-                    return Padding(
-                      padding: isLast
-                          ? const EdgeInsets.only(bottom: 24)
-                          : EdgeInsets.zero,
-                      child: posts.when(
-                        data: (data) => PostCard(
-                          post: data[index],
-                        ), // TODO Feed empty state
-                        error: (error, stackTrace) => const Center(
-                          child: Text('unknown error'),
-                        ),
-                        loading: () => ListView.separated(
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) => AspectRatio(
-                            aspectRatio: 1,
-                            child: Shimmer.fromColors(
-                              baseColor: SalmonColors.mutedLight,
-                              highlightColor: SalmonColors.white,
-                              child: Container(
-                                color: SalmonColors.mutedLight,
-                                width: double.infinity,
-                                height: 100,
+                sliver: (posts.value ?? []).isEmpty
+                    ? SliverToBoxAdapter(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            FractionallySizedBox(
+                              widthFactor: 0.6,
+                              child: Lottie.asset(
+                                SalmonAnims.emptyState,
                               ),
                             ),
-                          ),
-                          separatorBuilder: (context, index) =>
-                              const SizedBox(height: 16),
-                          itemCount: 6,
+                            Text(
+                              context.sl.cannotFindWhatYoureLookingFor,
+                              style: TextStyle(
+                                color: SalmonColors.muted,
+                              ),
+                            ),
+                          ],
                         ),
+                      )
+                    : SliverList.builder(
+                        itemCount: (posts.value ?? []).length,
+                        itemBuilder: (context, index) {
+                          final isLast = posts.value?.length != null &&
+                              index != (posts.value!.length - 1);
+
+                          return Padding(
+                            padding: isLast
+                                ? const EdgeInsets.only(bottom: 24)
+                                : EdgeInsets.zero,
+                            child: posts.when(
+                              data: (data) => PostCard(
+                                post: data[index],
+                              ), // TODO Feed empty state
+                              error: (error, stackTrace) => const Center(
+                                child: Text('unknown error'),
+                              ),
+                              loading: () => ListView.separated(
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: (context, index) => AspectRatio(
+                                  aspectRatio: 1,
+                                  child: Shimmer.fromColors(
+                                    baseColor: SalmonColors.mutedLight,
+                                    highlightColor: SalmonColors.white,
+                                    child: Container(
+                                      color: SalmonColors.mutedLight,
+                                      width: double.infinity,
+                                      height: 100,
+                                    ),
+                                  ),
+                                ),
+                                separatorBuilder: (context, index) =>
+                                    const SizedBox(height: 16),
+                                itemCount: 6,
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
               )
             ],
           ),

@@ -68,8 +68,17 @@ class GeneralSubmissionReview extends HookConsumerWidget {
                               imageUrl: data?.logo ?? '',
                               height: 28,
                               width: 28,
-                            ), // TODO placeholder
-                            const SizedBox(width: 8),
+                              imageBuilder: (context, imageProvider) => Padding(
+                                padding: const EdgeInsetsDirectional.only(
+                                  end: 8,
+                                ),
+                                child: Image(
+                                  image: imageProvider,
+                                ),
+                              ),
+                              errorWidget: (context, url, error) =>
+                                  const SizedBox.shrink(),
+                            ),
                             Expanded(
                               child: Text(
                                 (context.isEn ? data?.enName : data?.arName) ??
@@ -82,9 +91,7 @@ class GeneralSubmissionReview extends HookConsumerWidget {
                           ],
                         ),
                       ),
-                      error: (error, stackTrace) => const Text(
-                        'Unknown error', // TODO SalmonError
-                      ),
+                      error: (error, stackTrace) => const SalmonUnknownError(),
                       loading: () => const SalmonLoadingIndicator(),
                     );
                   },
@@ -155,7 +162,7 @@ class GeneralSubmissionReview extends HookConsumerWidget {
                                               BorderRadius.circular(8),
                                           child: CachedNetworkImage(
                                             imageUrl: item.url ??
-                                                '', // TODO placeholder
+                                                SalmonImages.notFound,
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -164,8 +171,8 @@ class GeneralSubmissionReview extends HookConsumerWidget {
                                   case 'video':
                                     final controller =
                                         VideoPlayerController.networkUrl(
-                                      Uri.parse(
-                                          item.url ?? ''), // TODO placeholder
+                                      Uri.parse(item.url ??
+                                          ''), // TODO video placeholder
                                     );
 
                                     return SalmonFullscreenable(

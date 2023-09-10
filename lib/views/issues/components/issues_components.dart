@@ -13,6 +13,7 @@ import 'package:salmon/providers/submissions/submissions_provider.dart';
 import 'package:salmon/router/salmon_routes.dart';
 import 'package:salmon/views/shared/salmon_loading_indicator/salmon_loading_indicator.dart';
 import 'package:salmon/views/shared/salmon_navigator/salmon_navigator.dart';
+import 'package:salmon/views/shared/salmon_unknown_error/salmon_unknown_error.dart';
 
 import '../../../helpers/salmon_anims.dart';
 import '../../../helpers/salmon_helpers.dart';

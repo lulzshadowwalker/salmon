@@ -32,6 +32,7 @@ import '../../../../shared/salmon_loading_indicator/salmon_loading_indicator.dar
 import '../../../../shared/salmon_location_picker/salmon_location_picker.dart';
 import '../../../../shared/salmon_single_child_scroll_view/salmon_single_child_scroll_view.dart';
 import '../../../../shared/salmon_unfocusable_wrapper/salmon_unfocusable_wrapper.dart';
+import '../../../../shared/salmon_unknown_error/salmon_unknown_error.dart';
 import '../../../../shared/salmon_video_player/salmon_video_player.dart';
 
 part '../issue_submission.dart';

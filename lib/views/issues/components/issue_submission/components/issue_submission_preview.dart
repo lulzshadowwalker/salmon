@@ -108,11 +108,7 @@ class _SubmissionPreview extends HookConsumerWidget {
                               );
                         },
                       ),
-                      error: (error, stackTrace) => const Center(
-                        child: Text(
-                          'Unknown error', // TODO SalmonError
-                        ),
-                      ),
+                      error: (error, stackTrace) => const SalmonUnknownError(),
                       loading: () => const SalmonLoadingIndicator(),
                     );
                   },

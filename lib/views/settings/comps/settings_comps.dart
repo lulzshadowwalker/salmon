@@ -31,6 +31,7 @@ import 'package:salmon/views/shared/salmon_loading_indicator/salmon_loading_indi
 import 'package:salmon/views/shared/salmon_password_field/salmon_password_field.dart';
 import 'package:salmon/views/shared/salmon_single_child_scroll_view/salmon_single_child_scroll_view.dart';
 import 'package:salmon/views/shared/salmon_unfocusable_wrapper/salmon_unfocusable_wrapper.dart';
+import 'package:salmon/views/shared/salmon_unknown_error/salmon_unknown_error.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:validators/validators.dart';
 

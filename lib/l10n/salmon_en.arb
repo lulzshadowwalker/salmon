@@ -124,5 +124,9 @@
     "whereCitizensMeetTheGovernment": "Where Citizens Meet Government",
     "authRequired": "Authentication Required",
     "anAccountIsNeededToAccessThisFeature": "an account is required to access this feature",
-    "nameHasToBeAtLeastThreeChars": "name has to be at least 3 characters"
+    "nameHasToBeAtLeastThreeChars": "name has to be at least 3 characters",
+    "pageNotFound": "Page not found",
+    "goBackHome": "go back home",
+    "noEventsAreScheduled": "no events are scheduled for now\nwe will let you know when new events are organized",
+    "cannotFindWhatYoureLookingFor": "Cannot find what you are looking for"
 }

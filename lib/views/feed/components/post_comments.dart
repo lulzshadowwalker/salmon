@@ -6,6 +6,7 @@ import 'package:salmon/views/feed/components/comment_data.dart';
 import 'package:salmon/views/feed/components/post_data.dart';
 import 'package:salmon/views/shared/salmon_loading_indicator/salmon_loading_indicator.dart';
 import 'package:salmon/views/shared/salmon_unfocusable_wrapper/salmon_unfocusable_wrapper.dart';
+import 'package:salmon/views/shared/salmon_unknown_error/salmon_unknown_error.dart';
 import '../../../l10n/l10n_imports.dart';
 import 'comment_input.dart';
 import 'comment_tile.dart';
@@ -40,7 +41,7 @@ class _PostCommentsState extends ConsumerState<PostComments> {
                     top: 24,
                   ),
                   child: Text(
-                   SL.of(context).comments,
+                    SL.of(context).comments,
                     style: context.textTheme.headlineMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
@@ -62,7 +63,8 @@ class _PostCommentsState extends ConsumerState<PostComments> {
                               itemCount: data.length,
                               itemBuilder: (BuildContext context, int index) {
                                 final comment = data[index];
-                                if (comment == null || comment.comment.isEmpty) {
+                                if (comment == null ||
+                                    comment.comment.isEmpty) {
                                   return null;
                                 }
 
@@ -73,10 +75,7 @@ class _PostCommentsState extends ConsumerState<PostComments> {
                               },
                             ),
                           ),
-                    error: (error, stackTrace) => const Center(
-                      // TODO error widget
-                      child: Text('unknown error has occurred'),
-                    ),
+                    error: (error, stackTrace) => const SalmonUnknownError(),
                     loading: () => const Center(
                       child: SalmonLoadingIndicator(),
                     ),

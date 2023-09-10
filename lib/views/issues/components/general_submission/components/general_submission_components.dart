@@ -17,6 +17,7 @@ import 'package:salmon/controllers/submissions/submissions_controller.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/models/attachment.dart';
 import 'package:salmon/views/shared/salmon_step_progress_indicator/salmon_step_progress_indicator.dart';
+import 'package:salmon/views/shared/salmon_unknown_error/salmon_unknown_error.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../../../helpers/salmon_helpers.dart';

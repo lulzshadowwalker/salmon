@@ -9,7 +9,6 @@ class Issues extends HookConsumerWidget {
     final isGuest = ref.watch(a12nProvider).isGuest;
 
     useEffect(() {
-      // TODO custom hook
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         SalmonHelpers.maybeShowIntroductoryDialog(
           context: context,
@@ -137,11 +136,7 @@ class Issues extends HookConsumerWidget {
                               ),
                             ),
                           ),
-                    error: (error, stackTrace) => const Center(
-                      child: Text(
-                        'Unknown error has occured', // TODO error widget (internet connection?)
-                      ),
-                    ),
+                    error: (error, stackTrace) => const SalmonUnknownError(),
                     loading: () => const Center(
                       child: SalmonLoadingIndicator(),
                     ),

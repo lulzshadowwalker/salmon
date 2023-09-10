@@ -4,7 +4,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:salmon/helpers/salmon_anims.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
-import 'package:salmon/providers/theme_data/theme_data_provider.dart';
 import '../../../theme/salmon_colors.dart';
 import 'onboarding_page.dart';
 
@@ -13,8 +12,6 @@ class OnboardingPage3 extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = ref.watch(salmonThemeProvider);
-
     final controller = useAnimationController(
       duration: const Duration(),
     );

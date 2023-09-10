@@ -13,6 +13,7 @@ import 'package:salmon/views/feed/components/post_data.dart';
 import 'package:salmon/views/feed/components/post_notification_chip.dart';
 import 'package:salmon/views/shared/salmon_single_child_scroll_view/salmon_single_child_scroll_view.dart';
 import 'package:we_slide/we_slide.dart';
+import '../../../helpers/salmon_images.dart';
 import '../../../l10n/l10n_imports.dart';
 import '../../../models/post.dart';
 import '../../../providers/agency/agency_provider.dart';
@@ -95,7 +96,7 @@ class _PostViewState extends ConsumerState<PostView> {
                           tag: '${widget.post.id}${widget.post.coverImage}',
                           child: CachedNetworkImage(
                             imageUrl: widget.post.coverImage ??
-                                '', // TODO placeholder
+                                SalmonImages.jordanFlag,
                             width: double.infinity,
                             height: 280,
                             fit: BoxFit.cover,

@@ -57,11 +57,7 @@ class _NotifsDetailsState extends ConsumerState<NotifsDetails> {
                     },
                   );
                 },
-                error: (error, stackTrace) => const Center(
-                  child: Text(
-                    'unknown error has occurred',
-                  ), // TODO error widget
-                ),
+                error: (error, stackTrace) => const SalmonUnknownError(),
                 loading: () => ListView.separated(
                   physics: const NeverScrollableScrollPhysics(),
                   padding: const EdgeInsets.symmetric(horizontal: 16),
