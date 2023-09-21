@@ -3,6 +3,7 @@ import 'package:detectable_text_field/widgets/detectable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
+import 'package:salmon/models/salmon_user.dart';
 
 import '../../../helpers/salmon_helpers.dart';
 import '../../../providers/user/user_provider.dart';
@@ -38,7 +39,7 @@ class CommentTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SalmonUserAvatar(
-                        user: author.value!,
+                        user: author.value ?? const SalmonUser(),
                         size: 28,
                       ),
                       const SizedBox(width: 12),

@@ -26,6 +26,7 @@ import 'package:salmon/router/salmon_routes.dart';
 import 'package:salmon/views/shared/app_bar_divider/app_bar_divider.dart';
 import 'package:salmon/views/shared/image_picker_circle_avatar/image_picker_circle_avatar.dart';
 import 'package:salmon/views/shared/menu_button/menu_button.dart';
+import 'package:salmon/views/shared/salmon_constrained_box/salmon_constrained_box.dart';
 import 'package:salmon/views/shared/salmon_email_field/salmon_email_field.dart';
 import 'package:salmon/views/shared/salmon_loading_indicator/salmon_loading_indicator.dart';
 import 'package:salmon/views/shared/salmon_password_field/salmon_password_field.dart';

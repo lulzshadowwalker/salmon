@@ -66,13 +66,21 @@ class Events extends ConsumerWidget {
                                     style: TextStyle(
                                       color: SalmonColors.white,
                                     ),
-                                    child: ListView.builder(
+                                    child: GridView.builder(
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount:
+                                            context.mq.size.width >= 480
+                                                ? 2
+                                                : 1,
+                                      ),
                                       itemCount: data.length,
                                       itemBuilder:
-                                          (BuildContext context, int index) =>
-                                              _EventCard(
-                                        event: data[index],
-                                      ),
+                                          (BuildContext context, int index) {
+                                        return _EventCard(
+                                          event: data[index],
+                                        );
+                                      },
                                     ),
                                   ),
                                 ),

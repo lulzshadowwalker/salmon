@@ -60,7 +60,9 @@ class Onboarding extends HookConsumerWidget {
                 size: 32,
                 color: isLast ? SalmonColors.yellow : SalmonColors.white,
               ),
-              itemBuilder: (int index) => _pages[index],
+              itemBuilder: (int index) => Center(
+                child: _pages[index],
+              ),
               radius: 50,
               onFinish: () async {
                 await GetStorage().write(

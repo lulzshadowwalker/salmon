@@ -9,6 +9,7 @@ import 'package:salmon/providers/salmon_user_credentials/salmon_user_credentials
 import 'package:salmon/views/auth/components/google_auth_button.dart';
 import 'package:salmon/views/auth/components/guest_auth_button.dart';
 import 'package:salmon/views/shared/image_picker_circle_avatar/image_picker_circle_avatar.dart';
+import 'package:salmon/views/shared/salmon_constrained_box/salmon_constrained_box.dart';
 import 'package:salmon/views/shared/salmon_email_field/salmon_email_field.dart';
 import 'package:salmon/views/shared/salmon_form_field/salmon_form_field.dart';
 import 'package:salmon/views/shared/salmon_loading_indicator/salmon_loading_indicator.dart';
@@ -39,98 +40,116 @@ class _SignUpState extends ConsumerState<SignUp> {
     return SalmonUnfocusableWrapper(
       child: Scaffold(
         body: SafeArea(
-          child: SalmonSingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Spacer(),
-                    ImagePickerCircleAvatar(
-                      onSelected: (image) {
-                        final cred =
-                            ref.read(salmonUserCredentialsProvider).credentials;
+          child: Center(
+            child: SalmonConstrainedBox(
+              child: SalmonSingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Spacer(),
+                        ImagePickerCircleAvatar(
+                          onSelected: (image) {
+                            final cred = ref
+                                .read(salmonUserCredentialsProvider)
+                                .credentials;
 
-                        ref.read(salmonUserCredentialsProvider.notifier).set(
-                              cred.copyWith(
-                                pfpRaw: image,
+                            ref
+                                .read(salmonUserCredentialsProvider.notifier)
+                                .set(
+                                  cred.copyWith(
+                                    pfpRaw: image,
+                                  ),
+                                );
+                          },
+                        ),
+                        SalmonFormField(
+                          onSaved: (name) {
+                            final cred = ref
+                                .read(salmonUserCredentialsProvider)
+                                .credentials;
+
+                            ref
+                                .read(salmonUserCredentialsProvider.notifier)
+                                .set(
+                                  cred.copyWith(
+                                    displayName: name!.trim(),
+                                  ),
+                                );
+                          },
+                          validator: (val) => val.isEmpty
+                              ? SL.of(context).whatShouldWeCallYou
+                              : null,
+                          prefixIcon: const Icon(FontAwesomeIcons.solidUser),
+                          hintText: SL.of(context).name,
+                        ),
+                        SalmonEmailField(
+                          onSaved: (email) {
+                            final cred = ref
+                                .read(salmonUserCredentialsProvider)
+                                .credentials;
+
+                            ref
+                                .read(salmonUserCredentialsProvider.notifier)
+                                .set(
+                                  cred.copyWith(
+                                    email: email!.trim(),
+                                  ),
+                                );
+                          },
+                        ),
+                        SalmonPasswordField(onSaved: (password) {
+                          final cred = ref
+                              .read(salmonUserCredentialsProvider)
+                              .credentials;
+
+                          ref.read(salmonUserCredentialsProvider.notifier).set(
+                                cred.copyWith(
+                                  password: password,
+                                ),
+                              );
+                        }),
+                        const SizedBox(height: 38),
+                        isLoading.value
+                            ? const SalmonLoadingIndicator()
+                            : OutlinedButton(
+                                onPressed: () async {
+                                  if (_formKey.currentState == null ||
+                                      !_formKey.currentState!.validate())
+                                    return;
+
+                                  _formKey.currentState!.save();
+
+                                  isLoading.value = true;
+                                  await ref
+                                      .read(a12nProvider)
+                                      .emailSignUp(context);
+
+                                  if (isMounted()) isLoading.value = false;
+                                },
+                                child: Text(SL.of(context).signUp),
                               ),
-                            );
-                      },
-                    ),
-                    SalmonFormField(
-                      onSaved: (name) {
-                        final cred =
-                            ref.read(salmonUserCredentialsProvider).credentials;
-
-                        ref.read(salmonUserCredentialsProvider.notifier).set(
-                              cred.copyWith(
-                                displayName: name!.trim(),
-                              ),
-                            );
-                      },
-                      validator: (val) => val.isEmpty
-                          ? SL.of(context).whatShouldWeCallYou
-                          : null,
-                      prefixIcon: const Icon(FontAwesomeIcons.solidUser),
-                      hintText: SL.of(context).name,
-                    ),
-                    SalmonEmailField(
-                      onSaved: (email) {
-                        final cred =
-                            ref.read(salmonUserCredentialsProvider).credentials;
-
-                        ref.read(salmonUserCredentialsProvider.notifier).set(
-                              cred.copyWith(
-                                email: email!.trim(),
-                              ),
-                            );
-                      },
-                    ),
-                    SalmonPasswordField(onSaved: (password) {
-                      final cred =
-                          ref.read(salmonUserCredentialsProvider).credentials;
-
-                      ref.read(salmonUserCredentialsProvider.notifier).set(
-                            cred.copyWith(
-                              password: password,
-                            ),
-                          );
-                    }),
-                    const SizedBox(height: 38),
-                    isLoading.value
-                        ? const SalmonLoadingIndicator()
-                        : OutlinedButton(
-                            onPressed: () async {
-                              if (_formKey.currentState == null ||
-                                  !_formKey.currentState!.validate()) return;
-
-                              _formKey.currentState!.save();
-
-                              isLoading.value = true;
-                              await ref.read(a12nProvider).emailSignUp(context);
-
-                              if (isMounted()) isLoading.value = false;
-                            },
-                            child: Text(SL.of(context).signUp),
+                        SalmonDivider(
+                          child: Text(SL.of(context).or),
+                        ),
+                        const GoogleAuthButton(authType: AuthType.signUp),
+                        const GuestAuthButton(),
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 24),
+                          child: SalmonRichTextButton(
+                            text: SL.of(context).alreadyHaveAnAccount,
+                            textCTA: SL.of(context).signIn,
+                            onTap: () =>
+                                context.replaceNamed(SalmonRoutes.signIn),
                           ),
-                    SalmonDivider(
-                      child: Text(SL.of(context).or),
+                        ),
+                      ],
                     ),
-                    const GoogleAuthButton(authType: AuthType.signUp),
-                    const GuestAuthButton(),
-                    const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 24),
-                      child: SalmonRichTextButton(
-                        text: SL.of(context).alreadyHaveAnAccount,
-                        textCTA: SL.of(context).signIn,
-                        onTap: () => context.replaceNamed(SalmonRoutes.signIn),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),

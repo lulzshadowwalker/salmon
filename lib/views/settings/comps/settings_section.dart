@@ -14,21 +14,25 @@ class _SettingsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: padding ?? const EdgeInsets.symmetric(vertical: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: Theme.of(context)
-                .textTheme
-                .titleLarge
-                ?.copyWith(color: SalmonColors.muted),
+    return Center(
+      child: SalmonConstrainedBox(
+        child: Padding(
+          padding: padding ?? const EdgeInsets.symmetric(vertical: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(color: SalmonColors.muted),
+              ),
+              const SizedBox(height: 16),
+              ...options,
+            ],
           ),
-          const SizedBox(height: 16),
-          ...options,
-        ],
+        ),
       ),
     );
   }

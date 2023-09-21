@@ -150,7 +150,10 @@ class _FeedState extends ConsumerState<Feed> {
                           ],
                         ),
                       )
-                    : SliverList.builder(
+                    : SliverGrid.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: context.mq.size.width >= 480 ? 2 : 1,
+                        ),
                         itemCount: (posts.value ?? []).length,
                         itemBuilder: (context, index) {
                           final isLast = posts.value?.length != null &&
