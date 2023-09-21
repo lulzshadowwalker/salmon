@@ -8,7 +8,6 @@ import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/router/salmon_routes.dart';
 
 import '../../providers/notifs_controller/notifs_controller_provider.dart';
-import '../../theme/salmon_colors.dart';
 
 class Splash extends HookConsumerWidget {
   const Splash({super.key});
@@ -41,7 +40,7 @@ class Splash extends HookConsumerWidget {
     );
 
     return Scaffold(
-      backgroundColor: SalmonColors.blue,
+      backgroundColor: const Color(0XFF4D81F1),
       body: Center(
         child: Lottie.asset(
           SalmonAnims.logo,

@@ -44,7 +44,7 @@ dependencies:
   validators: ^3.0.0
   wave: ^0.2.2
   webview_flutter: ^4.2.2
-  stream_chat_flutter: ^6.4.0 
+  stream_chat_flutter: ^6.10.0
   flutter_dotenv: ^5.1.0
   liquid_swipe: ^3.1.0
   we_slide: ^2.4.0

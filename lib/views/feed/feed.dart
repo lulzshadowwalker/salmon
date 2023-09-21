@@ -163,7 +163,7 @@ class _FeedState extends ConsumerState<Feed> {
                             child: posts.when(
                               data: (data) => PostCard(
                                 post: data[index],
-                              ), // TODO Feed empty state
+                              ),
                               error: (error, stackTrace) => const Center(
                                 child: Text('unknown error'),
                               ),

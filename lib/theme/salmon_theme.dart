@@ -132,7 +132,7 @@ final class SalmonTheme {
   ThemeData dark() {
     final colorScheme = ColorScheme.fromSeed(
       brightness: Brightness.dark,
-      seedColor:const Color.fromARGB(255, 103, 146, 238) ,
+      seedColor: const Color.fromARGB(255, 103, 146, 238),
     );
 
     return ThemeData.dark().copyWith(
