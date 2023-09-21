@@ -91,10 +91,13 @@ final class SalmonAnims {
 
   /// https://lottiefiles.com/animations/error-cone-imEVDcnyJh
   static const String errorCone = 'assets/anims/error-cone.json';
-  
+
   /// https://lottiefiles.com/animations/calendar-XmRGqQqlwb
   static const String calendar = 'assets/anims/calendar.json';
 
-  /// https://lottiefiles.com/animations/no-results-found-ZVMISGJ1ec 
+  /// https://lottiefiles.com/animations/no-results-found-ZVMISGJ1ec
   static const String emptyState = 'assets/anims/empty-state.json';
+
+  /// https://lottiefiles.com/animations/scanning-for-wifi-NNBNC8qbKY
+  static const String wifi = 'assets/anims/wifi.json';
 }

@@ -128,5 +128,6 @@
     "pageNotFound": "Page not found",
     "goBackHome": "go back home",
     "noEventsAreScheduled": "no events are scheduled for now\nwe will let you know when new events are organized",
-    "cannotFindWhatYoureLookingFor": "Cannot find what you are looking for"
+    "cannotFindWhatYoureLookingFor": "Cannot find what you are looking for",
+    "noInternetConnection": "no internet connection"
 }

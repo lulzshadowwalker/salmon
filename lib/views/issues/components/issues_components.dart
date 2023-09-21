@@ -11,7 +11,6 @@ import 'package:salmon/models/submission.dart';
 import 'package:salmon/providers/a12n/a12n_provider.dart';
 import 'package:salmon/providers/submissions/submissions_provider.dart';
 import 'package:salmon/router/salmon_routes.dart';
-import 'package:salmon/views/shared/salmon_constrained_box/salmon_constrained_box.dart';
 import 'package:salmon/views/shared/salmon_loading_indicator/salmon_loading_indicator.dart';
 import 'package:salmon/views/shared/salmon_navigator/salmon_navigator.dart';
 import 'package:salmon/views/shared/salmon_single_child_scroll_view/salmon_single_child_scroll_view.dart';

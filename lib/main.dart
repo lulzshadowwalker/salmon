@@ -31,7 +31,7 @@ void main() async {
 
   runApp(
     const ProviderScope(
-      child: Salmon(),
+      child: Salmon(), 
     ),
   );
 }

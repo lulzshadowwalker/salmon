@@ -128,5 +128,6 @@
     "pageNotFound": "لم يتم العثور على الصفحة",
     "goBackHome": "العودة إلى الصفحة الرئيسية",
     "noEventsAreScheduled": "لا توجد أحداث مجدولة في الوقت الحالي\nسنعلمك عند تنظيم أحداث جديدة",
-    "cannotFindWhatYoureLookingFor": "لم نتمكن من العثور على ما تبحث عنه"
+    "cannotFindWhatYoureLookingFor": "لم نتمكن من العثور على ما تبحث عنه",
+    "noInternetConnection": "لا يوجد اتصال بالشبكة"
 }

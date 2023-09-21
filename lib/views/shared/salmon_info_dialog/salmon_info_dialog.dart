@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
-import 'package:salmon/views/shared/salmon_constrained_box/salmon_constrained_box.dart';
 
 class SalmonInfoDialog extends StatelessWidget {
   const SalmonInfoDialog({
