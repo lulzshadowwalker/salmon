@@ -1,33 +1,91 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart' as lottie;
+import 'package:salmon/controllers/notifs/notifs_controller.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
+import 'package:salmon/helpers/salmon_helpers.dart';
+import 'package:salmon/models/enums/notif_type.dart';
+import 'package:salmon/models/salmon_silent_exception.dart';
+import 'package:salmon/providers/theme_data/theme_data_provider.dart';
 
 import '../../../helpers/salmon_anims.dart';
 import '../../../theme/salmon_colors.dart';
 
-class SalmonLocationPicker extends StatefulHookWidget {
+class SalmonLocationPicker extends StatefulHookConsumerWidget {
   const SalmonLocationPicker({super.key});
 
   @override
-  State<SalmonLocationPicker> createState() => _SalmonLocationPickerState();
+  ConsumerState<SalmonLocationPicker> createState() =>
+      _SalmonLocationPickerState();
 }
 
-class _SalmonLocationPickerState extends State<SalmonLocationPicker> {
+class _SalmonLocationPickerState extends ConsumerState<SalmonLocationPicker> {
   late GoogleMapController mapController;
+  final _log = SalmonHelpers.getLogger('SalmonLocationPicker');
+
+  static const ammanLoc = LatLng(31.9454, 35.9284);
+
+  Future<LatLng> _getCurrentLocation() async {
+    try {
+      await Geolocator.requestPermission().then((perm) {
+        _log.v('location permission: $perm');
+        if (perm == LocationPermission.deniedForever ||
+            perm == LocationPermission.denied) {
+          NotifsController.showPopup(
+            context: context,
+            title: context.sl.permissionRequired,
+            message: context.sl.needLocationPermission,
+            type: NotifType.tip,
+          );
+
+          throw SalmonSilentException(
+              'permission is required to fetch the current location (permission: $perm)');
+        } else if (perm == LocationPermission.unableToDetermine) {
+          throw Exception(
+              'cannot determine location permission (permission: $perm)');
+        }
+      });
+
+      final pos = await Geolocator.getCurrentPosition();
+      _log.v('position: ${pos.toString()}');
+      return LatLng(pos.latitude, pos.longitude);
+    } on SalmonSilentException catch (e) {
+      _log.e(e.message);
+      return ammanLoc;
+    } catch (e) {
+      NotifsController.showPopup(
+        context: context,
+        message: context.sl.couldNotFetchLocation,
+        type: NotifType.oops,
+      );
+      SalmonHelpers.handleException(e: e, logger: _log);
+      return ammanLoc;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final markers = useState<Set<Marker>>({});
     final selectedLocation = useState<LatLng?>(null);
     final isLoaded = useState(false);
+    final theme = ref.watch(salmonThemeProvider);
+    final isCurrentLocLoading = useState(false);
 
     return Scaffold(
+      backgroundColor: SalmonColors.white,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        leading: const BackButton(color: SalmonColors.white),
         title: Text(
           context.sl.tapToSelectLocation,
           style: context.textTheme.titleLarge?.copyWith(
@@ -49,6 +107,35 @@ class _SalmonLocationPickerState extends State<SalmonLocationPicker> {
           ),
         ),
       ),
+      floatingActionButton: Platform.isAndroid
+          ? Padding(
+              padding: const EdgeInsets.only(bottom: 60),
+              child: FloatingActionButton(
+                onPressed: () async {
+                  isCurrentLocLoading.value = true;
+                  final pos = await _getCurrentLocation();
+                  isCurrentLocLoading.value = false;
+                  if (pos == null) return;
+
+                  mapController.moveCamera(CameraUpdate.newLatLng(pos));
+                },
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 380),
+                  child: isCurrentLocLoading.value
+                      ? const Padding(
+                          padding: EdgeInsets.all(18.0),
+                          child: CircularProgressIndicator(
+                            color: SalmonColors.black,
+                            strokeWidth: 6,
+                          ),
+                        )
+                      : const Icon(
+                          FontAwesomeIcons.locationCrosshairs,
+                        ),
+                ),
+              ),
+            )
+          : null,
       body: Stack(
         children: [
           GoogleMap(
@@ -75,30 +162,10 @@ class _SalmonLocationPickerState extends State<SalmonLocationPicker> {
             },
             myLocationEnabled: true,
             initialCameraPosition: const CameraPosition(
-              target: LatLng(31.9454, 35.9284),
+              target: ammanLoc,
               zoom: 11.0,
             ),
           ),
-          // Align(
-          //   alignment: Alignment.topCenter,
-          //   child: Container(
-          //     width: double.infinity,
-          //     height: context.mq.padding.top + 36,
-          //     alignment: Alignment.center,
-
-          //     decoration: const BoxDecoration(
-          //       gradient: LinearGradient(
-          //         colors: [
-          //           Color.fromARGB(172, 47, 47, 47),
-          //           Color.fromARGB(0, 47, 47, 47),
-          //         ],
-          //         stops: [0, 1],
-          //         begin: Alignment.topCenter,
-          //         end: Alignment.bottomCenter,
-          //       ),
-          //     ),
-          //   ),
-          // ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
@@ -111,27 +178,30 @@ class _SalmonLocationPickerState extends State<SalmonLocationPicker> {
                 duration: const Duration(milliseconds: 180),
                 child: selectedLocation.value == null
                     ? const SizedBox.shrink()
-                    : OutlinedButton(
-                        style: Theme.of(context)
-                            .outlinedButtonTheme
-                            .style
-                            ?.copyWith(
-                              foregroundColor:
-                                  MaterialStateProperty.resolveWith<Color?>(
-                                (_) => SalmonColors.white,
+                    : SafeArea(
+                        child: OutlinedButton(
+                          style: Theme.of(context)
+                              .outlinedButtonTheme
+                              .style
+                              ?.copyWith(
+                                foregroundColor:
+                                    MaterialStateProperty.resolveWith<Color?>(
+                                  (_) => SalmonColors.white,
+                                ),
+                                side: MaterialStateProperty.resolveWith<
+                                    BorderSide?>(
+                                  (_) => const BorderSide(
+                                      color: SalmonColors.white),
+                                ),
+                                backgroundColor:
+                                    MaterialStateProperty.resolveWith<Color?>(
+                                  (_) => context.cs.primary,
+                                ),
                               ),
-                              side: MaterialStateProperty.resolveWith<
-                                  BorderSide?>(
-                                (_) => BorderSide(color: SalmonColors.white),
-                              ),
-                              backgroundColor:
-                                  MaterialStateProperty.resolveWith<Color?>(
-                                (_) => context.cs.primaryContainer,
-                              ),
-                            ),
-                        onPressed: () => Navigator.of(context)
-                            .maybePop(selectedLocation.value),
-                        child: Text(context.sl.save),
+                          onPressed: () => Navigator.of(context)
+                              .maybePop(selectedLocation.value),
+                          child: Text(context.sl.save),
+                        ),
                       ),
               ),
             ),

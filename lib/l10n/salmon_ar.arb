@@ -129,5 +129,8 @@
     "goBackHome": "العودة إلى الصفحة الرئيسية",
     "noEventsAreScheduled": "لا توجد أحداث مجدولة في الوقت الحالي\nسنعلمك عند تنظيم أحداث جديدة",
     "cannotFindWhatYoureLookingFor": "لم نتمكن من العثور على ما تبحث عنه",
-    "noInternetConnection": "لا يوجد اتصال بالشبكة"
+    "noInternetConnection": "لا يوجد اتصال بالشبكة",
+    "needLocationPermission": "تحتاج إلى منح التطبيق إذن الوصول إلى خدمات الموقع من الإعدادات",
+    "couldNotFetchLocation": "تعذر جلب الموقع",
+    "permissionRequired": "تعذر جلب الموقع"
 }

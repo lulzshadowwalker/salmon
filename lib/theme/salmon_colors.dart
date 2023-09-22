@@ -7,12 +7,12 @@ final class SalmonColors {
   }
 
   static const Color black = Color(0xFF1C1C23);
-  static final Color white = fromHex('fcfdff');
+  static const Color white = Color(0xFFf5f5f5);
   static final Color green = fromHex('#59c55b');
   static final Color red = fromHex('#EE4B6A');
   static final Color yellow = fromHex('F5C04E');
   static final Color lightYellow = yellow.withOpacity(0.6);
-  static const Color blue = Color(0xFF0041dd);
+  static const Color blue = Color(0xFF517fe7);
   static const Color brown = Colors.brown;
   static final Color lightBrown = Colors.brown.shade400;
   static const Color lightBlue = Color.fromARGB(255, 155, 190, 255);

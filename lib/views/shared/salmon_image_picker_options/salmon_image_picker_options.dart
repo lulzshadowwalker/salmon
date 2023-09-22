@@ -19,7 +19,7 @@ class SalmonImagePickerOptions extends StatelessWidget {
           // gallery option
           ElevatedButton.icon(
             onPressed: () => Navigator.of(context).pop(ImageSource.gallery),
-            icon: FaIcon(
+            icon: const FaIcon(
               FontAwesomeIcons.solidImage,
               color: SalmonColors.white,
               size: 16,
@@ -31,7 +31,7 @@ class SalmonImagePickerOptions extends StatelessWidget {
           //  camera option
           ElevatedButton.icon(
             onPressed: () => Navigator.of(context).pop(ImageSource.camera),
-            icon: FaIcon(
+            icon: const FaIcon(
               FontAwesomeIcons.camera,
               color: SalmonColors.white,
               size: 16,
@@ -47,7 +47,7 @@ class SalmonImagePickerOptions extends StatelessWidget {
                     (_) => SalmonColors.white,
                   ),
                   side: MaterialStateProperty.resolveWith<BorderSide?>(
-                    (_) => BorderSide(color: SalmonColors.white),
+                    (_) => const BorderSide(color: SalmonColors.white),
                   ),
                   backgroundColor: MaterialStateProperty.resolveWith<Color?>(
                     (_) => context.cs.primaryContainer.withOpacity(0.8),

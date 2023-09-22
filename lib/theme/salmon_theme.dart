@@ -77,7 +77,7 @@ final class SalmonTheme {
       //
       colorScheme: colorScheme,
 
-      drawerTheme: DrawerThemeData(
+      drawerTheme: const DrawerThemeData(
         backgroundColor: SalmonColors.white,
       ),
 
@@ -146,7 +146,7 @@ final class SalmonTheme {
       ),
 
       //
-      iconTheme: IconThemeData(
+      iconTheme: const IconThemeData(
         color: SalmonColors.white,
       ),
 
@@ -159,7 +159,7 @@ final class SalmonTheme {
           ),
 
       //
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
         foregroundColor: SalmonColors.white,
         elevation: 0,
@@ -203,7 +203,7 @@ final class SalmonTheme {
       messageInputTheme: StreamMessageInputThemeData(
         inputBackgroundColor: isLight ? SalmonColors.white : SalmonColors.black,
       ),
-      ownMessageTheme: StreamMessageThemeData(
+      ownMessageTheme: const StreamMessageThemeData(
         messageBackgroundColor: SalmonColors.lightBlue,
         messageTextStyle: TextStyle(
           color: SalmonColors.white,

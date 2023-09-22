@@ -33,7 +33,7 @@ class PostCard extends ConsumerWidget {
     return Theme(
       data: theme,
       child: DefaultTextStyle(
-        style: TextStyle(
+        style: const TextStyle(
           color: SalmonColors.white,
         ),
         child: Builder(builder: (context) {

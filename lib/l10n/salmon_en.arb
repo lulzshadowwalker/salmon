@@ -129,5 +129,8 @@
     "goBackHome": "go back home",
     "noEventsAreScheduled": "no events are scheduled for now\nwe will let you know when new events are organized",
     "cannotFindWhatYoureLookingFor": "Cannot find what you are looking for",
-    "noInternetConnection": "no internet connection"
+    "noInternetConnection": "no internet connection",
+    "needLocationPermission": "you need to grant Salmon permission to access location services from the settings",
+    "couldNotFetchLocation": "could not fetch location",
+    "permissionRequired": "Permission Required"
 }

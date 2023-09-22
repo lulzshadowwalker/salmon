@@ -103,8 +103,9 @@ class _SignInState extends ConsumerState<SignIn> {
                                 child: Text(SL.of(context).signIn),
                                 onPressed: () async {
                                   if (_formKey.currentState == null ||
-                                      !_formKey.currentState!.validate())
+                                      !_formKey.currentState!.validate()) {
                                     return;
+                                  }
 
                                   _formKey.currentState!.save();
 

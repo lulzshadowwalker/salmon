@@ -75,7 +75,7 @@ class ImagePickerCircleAvatar extends HookWidget {
                 color: Theme.of(context).colorScheme.primary,
               ),
               child: ColorFiltered(
-                colorFilter: ColorFilter.mode(
+                colorFilter: const ColorFilter.mode(
                   SalmonColors.white,
                   BlendMode.srcATop,
                 ),

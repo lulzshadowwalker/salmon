@@ -163,7 +163,7 @@ class ClapButtonState extends ConsumerState<ClapButton> {
                                   ),
                                   child: Text(
                                     '${counter.value}',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: SalmonColors.white,
                                     ),
                                   ),

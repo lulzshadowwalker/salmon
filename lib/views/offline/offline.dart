@@ -3,7 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:salmon/helpers/salmon_anims.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
-import 'package:salmon/providers/router/router_provider.dart';
 
 class Offline extends ConsumerWidget {
   const Offline({super.key});
@@ -11,6 +10,7 @@ class Offline extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

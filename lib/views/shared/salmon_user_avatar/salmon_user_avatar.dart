@@ -39,7 +39,7 @@ class SalmonUserAvatar extends StatelessWidget {
         alignment: Alignment.center,
         child: Text(
           user.displayName?[0] ?? 'A',
-          style: TextStyle(
+          style: const TextStyle(
             color: SalmonColors.white,
           ),
         ),
@@ -54,7 +54,7 @@ class SalmonUserAvatar extends StatelessWidget {
         alignment: Alignment.center,
         child: Text(
           user.displayName?[0] ?? 'A',
-          style: TextStyle(
+          style: const TextStyle(
             color: SalmonColors.white,
           ),
         ),

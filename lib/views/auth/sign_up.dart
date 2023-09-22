@@ -118,8 +118,9 @@ class _SignUpState extends ConsumerState<SignUp> {
                             : OutlinedButton(
                                 onPressed: () async {
                                   if (_formKey.currentState == null ||
-                                      !_formKey.currentState!.validate())
+                                      !_formKey.currentState!.validate()) {
                                     return;
+                                  }
 
                                   _formKey.currentState!.save();
 
