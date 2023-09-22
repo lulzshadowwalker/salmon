@@ -58,7 +58,8 @@ final class UsersController {
                   'id': uid,
                   'fcm_token': await NotifsController.fcmToken,
                 },
-              ),
+              )
+              ..remove('pfp_raw'),
           );
 
       _log.v('''
