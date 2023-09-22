@@ -31,6 +31,8 @@ class _PostNotificationChipState extends ConsumerState<PostNotificationChip> {
   static const _timeout = Duration(milliseconds: 1500);
   Timer? _debounce;
 
+  bool isSet = false;
+
   @override
   Widget build(BuildContext context) {
     final post = PostData.of(context)!.data;
@@ -38,12 +40,15 @@ class _PostNotificationChipState extends ConsumerState<PostNotificationChip> {
 
     final agency = ref.watch(agencyProvider(post.createdBy!))
       ..whenData((value) {
+        if (isSet) return;
+
         ref
             .watch(checkTopicSubscriptionProvider(
                 NotifsController.generateTopicName(value?.enName ?? '')))
             .whenData((value) {
           isSubbed.value = value ?? false;
           _prev = isSubbed.value;
+          isSet = true;
         });
       });
 
