@@ -132,5 +132,9 @@
     "noInternetConnection": "no internet connection",
     "needLocationPermission": "you need to grant Salmon permission to access location services from the settings",
     "couldNotFetchLocation": "could not fetch location",
-    "permissionRequired": "Permission Required"
+    "permissionRequired": "Permission Required",
+    "submittingIssue": "please wait while we are submitting your complaint",
+    "submittingSuggestion": "please wait while we are submitting your suggestion",
+    "sendingIssue": "Sending Your Complaint",
+    "sendingSuggestion": "Sending Your Suggestion"
 }

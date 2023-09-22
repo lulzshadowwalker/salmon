@@ -132,5 +132,9 @@
     "noInternetConnection": "لا يوجد اتصال بالشبكة",
     "needLocationPermission": "تحتاج إلى منح التطبيق إذن الوصول إلى خدمات الموقع من الإعدادات",
     "couldNotFetchLocation": "تعذر جلب الموقع",
-    "permissionRequired": "تعذر جلب الموقع"
+    "permissionRequired": "تعذر جلب الموقع",
+    "submittingIssue": "يرجى الانتظار بينما نقوم بإرسال مشكلتك",
+    "submittingSuggestion": "يرجى الانتظار بينما نقوم بإرسال اقتراحك",
+    "sendingIssue": "جاري إرسال مشكلتك",
+    "sendingSuggestion": "جاري إرسال اقتراحك"
 }

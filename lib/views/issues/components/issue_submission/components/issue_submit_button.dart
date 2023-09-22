@@ -2,19 +2,20 @@
 
 part of './issue_submission_components.dart';
 
+final _isSubmittingProvider = StateProvider((ref) => false);
+
 class _SubmitButton extends HookConsumerWidget {
   const _SubmitButton();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isLoading = useState(false);
-    final isMounted = useIsMounted();
+    final isLoading = ref.watch(_isSubmittingProvider);
 
     return FloatingActionButton(
       onPressed: () async {
-        if (isLoading.value) return;
+        if (isLoading) return;
+        ref.read(_isSubmittingProvider.notifier).state = true;
 
-        isLoading.value = true;
         final submission = ref.read(_submissionProvider);
 
         await ref.read(submissionsControllerProvider).submit(
@@ -22,13 +23,12 @@ class _SubmitButton extends HookConsumerWidget {
               submission: submission.copyWith(type: 'issue'),
             );
 
-        if (isMounted()) isLoading.value = false;
-
+        ref.read(_isSubmittingProvider.notifier).state = false;
         context.pop();
       },
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 450),
-        child: isLoading.value
+        child: isLoading
             ? const Padding(
                 padding: EdgeInsets.all(18.0),
                 child: CircularProgressIndicator(

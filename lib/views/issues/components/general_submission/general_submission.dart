@@ -18,6 +18,7 @@ class GeneralSubmission extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final pages = ref.watch(_pagesProvider);
     final currentStep = ref.watch(_currentStepProvider);
+    final isSubmitting = ref.watch(_isSubmittingProvider);
 
     return Scaffold(
       body: SafeArea(
@@ -27,6 +28,17 @@ class GeneralSubmission extends ConsumerWidget {
               children: [
                 BackButton(
                   onPressed: () {
+                    if (isSubmitting) {
+                      NotifsController.showPopup(
+                        context: context,
+                        title: context.sl.sendingSuggestion,
+                        message: context.sl.submittingSuggestion,
+                        type: NotifType.tip,
+                      );
+
+                      return;
+                    }
+
                     if (currentStep == 0) {
                       context.pop();
                       return;
