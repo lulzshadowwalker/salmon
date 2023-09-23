@@ -136,5 +136,7 @@
     "submittingIssue": "يرجى الانتظار بينما نقوم بإرسال مشكلتك",
     "submittingSuggestion": "يرجى الانتظار بينما نقوم بإرسال اقتراحك",
     "sendingIssue": "جاري إرسال مشكلتك",
-    "sendingSuggestion": "جاري إرسال اقتراحك"
+    "sendingSuggestion": "جاري إرسال اقتراحك",
+    "submitting": "جاري الإرسال",
+    "submit": "إرسال"
 }

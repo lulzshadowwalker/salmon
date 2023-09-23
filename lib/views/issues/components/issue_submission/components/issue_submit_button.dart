@@ -11,9 +11,10 @@ class _SubmitButton extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isLoading = ref.watch(_isSubmittingProvider);
 
-    return FloatingActionButton(
+    return FloatingActionButton.extended(
       onPressed: () async {
         if (isLoading) return;
+
         ref.read(_isSubmittingProvider.notifier).state = true;
 
         final submission = ref.read(_submissionProvider);
@@ -26,20 +27,29 @@ class _SubmitButton extends HookConsumerWidget {
         ref.read(_isSubmittingProvider.notifier).state = false;
         context.pop();
       },
-      child: AnimatedSwitcher(
+      icon: AnimatedSwitcher(
         duration: const Duration(milliseconds: 450),
         child: isLoading
             ? const Padding(
-                padding: EdgeInsets.all(18.0),
-                child: CircularProgressIndicator(
-                  color: SalmonColors.black,
-                  strokeWidth: 6,
+                padding: EdgeInsetsDirectional.only(end: 8),
+                child: SizedBox(
+                  height: 24,
+                  width: 24,
+                  child: CircularProgressIndicator(
+                    color: SalmonColors.black,
+                    strokeWidth: 6,
+                  ),
                 ),
               )
             : Transform.flip(
                 flipX: context.directionality == TextDirection.rtl,
                 child: const FaIcon(FontAwesomeIcons.share),
               ),
+      ),
+      label: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 550),
+        child:
+            isLoading ? Text(context.sl.submitting) : Text(context.sl.submit),
       ),
     );
   }

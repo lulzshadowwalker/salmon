@@ -136,5 +136,7 @@
     "submittingIssue": "please wait while we are submitting your complaint",
     "submittingSuggestion": "please wait while we are submitting your suggestion",
     "sendingIssue": "Sending Your Complaint",
-    "sendingSuggestion": "Sending Your Suggestion"
+    "sendingSuggestion": "Sending Your Suggestion",
+    "submitting": "Submitting", 
+    "submit": "Submit"
 }

@@ -12,7 +12,7 @@ final class SalmonRoutes {
   static const String issueSubmission = 'issue-submission';
   static const String generalSubmission = 'general-submission';
   static const String submissionReview = 'submission-review';
-  static const String fullscreenable = 'fullscreenable';
+  static const String screen = 'screen';
   // static const String locationPicker = 'location-picker';
   static const String chat = 'chat';
   static const String eventView = 'event-view';
@@ -30,7 +30,7 @@ final class SalmonRoutes {
     issueSubmission,
     generalSubmission,
     submissionReview,
-    fullscreenable,
+    screen,
   ];
 
   static bool validate(String route) => all.contains(route);

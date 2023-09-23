@@ -56,8 +56,8 @@ class IssueSubmissionStep4 extends HookConsumerWidget {
               const SizedBox(height: 36),
               Expanded(
                 child: GridView(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: context.mq.size.width > 480 ? 4 : 2,
                     crossAxisSpacing: 12,
                     mainAxisSpacing: 12,
                   ),
@@ -164,7 +164,7 @@ class IssueSubmissionStep4 extends HookConsumerWidget {
 
                             ref.read(_submissionProvider.notifier).set(
                                   submission.copyWith(
-                                    location: GeoPoint(
+                                    location: () => GeoPoint(
                                       location.latitude,
                                       location.longitude,
                                     ),

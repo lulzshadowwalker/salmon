@@ -38,6 +38,12 @@ class _SubmissionNotifier extends AutoDisposeNotifier<Submission> {
       callback();
     }
   }
+
+  void removeLocation() {
+    state = state.copyWith(
+      location: () => null,
+    );
+  }
 }
 
 final _submissionProvider =

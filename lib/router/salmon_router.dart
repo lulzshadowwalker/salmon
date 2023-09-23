@@ -12,6 +12,7 @@ import 'package:salmon/views/issues/components/submisison_review.dart';
 import 'package:salmon/views/onboarding/onboarding.dart';
 import 'package:salmon/views/settings/comps/settings_comps.dart';
 import 'package:salmon/views/shared/salmon_fullscreenable/salmon_fullscreenable.dart';
+import 'package:salmon/views/shared/salmon_screen/salmon_screen.dart';
 import 'package:salmon/views/splash/splash.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
@@ -129,10 +130,10 @@ class SalmonRouter {
                 },
               ),
               GoRoute(
-                name: SalmonRoutes.fullscreenable,
-                path: SalmonRoutes.fullscreenable,
-                builder: (context, state) => SalmonFullscreenable(
-                  child: state.extra as Widget,
+                name: SalmonRoutes.screen,
+                path: SalmonRoutes.screen,
+                builder: (context, state) => SalmonScreen(
+                  widget: state.extra as Widget,
                 ),
               ),
               // GoRoute(

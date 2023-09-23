@@ -31,7 +31,6 @@ class SalmonVideoPlayer extends HookWidget {
 
       return () {
         con.removeListener(listener);
-        con.dispose();
       };
     }, const []);
 

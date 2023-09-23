@@ -63,7 +63,7 @@ class Events extends ConsumerWidget {
                                 child: Theme(
                                   data: theme,
                                   child: DefaultTextStyle(
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: SalmonColors.white,
                                     ),
                                     child: GridView.builder(

@@ -16,6 +16,7 @@ import 'package:mime/mime.dart';
 import 'package:salmon/controllers/notifs/notifs_controller.dart';
 import 'package:salmon/controllers/submissions/submissions_controller.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
+import 'package:salmon/helpers/salmon_videos.dart';
 import 'package:salmon/models/attachment.dart';
 import 'package:salmon/models/enums/notif_type.dart';
 import 'package:salmon/views/shared/salmon_step_progress_indicator/salmon_step_progress_indicator.dart';

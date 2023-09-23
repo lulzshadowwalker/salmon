@@ -56,8 +56,8 @@ class GeneralSubmissionStep3 extends HookConsumerWidget {
               const SizedBox(height: 36),
               Expanded(
                 child: GridView(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: context.mq.size.width > 480 ? 4 : 2,
                     crossAxisSpacing: 12,
                     mainAxisSpacing: 12,
                   ),
@@ -85,7 +85,10 @@ class GeneralSubmissionStep3 extends HookConsumerWidget {
                           title: context.sl.media,
                           backgroundColor: SalmonColors.blue,
                           size: _cardSize,
-                          child: const FaIcon(FontAwesomeIcons.solidImage),
+                          child: const FaIcon(
+                            FontAwesomeIcons.solidImage,
+                            color: SalmonColors.blue,
+                          ),
                         );
                       },
                     ),
@@ -113,7 +116,10 @@ class GeneralSubmissionStep3 extends HookConsumerWidget {
                           title: context.sl.photo,
                           backgroundColor: Colors.deepPurple,
                           size: _cardSize,
-                          child: const FaIcon(FontAwesomeIcons.camera),
+                          child: const FaIcon(
+                            FontAwesomeIcons.camera,
+                            color: Colors.deepPurple,
+                          ),
                         );
                       },
                     ),
@@ -141,7 +147,10 @@ class GeneralSubmissionStep3 extends HookConsumerWidget {
                           title: context.sl.record,
                           backgroundColor: SalmonColors.orange,
                           size: _cardSize,
-                          child: const FaIcon(FontAwesomeIcons.video),
+                          child: FaIcon(
+                            FontAwesomeIcons.video,
+                            color: SalmonColors.orange,
+                          ),
                         );
                       },
                     ),
@@ -164,7 +173,7 @@ class GeneralSubmissionStep3 extends HookConsumerWidget {
 
                             ref.read(_submissionProvider.notifier).set(
                                   submission.copyWith(
-                                    location: GeoPoint(
+                                    location: () => GeoPoint(
                                       location.latitude,
                                       location.longitude,
                                     ),
@@ -175,7 +184,10 @@ class GeneralSubmissionStep3 extends HookConsumerWidget {
                           title: context.sl.location,
                           backgroundColor: SalmonColors.green,
                           size: _cardSize,
-                          child: const FaIcon(FontAwesomeIcons.locationDot),
+                          child: FaIcon(
+                            FontAwesomeIcons.locationDot,
+                            color: SalmonColors.green,
+                          ),
                         );
                       },
                     ),
@@ -200,10 +212,12 @@ class GeneralSubmissionStep3 extends HookConsumerWidget {
                           },
                           hasValue: ref.watch(_hasFilesProvider),
                           title: context.sl.files,
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primary,
+                          backgroundColor: SalmonColors.brown,
                           size: _cardSize,
-                          child: const FaIcon(FontAwesomeIcons.solidFile),
+                          child: const FaIcon(
+                            FontAwesomeIcons.solidFile,
+                            color: SalmonColors.brown,
+                          ),
                         );
                       },
                     ),
