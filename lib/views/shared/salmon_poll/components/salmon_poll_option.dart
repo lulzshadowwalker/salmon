@@ -1,15 +1,5 @@
 part of './salmon_poll_components.dart';
 
-final _isActiveProvider =
-    StateProvider.autoDispose.family<bool, Poll>((ref, poll) {
-  return ref.watch(_selectedOptProvider(poll)) != null;
-});
-
-final _selectedOptProvider =
-    StateProvider.family.autoDispose<String?, Poll>((ref, poll) {
-  return ref.watch(checkVoteProvider(poll)).value?.optionId;
-});
-
 class _SalmonPollOption extends StatefulHookConsumerWidget {
   const _SalmonPollOption({
     required this.option,
@@ -26,7 +16,7 @@ class _SalmonPollOption extends StatefulHookConsumerWidget {
 }
 
 class _SalmonPollOptionState extends ConsumerState<_SalmonPollOption> {
-  static const _timeout = Duration(milliseconds: 1500);
+  static const _timeout = Duration(milliseconds: 0);
   Timer? _debounce;
 
   @override
@@ -34,13 +24,9 @@ class _SalmonPollOptionState extends ConsumerState<_SalmonPollOption> {
     final poll = PollData.of(context)!.data;
     final so = ref.watch(_selectedOptProvider(poll));
 
-    final interactionPercentage = useMemoized<int>(() {
-      final totalCount =
-          (poll.totalInteractions ?? 0) == 0 ? 1 : poll.totalInteractions;
-      final optionCount = widget.option.interactionCount ?? 0;
-
-      return (optionCount * 100 ~/ totalCount!).clamp(0, 100);
-    }, [poll]);
+    final interactionPercentage = ref.watch(
+      pollOptVotePercentageProvider(poll.id ?? '', widget.option.id ?? ''),
+    );
 
     final fillController =
         useAnimationController(duration: _SalmonPollOption._duration * 2);
@@ -149,7 +135,7 @@ class _SalmonPollOptionState extends ConsumerState<_SalmonPollOption> {
                   AnimatedSwitcher(
                     duration: _SalmonPollOption._duration,
                     child: isActive
-                        ? Text('$interactionPercentage %')
+                        ? Text('${interactionPercentage.round()} %')
                         : const SizedBox.shrink(),
                   )
                 ],
@@ -161,3 +147,13 @@ class _SalmonPollOptionState extends ConsumerState<_SalmonPollOption> {
     );
   }
 }
+
+final _isActiveProvider =
+    StateProvider.autoDispose.family<bool, Poll>((ref, poll) {
+  return ref.watch(_selectedOptProvider(poll)) != null;
+});
+
+final _selectedOptProvider =
+    StateProvider.family.autoDispose<String?, Poll>((ref, poll) {
+  return ref.watch(checkVoteProvider(poll)).value?.optionId;
+});

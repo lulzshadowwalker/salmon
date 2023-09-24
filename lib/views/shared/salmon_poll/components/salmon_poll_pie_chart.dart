@@ -1,12 +1,14 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:salmon/controllers/polls/polls_controller.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/models/poll.dart';
 
 import '../../../../theme/salmon_colors.dart';
 import '../../chat_indicator/chart_indicator.dart';
 
-class SalmonPollPieChart extends StatefulWidget {
+class SalmonPollPieChart extends ConsumerStatefulWidget {
   const SalmonPollPieChart({
     required this.poll,
     super.key,
@@ -15,10 +17,10 @@ class SalmonPollPieChart extends StatefulWidget {
   final Poll poll;
 
   @override
-  State<SalmonPollPieChart> createState() => _SalmonPollPieChartState();
+  ConsumerState<SalmonPollPieChart> createState() => _SalmonPollPieChartState();
 }
 
-class _SalmonPollPieChartState extends State<SalmonPollPieChart> {
+class _SalmonPollPieChartState extends ConsumerState<SalmonPollPieChart> {
   int touchedIndex = -1;
 
   static final colors = <Color>[
@@ -58,7 +60,7 @@ class _SalmonPollPieChartState extends State<SalmonPollPieChart> {
                   ),
                   sectionsSpace: 0,
                   centerSpaceRadius: 25,
-                  sections: showingSections(),
+                  sections: showingSections(ref),
                 ),
               ),
             ),
@@ -90,22 +92,22 @@ class _SalmonPollPieChartState extends State<SalmonPollPieChart> {
     );
   }
 
-  List<PieChartSectionData> showingSections() {
+  List<PieChartSectionData> showingSections(WidgetRef ref) {
     return List.generate((widget.poll.options ?? []).length, (i) {
       final isTouched = i == touchedIndex;
       final fontSize = isTouched ? 50.0 : 16.0;
       final radius = isTouched ? 65.0 : 50.0;
 
       final opt = widget.poll.options!.elementAt(i);
-
-      final totalCount = widget.poll.totalInteractions ?? 1;
-      final optionCount = opt.interactionCount ?? 0;
-
-      final percentage = (optionCount * 100 ~/ totalCount).clamp(0, 100);
+      final percentage = ref
+          .watch(
+            pollOptVotePercentageProvider(widget.poll.id ?? '', opt.id ?? ''),
+          )
+          .toStringAsFixed(1);
 
       return PieChartSectionData(
         color: colors[i % colors.length],
-        value: percentage.toDouble(),
+        value: double.parse(percentage),
         title: '$percentage %',
         radius: radius,
         titleStyle: TextStyle(
