@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/helpers/salmon_images.dart';
 import 'package:salmon/views/chat/components/chat_avatar.dart';
@@ -20,6 +21,8 @@ class ChannelView extends StatefulWidget {
 }
 
 class _ChannelViewState extends State<ChannelView> {
+  late final inputController = StreamMessageInputController();
+
   @override
   void initState() {
     super.initState();
@@ -32,6 +35,39 @@ class _ChannelViewState extends State<ChannelView> {
     super.dispose();
   }
 
+  void handleAttachments(List<AttachmentPickerType> types) {
+    assert(
+      types.isNotEmpty,
+      'you have to provide a non-empty list of types for the attachment picker',
+    );
+
+    showStreamAttachmentPickerModalBottomSheet(
+      initialAttachments: [
+        ...inputController.attachments,
+      ],
+      context: context,
+      allowedTypes: types,
+    ).then(
+      (res) {
+        if (res == null) {
+          return;
+        }
+
+        if (res.runtimeType == Attachment) {
+          inputController.clearAttachments();
+          inputController.addAttachment(res);
+          return;
+        }
+
+        if ((res.runtimeType == List<Attachment>) && res.length != 0) {
+          inputController.clearAttachments();
+          inputController.attachments = res;
+          return;
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return StreamChannel(
@@ -39,7 +75,6 @@ class _ChannelViewState extends State<ChannelView> {
       child: Builder(builder: (context) {
         return Scaffold(
           appBar: AppBar(
-            bottom: const AppBarDivider(),
             centerTitle: false,
             title: Row(
               children: [
@@ -62,14 +97,60 @@ class _ChannelViewState extends State<ChannelView> {
             backgroundColor: Theme.of(context).colorScheme.primary,
             foregroundColor: SalmonColors.white,
           ),
-          body: const Column(
+          body: Column(
             children: <Widget>[
-              Expanded(
+              const Expanded(
                 child: StreamMessageListView(),
               ),
               StreamMessageInput(
+                messageInputController: inputController,
                 showCommandsButton: false,
                 sendButtonLocation: SendButtonLocation.inside,
+                disableAttachments: true,
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: GestureDetector(
+                      onTap: () =>
+                          handleAttachments([AttachmentPickerType.files]),
+                      child: Icon(
+                        FontAwesomeIcons.paperclip,
+                        size: 18.0,
+                        color: StreamChatTheme.of(context)
+                            .colorTheme
+                            .textLowEmphasis,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: GestureDetector(
+                      onTap: () =>
+                          handleAttachments([AttachmentPickerType.images]),
+                      child: Icon(
+                        FontAwesomeIcons.camera,
+                        size: 18.0,
+                        color: StreamChatTheme.of(context)
+                            .colorTheme
+                            .textLowEmphasis,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: GestureDetector(
+                      onTap: () =>
+                          handleAttachments([AttachmentPickerType.videos]),
+                      child: Icon(
+                        FontAwesomeIcons.video,
+                        size: 18.0,
+                        color: StreamChatTheme.of(context)
+                            .colorTheme
+                            .textLowEmphasis,
+                      ),
+                    ),
+                  )
+                ],
               ),
             ],
           ),
