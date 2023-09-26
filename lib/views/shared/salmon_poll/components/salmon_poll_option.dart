@@ -138,7 +138,7 @@ class _SalmonPollOptionState extends ConsumerState<_SalmonPollOption> {
                         ? AnimatedFlipCounter(
                             value: interactionPercentage.round(),
                             curve: Curves.easeOutQuad,
-                            duration: const Duration(milliseconds: 280),
+                            duration: const Duration(milliseconds: 550),
                             suffix: ' %',
                           )
                         : const SizedBox.shrink(),

@@ -34,10 +34,14 @@ class Chat extends HookConsumerWidget {
           context: context,
           builder: (context) {
             return SalmonInfoDialog(
-              title: 'Let\'s talk!',
-              subtitle: 'we are listening',
-              child: Lottie.asset(
-                SalmonAnims.shapes,
+              title: context.sl.chatIntroTitle,
+              subtitle: context.sl.chatIntroDescription,
+              child: Transform.scale(
+                scale: 1.2,
+                child: Lottie.asset(
+                  SalmonAnims.helpDesk,
+                  reverse: true,
+                ),
               ),
             );
           },

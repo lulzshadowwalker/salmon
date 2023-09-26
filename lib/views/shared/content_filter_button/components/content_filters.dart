@@ -30,6 +30,10 @@ class ContentFilters extends ConsumerWidget {
             borderRadius: const BorderRadius.vertical(
               top: Radius.circular(12),
             ),
+            border: Border.all(
+              width: 0.2,
+              color: SalmonColors.muted,
+            ),
             color: context.theme.scaffoldBackgroundColor,
           ),
           child: DraggableScrollableSheet(

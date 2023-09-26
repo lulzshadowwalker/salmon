@@ -330,7 +330,7 @@ final class SalmonHelpers {
     final sk = '${id}_intro_dialog';
     final box = GetStorage();
     final wasShown = box.read<bool>(sk) ?? false;
-    if (!kDebugMode && wasShown) return;
+    // if (!kDebugMode && wasShown) return;
 
     await showDialog(
       context: context,

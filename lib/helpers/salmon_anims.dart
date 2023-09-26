@@ -100,4 +100,19 @@ final class SalmonAnims {
 
   /// https://lottiefiles.com/animations/scanning-for-wifi-NNBNC8qbKY
   static const String wifi = 'assets/anims/wifi.json';
+
+  /// https://lottiefiles.com/animations/newsletter-o2AiObuXXE
+  static const String mailbox = 'assets/anims/mailbox.json';
+
+  /// https://lottiefiles.com/animations/newspaper-27FmvgSvfO
+  static const String news = 'assets/anims/news.json';
+
+  /// https://lottiefiles.com/animations/notepad-with-a-list-of-tick-boxes-and-5-star-feedback-nfOmm5Jeg6
+  static const String feedback = 'assets/anims/feedback.json';
+
+  /// https://lottiefiles.com/animations/idea-MGkinDMlQI
+  static const String lightBulb = 'assets/anims/light-bulb.json';
+
+  /// https://lottiefiles.com/animations/help-desk-transparent-Kffuum9oNc
+  static const String helpDesk = 'assets/anims/help-desk.json';
 }

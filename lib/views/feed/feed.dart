@@ -37,11 +37,10 @@ class _FeedState extends ConsumerState<Feed> {
           context: context,
           builder: (context) {
             return SalmonInfoDialog(
-              title: 'Stay up to Date',
-              subtitle: 'Keep up with what interests you!',
+              title: context.sl.feedIntroTitle,
+              subtitle: context.sl.feedIntroDescription,
               child: Lottie.asset(
-                SalmonAnims.flag,
-                repeat: false,
+                SalmonAnims.news,
               ),
             );
           },

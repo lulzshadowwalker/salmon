@@ -14,10 +14,13 @@ class Issues extends HookConsumerWidget {
           context: context,
           builder: (context) {
             return SalmonInfoDialog(
-              title: 'We Hear You',
-              subtitle: 'we value your\nconcerns and suggestions',
-              child: Lottie.asset(
-                SalmonAnims.shapes,
+              title: context.sl.issuesIntroTitle,
+              subtitle: context.sl.issuesIntroDescription,
+              child: Transform.scale(
+                scale: 1.4,
+                child: Lottie.asset(
+                  SalmonAnims.mailbox,
+                ),
               ),
             );
           },
@@ -29,7 +32,7 @@ class Issues extends HookConsumerWidget {
     }, const []);
 
     return SalmonNavigator(
-      // TODO scroll view 
+      // TODO scroll view
       child: Builder(
         builder: (context) {
           return Padding(
@@ -87,7 +90,7 @@ class Issues extends HookConsumerWidget {
                         title: context.sl.suggestion,
                         backgroundColor: SalmonColors.blue,
                         child: Lottie.asset(
-                          SalmonAnims.shapes,
+                          SalmonAnims.lightBulb,
                           filterQuality: FilterQuality.medium,
                           reverse: true,
                         ),
@@ -120,11 +123,14 @@ class Issues extends HookConsumerWidget {
                               child: Column(
                                 children: [
                                   const SizedBox(height: 36),
-                                  Lottie.asset(
-                                    SalmonAnims.interaction,
-                                    repeat: true,
+                                  Transform.scale(
+                                    scale: 1.35,
+                                    child: Lottie.asset(
+                                      SalmonAnims.mailbox,
+                                      repeat: true,
+                                    ),
                                   ),
-                                  const SizedBox(height: 12),
+                                  const SizedBox(height: 8),
                                   Text(
                                     context
                                         .sl.feelFreeToReachOutWithSuggestions,
