@@ -4,9 +4,7 @@ import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/helpers/salmon_images.dart';
 import 'package:salmon/views/chat/components/chat_avatar.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
-
 import '../../../theme/salmon_colors.dart';
-import '../../shared/app_bar_divider/app_bar_divider.dart';
 
 class ChannelView extends StatefulWidget {
   const ChannelView({

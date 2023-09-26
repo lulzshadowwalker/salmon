@@ -1,6 +1,7 @@
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:salmon/controllers/polls/polls_controller.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/providers/submissions_count/submissions_count_provider.dart';
 import 'package:salmon/providers/users_count/users_count_provider.dart';
@@ -158,29 +159,38 @@ class _AnalyticsState extends ConsumerState<Analytics> {
                       curve: Curves.easeOut,
                       child: polls.when(
                         data: (data) {
-                          data = data
-                              .map((e) =>
-                                  (e.totalInteractions ?? 0) == 0 ? null : e)
-                              .toCompactMap
-                              .toList();
-
                           return Column(
                             children: [
                               ExpandablePageView(
                                 controller: pageController,
-                                children: List.generate(
-                                  data.length,
-                                  (index) => data[index].totalInteractions == 0
-                                      ? const SizedBox.shrink()
-                                      : Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                            horizontal: 12,
-                                          ),
-                                          child: SalmonPollPieChart(
-                                            poll: data[index],
-                                          ),
-                                        ),
-                                ),
+                                children: List.generate(data.length, (index) {
+                                  final poll = data[index];
+
+                                  return Consumer(
+                                    builder: (context, ref, child) {
+                                      final totalCount = ref.watch(
+                                        pollVotesProvider(poll.id ?? ''),
+                                      );
+
+                                      return totalCount.when(
+                                        data: (count) => count.isEmpty
+                                            ? const SizedBox.shrink()
+                                            : Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                  horizontal: 12,
+                                                ),
+                                                child: SalmonPollPieChart(
+                                                  poll: data[index],
+                                                ),
+                                              ),
+                                        error: (error, stackTrace) =>
+                                            const SizedBox.shrink(),
+                                        loading: () => const SizedBox.shrink(),
+                                      );
+                                    },
+                                  );
+                                }),
                               ),
                               const SizedBox(height: 16),
                               SmoothPageIndicator(
