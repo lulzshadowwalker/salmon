@@ -8,7 +8,7 @@ class _SalmonPollOption extends StatefulHookConsumerWidget {
   final PollOption option;
 
   static const _duration = Duration(milliseconds: 250);
-  static const double _height = 38;
+  static const _height = 38.0;
   static const _borderRadius = 8.0;
 
   @override
@@ -112,6 +112,8 @@ class _SalmonPollOptionState extends ConsumerState<_SalmonPollOption> {
                                       ? widget.option.enTitle
                                       : widget.option.arTitle) ??
                                   context.sl.unknown,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                           AnimatedSwitcher(

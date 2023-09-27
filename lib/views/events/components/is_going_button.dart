@@ -28,9 +28,11 @@ class _IsGoingButtonState extends ConsumerState<_IsGoingButton> {
 
                 return OutlinedButton(
                   style: context.theme.outlinedButtonTheme.style?.copyWith(
-                    backgroundColor: MaterialStateProperty.resolveWith(
-                      (_) => context.cs.primary.withOpacity(0.2),
-                    ),
+                    backgroundColor: MaterialStateProperty.resolveWith((_) =>
+                        HSLColor.fromColor(context.cs.primary)
+                            .withLightness(0.65)
+                            .toColor()
+                            .withOpacity(0.2)),
                   ),
                   onPressed: () {
                     ref.read(_isGoingProvider(event).notifier).state = !isGoing;
@@ -56,12 +58,27 @@ class _IsGoingButtonState extends ConsumerState<_IsGoingButton> {
                             children: [
                               const Padding(
                                 padding: EdgeInsetsDirectional.only(end: 8),
-                                child: FaIcon(FontAwesomeIcons.check),
+                                child: FaIcon(
+                                  FontAwesomeIcons.check,
+                                  color: SalmonColors.white,
+                                ),
                               ),
-                              Text(context.sl.going),
+                              Text(
+                                context.sl.going,
+                                style: const TextStyle(
+                                  color: SalmonColors.white,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ],
                           )
-                        : Text(context.sl.interested),
+                        : Text(
+                            context.sl.interested,
+                            style: const TextStyle(
+                              color: SalmonColors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                   ),
                 );
               },

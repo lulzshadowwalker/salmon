@@ -98,7 +98,6 @@ class _PostNotificationChipState extends ConsumerState<PostNotificationChip> {
                     }
                   });
                 },
-                maxWidth: 220,
                 child: AnimatedSize(
                   duration: const Duration(milliseconds: 200),
                   curve: Curves.easeOut,
@@ -115,14 +114,20 @@ class _PostNotificationChipState extends ConsumerState<PostNotificationChip> {
                         height: 32,
                       ),
                       if (!isSubbed.value)
-                        Expanded(
-                          child: Text(
-                            (context.isEn
-                                    ? agency.value?.enName
-                                    : agency.value?.arName) ??
-                                '',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(
+                            maxWidth: 220,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsetsDirectional.only(end: 12),
+                            child: Text(
+                              (context.isEn
+                                      ? agency.value?.enName
+                                      : agency.value?.arName) ??
+                                  '',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         ),
                     ],

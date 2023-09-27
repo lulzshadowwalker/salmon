@@ -20,7 +20,7 @@ class EventView extends StatelessWidget {
             Expanded(
               child: Stack(
                 children: [
-                  SalmonSingleChildScrollView(
+                  SingleChildScrollView(
                     physics: const ClampingScrollPhysics(),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -73,217 +73,202 @@ class EventView extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 24),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // TODO add parallex effect
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 28),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            if ((context.isEn
-                                                    ? event.enSummary
-                                                    : event.arSummary) !=
-                                                null)
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    bottom: 8),
-                                                child: Hero(
-                                                  tag: '${event.id}-summary',
-                                                  child: Material(
-                                                    color: Colors.transparent,
-                                                    child: Text((context.isEn
-                                                            ? event.enSummary
-                                                            : event
-                                                                .arSummary) ??
-                                                        ''),
-                                                  ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // TODO add parallex effect
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 28),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          if ((context.isEn
+                                                  ? event.enSummary
+                                                  : event.arSummary) !=
+                                              null)
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 8),
+                                              child: Hero(
+                                                tag: '${event.id}-summary',
+                                                child: Material(
+                                                  color: Colors.transparent,
+                                                  child: Text((context.isEn
+                                                          ? event.enSummary
+                                                          : event.arSummary) ??
+                                                      ''),
                                                 ),
                                               ),
-                                            Hero(
-                                              tag: '${event.id}-agency',
-                                              child: Material(
-                                                color: Colors.transparent,
-                                                child: Consumer(
-                                                  builder:
-                                                      (context, ref, child) {
-                                                    final agency = ref.watch(
-                                                      agencyProvider(
-                                                          event.createdBy ??
-                                                              ''),
-                                                    );
+                                            ),
+                                          Hero(
+                                            tag: '${event.id}-agency',
+                                            child: Material(
+                                              color: Colors.transparent,
+                                              child: Consumer(
+                                                builder: (context, ref, child) {
+                                                  final agency = ref.watch(
+                                                    agencyProvider(
+                                                        event.createdBy ?? ''),
+                                                  );
 
-                                                    return agency.when(
-                                                      data: (data) => Row(
-                                                        children: [
-                                                          CachedNetworkImage(
-                                                            imageUrl: data
-                                                                    ?.logo ??
-                                                                SalmonImages
-                                                                    .agencyPlacholder,
-                                                            height: 24,
-                                                            width: 24,
-                                                            imageBuilder: (context,
-                                                                    imageProvider) =>
-                                                                Padding(
-                                                              padding:
-                                                                  const EdgeInsetsDirectional
-                                                                      .only(
-                                                                end: 8,
-                                                              ),
-                                                              child: Image(
-                                                                image:
-                                                                    imageProvider,
-                                                              ),
+                                                  return agency.when(
+                                                    data: (data) => Row(
+                                                      children: [
+                                                        CachedNetworkImage(
+                                                          imageUrl: data
+                                                                  ?.logo ??
+                                                              SalmonImages
+                                                                  .agencyPlacholder,
+                                                          height: 24,
+                                                          width: 24,
+                                                          imageBuilder: (context,
+                                                                  imageProvider) =>
+                                                              Padding(
+                                                            padding:
+                                                                const EdgeInsetsDirectional
+                                                                    .only(
+                                                              end: 8,
                                                             ),
-                                                            errorWidget: (context,
-                                                                    url,
-                                                                    error) =>
-                                                                const SizedBox
-                                                                    .shrink(),
-                                                          ),
-                                                          Expanded(
-                                                            child: Text(
-                                                              (context.isEn
-                                                                      ? data
-                                                                          ?.enName
-                                                                      : data
-                                                                          ?.arName) ??
-                                                                  SL
-                                                                      .of(context)
-                                                                      .unknown,
-                                                              style: TextStyle(
-                                                                color:
-                                                                    SalmonColors
-                                                                        .muted,
-                                                              ),
+                                                            child: Image(
+                                                              image:
+                                                                  imageProvider,
                                                             ),
                                                           ),
-                                                        ],
-                                                      ),
-                                                      error:
-                                                          (error, stackTrace) =>
+                                                          errorWidget: (context,
+                                                                  url, error) =>
                                                               const SizedBox
                                                                   .shrink(),
-                                                      loading: () =>
-                                                          const SizedBox
-                                                              .shrink(),
-                                                    );
-                                                  },
-                                                ),
+                                                        ),
+                                                        Expanded(
+                                                          child: Text(
+                                                            (context.isEn
+                                                                    ? data
+                                                                        ?.enName
+                                                                    : data
+                                                                        ?.arName) ??
+                                                                SL
+                                                                    .of(context)
+                                                                    .unknown,
+                                                            style: TextStyle(
+                                                              color:
+                                                                  SalmonColors
+                                                                      .muted,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    error: (error,
+                                                            stackTrace) =>
+                                                        const SizedBox.shrink(),
+                                                    loading: () =>
+                                                        const SizedBox.shrink(),
+                                                  );
+                                                },
                                               ),
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                      const SizedBox(width: 12),
-                                      Hero(
-                                        tag: '${event.id}-date',
-                                        child: Material(
-                                          color: Colors.transparent,
-                                          child: SalmonTagChip(
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                horizontal: 12,
-                                                vertical: 18,
-                                              ),
-                                              child:
-                                                  Builder(builder: (context) {
-                                                final monthDay =
-                                                    intl.DateFormat(
-                                                  'MMM dd',
-                                                  SL.of(context).localeName,
-                                                )
-                                                        .format(
-                                                          event.date ??
-                                                              DateTime.now(),
-                                                        )
-                                                        .split(' ');
-
-                                                final month = monthDay[0];
-                                                final day = monthDay[1];
-                                                return Text(
-                                                  '$month\n$day',
-                                                  style: context
-                                                      .textTheme.titleMedium
-                                                      ?.copyWith(
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                  textAlign: TextAlign.center,
-                                                );
-                                              }),
+                                    ),
+                                    const SizedBox(width: 12),
+                                    Hero(
+                                      tag: '${event.id}-date',
+                                      child: Material(
+                                        color: Colors.transparent,
+                                        child: SalmonTagChip(
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 12,
+                                              vertical: 18,
                                             ),
+                                            child: Builder(builder: (context) {
+                                              final monthDay = intl.DateFormat(
+                                                'MMM dd',
+                                                SL.of(context).localeName,
+                                              )
+                                                  .format(
+                                                    event.date ??
+                                                        DateTime.now(),
+                                                  )
+                                                  .split(' ');
+
+                                              final month = monthDay[0];
+                                              final day = monthDay[1];
+                                              return Text(
+                                                '$month\n$day',
+                                                style: context
+                                                    .textTheme.titleMedium
+                                                    ?.copyWith(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              );
+                                            }),
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                Row(
-                                  children: [
-                                    const FaIcon(
-                                      FontAwesomeIcons.locationDot,
-                                      size: 22,
-                                      color: Colors.red,
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Text(
-                                      (context.isEn
-                                              ? event.enLocationTitle
-                                              : event.arLocationTitle) ??
-                                          SL.of(context).seeLocationOnMap,
                                     ),
                                   ],
                                 ),
-                                const SizedBox(height: 12),
-                                AspectRatio(
-                                  aspectRatio: 3 / 4,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: GoogleMap(
-                                      initialCameraPosition: CameraPosition(
-                                        target: event.location?.longitude !=
-                                                    null ||
-                                                event.location?.latitude != null
-                                            ? LatLng(
-                                                event.location!.longitude!,
-                                                event.location!.latitude!,
-                                              )
-                                            : const LatLng(31.9454, 35.9284),
-                                        zoom: 10.0,
-                                      ),
+                              ),
+                              Row(
+                                children: [
+                                  const FaIcon(
+                                    FontAwesomeIcons.locationDot,
+                                    size: 22,
+                                    color: Colors.red,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    (context.isEn
+                                            ? event.enLocationTitle
+                                            : event.arLocationTitle) ??
+                                        SL.of(context).seeLocationOnMap,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 12),
+                              AspectRatio(
+                                aspectRatio: 3 / 4,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: GoogleMap(
+                                    initialCameraPosition: CameraPosition(
+                                      target: event.location?.longitude !=
+                                                  null ||
+                                              event.location?.latitude != null
+                                          ? LatLng(
+                                              event.location!.longitude!,
+                                              event.location!.latitude!,
+                                            )
+                                          : const LatLng(31.9454, 35.9284),
+                                      zoom: 10.0,
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  child: SafeArea(
-                                    top: false,
-                                    child: MarkdownBody(
-                                      data: ((context.isEn
-                                                  ? event.enBody
-                                                  : event.arBody) ??
-                                              '')
-                                          .replaceAll('<br>', '\n'),
-                                      styleSheet:
-                                          SalmonTheme.markdownStyleSheet(
-                                              context),
-                                    ),
-                                  ),
+                              ),
+                              SafeArea(
+                                top: false,
+                                child: MarkdownBody(
+                                  data: ((context.isEn
+                                              ? event.enBody
+                                              : event.arBody) ??
+                                          '')
+                                      .replaceAll('<br>', '\n'),
+                                  styleSheet:
+                                      SalmonTheme.markdownStyleSheet(context),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
