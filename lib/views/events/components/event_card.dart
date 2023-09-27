@@ -168,7 +168,7 @@ class _EventCard extends HookConsumerWidget {
                                       child: Row(
                                         children: [
                                           CachedNetworkImage(
-                                            imageUrl: data?.logo ?? '',
+                                            imageUrl: data?.logo ?? SalmonImages.agencyPlacholder,
                                             height: 24,
                                             width: 24,
                                             imageBuilder:

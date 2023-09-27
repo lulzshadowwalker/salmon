@@ -136,7 +136,8 @@ class _PostViewState extends ConsumerState<PostView> {
                                 data: (data) => Row(
                                   children: [
                                     CachedNetworkImage(
-                                      imageUrl: data?.logo ?? '',
+                                      imageUrl: data?.logo ??
+                                          SalmonImages.agencyPlacholder,
                                       height: 24,
                                       width: 24,
                                       imageBuilder: (context, imageProvider) =>

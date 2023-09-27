@@ -43,6 +43,7 @@ class Events extends ConsumerWidget {
                                   widthFactor: 0.9,
                                   child: Lottie.asset(
                                     SalmonAnims.calendar,
+                                    reverse: true,
                                   ),
                                 ),
                                 const SizedBox(height: 28),

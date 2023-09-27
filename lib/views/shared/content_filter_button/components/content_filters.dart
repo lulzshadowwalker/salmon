@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
+import 'package:salmon/helpers/salmon_images.dart';
 
 import '../../../../l10n/l10n_imports.dart';
 import '../../../../providers/content_filter/content_filter_provider.dart';
@@ -85,7 +86,8 @@ class ContentFilters extends ConsumerWidget {
                               title: Row(
                                 children: [
                                   CachedNetworkImage(
-                                    imageUrl: tag.logo ?? '',
+                                    imageUrl: tag.logo ??
+                                        SalmonImages.agencyPlacholder,
                                     height: 36,
                                     width: 36,
                                     imageBuilder: (context, imageProvider) =>

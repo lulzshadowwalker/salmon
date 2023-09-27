@@ -65,7 +65,8 @@ class GeneralSubmissionReview extends HookConsumerWidget {
                         child: Row(
                           children: [
                             CachedNetworkImage(
-                              imageUrl: data?.logo ?? '',
+                              imageUrl:
+                                  data?.logo ?? SalmonImages.agencyPlacholder,
                               height: 28,
                               width: 28,
                               imageBuilder: (context, imageProvider) => Padding(

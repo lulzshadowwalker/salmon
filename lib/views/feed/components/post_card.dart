@@ -96,7 +96,7 @@ class PostCard extends ConsumerWidget {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         CachedNetworkImage(
-                                          imageUrl: agency.value!.logo!,
+                                          imageUrl: agency.value?.logo ?? SalmonImages.agencyPlacholder,
                                           errorWidget: (context, url, error) =>
                                               const SizedBox.shrink(),
                                           imageBuilder:

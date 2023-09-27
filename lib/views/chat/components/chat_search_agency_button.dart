@@ -43,7 +43,7 @@ class ChatSearchAgencyButton extends ConsumerWidget {
                 final agency = agencies.value![index];
                 return ListTile(
                   leading: ChatAvatar(
-                    imageUrl: agency.logo ?? SalmonImages.notFound,
+                    imageUrl: agency.logo ?? SalmonImages.agencyPlacholder,
                   ),
                   minLeadingWidth: 8,
                   title: Text(
@@ -59,7 +59,7 @@ class ChatSearchAgencyButton extends ConsumerWidget {
                       'messaging',
                       '$uid${agency.id}',
                       name: context.isEn ? agency.enName : agency.arName,
-                      image: agency.logo,
+                      image: agency.logo ?? SalmonImages.agencyPlacholder,
                       extraData: {
                         'members': [uid, agency.id]
                       },
@@ -87,7 +87,7 @@ class ChatSearchAgencyButton extends ConsumerWidget {
             ],
             builder: (agency) => ListTile(
               leading: ChatAvatar(
-                imageUrl: agency.logo ?? SalmonImages.notFound,
+                imageUrl: agency.logo ?? SalmonImages.agencyPlacholder,
               ),
               minLeadingWidth: 8,
               title: Text(

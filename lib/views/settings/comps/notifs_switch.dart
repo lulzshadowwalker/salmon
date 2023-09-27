@@ -36,7 +36,7 @@ class _NotifSwitchState extends ConsumerState<_NotifSwitch> {
       },
       child: _SettingsOption(
         leading: CachedNetworkImage(
-          imageUrl: widget.agency.logo ?? SalmonImages.notFound,
+          imageUrl: widget.agency.logo ?? SalmonImages.agencyPlacholder,
           imageBuilder: (context, imageProvider) => Padding(
             padding: const EdgeInsetsDirectional.only(
               end: 16,

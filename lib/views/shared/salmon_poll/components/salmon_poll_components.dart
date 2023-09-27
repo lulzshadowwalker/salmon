@@ -7,6 +7,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/controllers/polls/polls_controller.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
+import 'package:salmon/helpers/salmon_images.dart';
 import 'package:salmon/models/poll.dart';
 import 'package:salmon/models/poll_option.dart';
 import 'package:salmon/models/poll_vote.dart';

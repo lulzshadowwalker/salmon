@@ -84,8 +84,8 @@ class IssueSubmissionStep2 extends HookConsumerWidget {
                                       width: 24,
                                       child: FittedBox(
                                         child: CachedNetworkImage(
-                                          imageUrl:
-                                              e.logo ?? SalmonImages.notFound,
+                                          imageUrl: e.logo ??
+                                              SalmonImages.agencyPlacholder,
                                           placeholder: (context, url) =>
                                               const SalmonLoadingIndicator(),
                                         ),

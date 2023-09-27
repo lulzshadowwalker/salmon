@@ -78,4 +78,5 @@ flutter:
   generate: true
   assets:
     - assets/anims/
+    - assets/videos/
     - .env
