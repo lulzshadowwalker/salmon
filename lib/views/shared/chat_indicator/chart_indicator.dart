@@ -29,12 +29,15 @@ class ChartIndicator extends StatelessWidget {
         const SizedBox(
           width: 8,
         ),
-        Text(
-          text,
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: textColor,
+        Expanded(
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: textColor,
+            ),
+            maxLines: null,
           ),
         )
       ],

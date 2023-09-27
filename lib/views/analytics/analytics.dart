@@ -1,5 +1,7 @@
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/controllers/polls/polls_controller.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
@@ -30,6 +32,22 @@ class _AnalyticsState extends ConsumerState<Analytics> {
 
   @override
   Widget build(BuildContext context) {
+        useEffect(() {
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
+      
+      return () =>{
+         SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+        DeviceOrientation.landscapeRight,
+        DeviceOrientation.landscapeLeft,
+
+      ])
+      };
+    }, const []);
     return Scaffold(
       drawer: const SalmonDrawer(),
       appBar: AppBar(
