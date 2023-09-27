@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:salmon/controllers/users/users_controller.dart';
+import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/helpers/salmon_helpers.dart';
 
 import '../../models/event.dart';
@@ -72,9 +74,10 @@ title: ${event.enTitle}
     }
   }
 
+  /// TODO [interestedUsers] should return a stream of users
   Future<List<SalmonUser>?> interestedUsers(Event event) async {
     try {
-      return await _db
+      final ids = await _db
           .collection('events')
           .doc(event.id)
           .collection('users')
@@ -82,10 +85,20 @@ title: ${event.enTitle}
           .then(
             (query) => query.docs
                 .map(
-                  (doc) => SalmonUser.fromMap(doc.data()),
+                  (doc) => doc.data()['userId'] as String?,
                 )
+                .toCompactMap
                 .toList(),
           );
+
+      final users = <SalmonUser?>[];
+      for (var id in ids) {
+        users.add(await ref.read(usersControllerProvider).fetchUser(id));
+      }
+
+      print('users :: $users');
+
+      return Future.value(users.toCompactMap.toList());
     } catch (e) {
       SalmonHelpers.handleException(e: e, logger: _log);
       return null;

@@ -38,7 +38,7 @@ class SalmonUserAvatar extends StatelessWidget {
         ),
         alignment: Alignment.center,
         child: Text(
-          user.displayName?[0] ?? 'A',
+          user.displayName?[0].toUpperCase() ?? 'A',
           style: const TextStyle(
             color: SalmonColors.white,
           ),
@@ -53,7 +53,7 @@ class SalmonUserAvatar extends StatelessWidget {
         ),
         alignment: Alignment.center,
         child: Text(
-          user.displayName?[0] ?? 'A',
+          user.displayName?[0].toUpperCase() ?? 'A',
           style: const TextStyle(
             color: SalmonColors.white,
           ),
