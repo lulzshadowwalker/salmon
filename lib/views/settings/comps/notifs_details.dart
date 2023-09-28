@@ -44,7 +44,7 @@ class _NotifsDetailsState extends ConsumerState<NotifsDetails> {
             child: SalmonConstrainedBox(
               child: Consumer(
                 builder: (context, ref, child) {
-                  final agencies = ref.watch(agenciesProvider);
+                  final agencies = ref.watch(agenciesProvider(context.sl.localeName));
 
                   return agencies.when(
                     data: (data) {

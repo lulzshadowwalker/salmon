@@ -19,8 +19,9 @@ class ContentFilters extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tags = ref.watch(contentTagsProvider);
-    final selectedTags = ref.watch(contentFilterProvider);
+    final tags = ref.watch(contentTagsProvider(context.sl.localeName));
+    final selectedTags =
+        ref.watch(contentFilterProvider(context.sl.localeName));
 
     return SalmonConstrainedBox(
       child: SafeArea(
@@ -118,7 +119,9 @@ class ContentFilters extends ConsumerWidget {
                               value: selectedTags.tags.contains(tag),
                               onChanged: (val) {
                                 ref
-                                    .read(contentFilterProvider.notifier)
+                                    .read(contentFilterProvider(
+                                            context.sl.localeName)
+                                        .notifier)
                                     .toggleSelect(tag);
                               },
                             );

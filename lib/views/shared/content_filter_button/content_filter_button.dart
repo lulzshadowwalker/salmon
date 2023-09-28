@@ -13,7 +13,8 @@ class ContentFilterButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isActive = ref.watch(contentFilterProvider).isActive;
+    final isActive =
+        ref.watch(contentFilterProvider(context.sl.localeName)).isActive;
 
     return GestureDetector(
       onTap: () {

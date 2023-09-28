@@ -9,8 +9,8 @@ final postsProvider = StreamProvider<List<Post>>(
 );
 
 final filteredPostsProvider =
-    Provider.autoDispose<AsyncValue<List<Post>>>((ref) {
-  final selected = ref.watch(contentFilterProvider).tags.map((e) => e.id);
+    Provider.autoDispose.family<AsyncValue<List<Post>>, String>((ref, lang) {
+  final selected = ref.watch(contentFilterProvider(lang)).tags.map((e) => e.id);
 
   return ref.watch(postsProvider).whenData(
         (posts) => posts

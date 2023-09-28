@@ -9,8 +9,8 @@ final eventsProvider = FutureProvider<List<Event>>(
 );
 
 final filteredEventsProvider =
-    Provider.autoDispose<AsyncValue<List<Event>>>((ref) {
-  final selected = ref.watch(contentFilterProvider).tags.map((e) => e.id);
+    Provider.autoDispose.family<AsyncValue<List<Event>>, String>((ref, lang) {
+  final selected = ref.watch(contentFilterProvider(lang)).tags.map((e) => e.id);
 
   return ref.watch(eventsProvider).whenData(
         (events) => events

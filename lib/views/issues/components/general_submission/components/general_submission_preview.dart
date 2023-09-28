@@ -59,7 +59,8 @@ class _SubmissionPreview extends HookConsumerWidget {
                 const SizedBox(height: 12),
                 Consumer(
                   builder: (context, ref, child) {
-                    final agencies = ref.watch(agenciesProvider);
+                    final agencies =
+                        ref.watch(agenciesProvider(context.sl.localeName));
 
                     return agencies.when(
                       data: (data) => DropdownButton(

@@ -5,7 +5,7 @@ class IssueSubmissionStep2 extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final agencies = ref.watch(agenciesProvider);
+    final agencies = ref.watch(agenciesProvider(context.sl.localeName));
     final pages = ref.watch(_pagesProvider);
     final currentStep = ref.watch(_currentStepProvider);
     final showRequired = useState(false);

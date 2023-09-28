@@ -26,8 +26,18 @@ final class AgenciesController {
     }
   }
 
-  Stream<List<Agency>> get agencies {
-    return _db.collection('agencies').snapshots().map(
+  Stream<List<Agency>> get enAgencies {
+    return _db.collection('agencies').orderBy('en_name').snapshots().map(
+          (query) => query.docs
+              .map(
+                (doc) => Agency.fromMap(doc.data()),
+              )
+              .toList(),
+        );
+  }
+
+  Stream<List<Agency>> get arAgencies {
+    return _db.collection('agencies').orderBy('ar_name').snapshots().map(
           (query) => query.docs
               .map(
                 (doc) => Agency.fromMap(doc.data()),

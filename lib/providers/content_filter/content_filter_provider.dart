@@ -4,14 +4,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:salmon/models/agency.dart';
 import 'package:salmon/providers/agencies/agencies_provider.dart';
 
-final contentTagsProvider = Provider<List<Agency>>((ref) {
-  final agencies = ref.watch(agenciesProvider).value;
+final contentTagsProvider = Provider.family<List<Agency>, String>((ref, lang) {
+  final agencies = ref.watch(agenciesProvider(lang)).value;
 
   return UnmodifiableListView(agencies ?? []);
 });
 
-final contentFilterProvider = ChangeNotifierProvider.autoDispose((ref) {
-  final allTags = ref.watch(contentTagsProvider);
+final contentFilterProvider = ChangeNotifierProvider.autoDispose
+    .family<ContentFilterNotifier, String>((ref, lang) {
+  final allTags = ref.watch(contentTagsProvider(lang));
   return ContentFilterNotifier<Agency>(List.from(allTags));
 });
 

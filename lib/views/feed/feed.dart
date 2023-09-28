@@ -29,7 +29,7 @@ class _FeedState extends ConsumerState<Feed> {
 
   @override
   Widget build(BuildContext context) {
-    final posts = ref.watch(filteredPostsProvider);
+    final posts = ref.watch(filteredPostsProvider(context.sl.localeName));
 
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {

@@ -8,7 +8,7 @@ class Events extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(salmonThemeProvider).dark();
-    final events = ref.watch(filteredEventsProvider);
+    final events = ref.watch(filteredEventsProvider(context.sl.localeName));
 
     return Scaffold(
       drawer: const SalmonDrawer(),

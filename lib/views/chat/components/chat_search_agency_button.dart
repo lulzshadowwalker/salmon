@@ -22,7 +22,7 @@ class ChatSearchAgencyButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final agencies = ref.watch(agenciesProvider);
+    final agencies = ref.watch(agenciesProvider(context.sl.localeName));
     final isGuest = ref.watch(a12nProvider).isGuest;
 
     return FloatingActionButton(
