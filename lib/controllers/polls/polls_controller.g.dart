@@ -120,7 +120,7 @@ class PollOptVoteCountProvider extends Provider<int> {
 }
 
 String _$pollOptVotePercentageHash() =>
-    r'f7790a00fad31728c4de2ba84ddf3f86add3fbd2';
+    r'ce943328cbe9510a3424d894ce30f031d638ad75';
 typedef PollOptVotePercentageRef = ProviderRef<double>;
 
 /// See also [pollOptVotePercentage].

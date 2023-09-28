@@ -96,8 +96,6 @@ title: ${event.enTitle}
         users.add(await ref.read(usersControllerProvider).fetchUser(id));
       }
 
-      print('users :: $users');
-
       return Future.value(users.toCompactMap.toList());
     } catch (e) {
       SalmonHelpers.handleException(e: e, logger: _log);

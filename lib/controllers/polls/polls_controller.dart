@@ -128,12 +128,5 @@ double pollOptVotePercentage(
   final totalCount = ref.watch(pollVotesProvider(pollId)).value?.length ?? 1;
   final optCount = ref.watch(pollOptVoteCountProvider(pollId, optId));
 
-  print('''
-  poll:- $pollId
-  opt:- $optId
-    totalCount:- $totalCount
-    optCount:- $optCount
-''');
-
   return (optCount * 100 / totalCount).clamp(0, 100);
 }

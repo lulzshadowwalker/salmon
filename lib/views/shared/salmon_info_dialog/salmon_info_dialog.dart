@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
-import 'package:salmon/theme/salmon_colors.dart';
 
 class SalmonInfoDialog extends StatelessWidget {
   const SalmonInfoDialog({
@@ -75,7 +74,7 @@ class SalmonInfoDialog extends StatelessWidget {
                           child: Text(
                             subtitle!,
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 13.5),
+                            style: const TextStyle(fontSize: 13.5),
                           ),
                         ),
                       const Spacer(),

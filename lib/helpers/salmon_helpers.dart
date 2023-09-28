@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -330,7 +329,7 @@ final class SalmonHelpers {
     final sk = '${id}_intro_dialog';
     final box = GetStorage();
     final wasShown = box.read<bool>(sk) ?? false;
-    // if (!kDebugMode && wasShown) return;
+    if (wasShown) return;
 
     await showDialog(
       context: context,

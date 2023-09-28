@@ -1,44 +1,93 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:salmon/helpers/salmon_const.dart';
+import 'package:salmon/helpers/salmon_images.dart';
 import 'package:salmon/models/agency.dart';
 import 'package:salmon/providers/agencies/agencies_provider.dart';
+
+part 'content_filter_provider.g.dart';
+
+const _allAgency = Agency(
+  enName: 'all',
+  arName: 'الجميع',
+  logo: SalmonImages.agencyPlacholder,
+);
 
 final contentTagsProvider = Provider.family<List<Agency>, String>((ref, lang) {
   final agencies = ref.watch(agenciesProvider(lang)).value;
 
-  return UnmodifiableListView(agencies ?? []);
+  
+  return UnmodifiableListView(
+    (List.from(agencies ?? []))
+      ..insert(
+        0,
+        _allAgency,
+      ),
+  );
 });
+
+final tagsQueryProvider = StateProvider.autoDispose((ref) => '');
+
+@Riverpod(keepAlive: false)
+List<Agency> filteredContentTags(
+  FilteredContentTagsRef ref, {
+  required String locale,
+}) {
+  final agencies = ref.watch(contentTagsProvider(locale));
+  final query = ref.watch(tagsQueryProvider).toLowerCase();
+
+  List<Agency> res = [];
+
+  for (Agency a in agencies) {
+    if (locale == SalmonConst.ar &&
+        (a.arName ?? '').toLowerCase().contains(query)) {
+      res.add(a);
+    } else if ((a.enName ?? '').toLowerCase().contains(query)) {
+      res.add(a);
+    }
+  }
+
+  return UnmodifiableListView(res);
+}
 
 final contentFilterProvider = ChangeNotifierProvider.autoDispose
     .family<ContentFilterNotifier, String>((ref, lang) {
   final allTags = ref.watch(contentTagsProvider(lang));
-  return ContentFilterNotifier<Agency>(List.from(allTags));
+  return ContentFilterNotifier(List.from(allTags));
 });
 
-class ContentFilterNotifier<T> extends ChangeNotifier {
-  ContentFilterNotifier(List<T> tags)
+class ContentFilterNotifier extends ChangeNotifier {
+  ContentFilterNotifier(List<Agency> tags)
       : _tags = List.from(tags),
         _allTags = UnmodifiableListView(tags);
 
-  final List<T> _tags;
-  final List<T> _allTags;
+  List<Agency> _tags;
+  final List<Agency> _allTags;
 
-  List<T> get tags => UnmodifiableListView(_tags);
+  List<Agency> get tags => UnmodifiableListView(_tags);
 
   bool get isActive =>
       !const DeepCollectionEquality.unordered().equals(_tags, _allTags);
 
-  void toggleSelect(T tag) {
+  void toggleSelect(Agency tag) {
     if (!_tags.contains(tag)) {
-      _tags.add(tag);
+      tag != _allAgency ? _tags.add(tag) : _tags = List.from(_allTags);
       notifyListeners();
       return;
     }
 
     if (_tags.length <= 1) return;
 
-    _tags.remove(tag);
+    if ((tag).enName != 'all') {
+      _tags
+        ..remove(tag)
+        ..remove(_allAgency);
+    } else {
+      _tags.removeRange(0, _tags.length - 1);
+    }
+
     notifyListeners();
   }
 

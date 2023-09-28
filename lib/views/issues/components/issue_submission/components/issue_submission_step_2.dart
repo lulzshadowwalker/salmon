@@ -61,71 +61,78 @@ class IssueSubmissionStep2 extends HookConsumerWidget {
               const SizedBox(height: 8),
               agencies.when(
                 data: (data) {
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      DropdownButton(
-                        borderRadius: BorderRadius.circular(10),
-                        underline: const SizedBox.shrink(),
-                        dropdownColor: context.theme.scaffoldBackgroundColor,
-                        elevation: 4,
-                        hint: Text(context.sl.agency.toLowerCase()),
-                        isExpanded: true,
-                        value: submission.agency,
-                        items: data
-                            .map(
-                              (e) => DropdownMenuItem(
-                                value: e.id,
-                                child: Row(
-                                  children: [
-                                    SizedBox(
-                                      height: 24,
-                                      width: 24,
-                                      child: FittedBox(
-                                        child: CachedNetworkImage(
-                                          imageUrl: e.logo ??
-                                              SalmonImages.agencyPlacholder,
-                                          placeholder: (context, url) =>
-                                              const SalmonLoadingIndicator(),
-                                        ),
+                  return data.isEmpty
+                      ? const SizedBox.shrink()
+                      : Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            DropdownButton(
+                              borderRadius: BorderRadius.circular(10),
+                              underline: const SizedBox.shrink(),
+                              dropdownColor:
+                                  context.theme.scaffoldBackgroundColor,
+                              elevation: 4,
+                              hint: Text(context.sl.agency.toLowerCase()),
+                              isExpanded: true,
+                              value: submission.agency,
+                              items: data
+                                  .map(
+                                    (e) => DropdownMenuItem(
+                                      value: e.id,
+                                      child: Row(
+                                        children: [
+                                          SizedBox(
+                                            height: 24,
+                                            width: 24,
+                                            child: FittedBox(
+                                              child: CachedNetworkImage(
+                                                imageUrl: e.logo ??
+                                                    SalmonImages
+                                                        .agencyPlacholder,
+                                                placeholder: (context, url) =>
+                                                    const SalmonLoadingIndicator(),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 16),
+                                          Expanded(
+                                            child: Text(
+                                              (context.isEn
+                                                      ? e.enName
+                                                      : e.arName) ??
+                                                  context.sl.unknown,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    const SizedBox(width: 16),
-                                    Expanded(
-                                      child: Text(
-                                        (context.isEn ? e.enName : e.arName) ??
-                                            context.sl.unknown,
-                                        overflow: TextOverflow.ellipsis,
+                                  )
+                                  .toList(),
+                              onChanged: (value) {
+                                ref.read(_submissionProvider.notifier).set(
+                                      submission.copyWith(
+                                        agency: value,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )
-                            .toList(),
-                        onChanged: (value) {
-                          ref.read(_submissionProvider.notifier).set(
-                                submission.copyWith(
-                                  agency: value,
-                                ),
-                              );
-                        },
-                      ),
-                      const SizedBox(height: 8),
-                      AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 250),
-                        child: showRequired.value
-                            ? Text(
-                                context.sl.tellUsAgencyHaveIssueWith,
-                                style: context.textTheme.labelMedium?.copyWith(
-                                  color: context.theme.colorScheme.error,
-                                ),
-                              )
-                            : const SizedBox.shrink(),
-                      ),
-                    ],
-                  );
+                                    );
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 250),
+                              child: showRequired.value
+                                  ? Text(
+                                      context.sl.tellUsAgencyHaveIssueWith,
+                                      style: context.textTheme.labelMedium
+                                          ?.copyWith(
+                                        color: context.theme.colorScheme.error,
+                                      ),
+                                    )
+                                  : const SizedBox.shrink(),
+                            ),
+                          ],
+                        );
                 },
                 error: (error, stackTrace) => const SalmonUnknownError(),
                 loading: () => const Align(

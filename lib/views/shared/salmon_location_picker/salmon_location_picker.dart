@@ -16,7 +16,6 @@ import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/helpers/salmon_helpers.dart';
 import 'package:salmon/models/enums/notif_type.dart';
 import 'package:salmon/models/salmon_silent_exception.dart';
-import 'package:salmon/providers/theme_data/theme_data_provider.dart';
 
 import '../../../helpers/salmon_anims.dart';
 import '../../../theme/salmon_colors.dart';
@@ -78,7 +77,6 @@ class _SalmonLocationPickerState extends ConsumerState<SalmonLocationPicker> {
     final markers = useState<Set<Marker>>({});
     final selectedLocation = useState<LatLng?>(null);
     final isLoaded = useState(false);
-    final theme = ref.watch(salmonThemeProvider);
     final isCurrentLocLoading = useState(false);
 
     return Scaffold(
@@ -115,7 +113,6 @@ class _SalmonLocationPickerState extends ConsumerState<SalmonLocationPicker> {
                   isCurrentLocLoading.value = true;
                   final pos = await _getCurrentLocation();
                   isCurrentLocLoading.value = false;
-                  if (pos == null) return;
 
                   mapController.moveCamera(CameraUpdate.newLatLng(pos));
                 },

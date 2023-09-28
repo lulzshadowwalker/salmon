@@ -23,7 +23,6 @@ import 'package:salmon/providers/theme_data/theme_data_provider.dart';
 import 'package:salmon/router/salmon_routes.dart';
 import 'package:salmon/theme/salmon_theme.dart';
 import 'package:salmon/views/salmon_drawer/components/salmon_drawer_components.dart';
-import 'package:salmon/views/shared/salmon_single_child_scroll_view/salmon_single_child_scroll_view.dart';
 import 'package:salmon/views/shared/salmon_tag_chip/salmon_tag_chip.dart';
 import 'package:salmon/views/shared/salmon_unknown_error/salmon_unknown_error.dart';
 import 'package:salmon/views/shared/salmon_user_avatar/salmon_user_avatar.dart';

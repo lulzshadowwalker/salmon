@@ -21,6 +21,7 @@ class SalmonFormField extends StatelessWidget {
     this.suffixIcon,
     this.inputFormatters,
     this.onSaved,
+    this.onChanged,
     this.contentPadding,
     this.border,
     this.focusNode,
@@ -40,6 +41,7 @@ class SalmonFormField extends StatelessWidget {
   final Widget? suffixIcon;
   final List<TextInputFormatter>? inputFormatters;
   final void Function(String? value)? onSaved;
+  final void Function(String)? onChanged;
   final EdgeInsets? contentPadding;
   final InputBorder? border;
   final FocusNode? focusNode;
@@ -62,6 +64,7 @@ class SalmonFormField extends StatelessWidget {
         obscureText: obscureText,
         validator: validator,
         onSaved: onSaved,
+        onChanged: onChanged,
         maxLines: maxLines,
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(

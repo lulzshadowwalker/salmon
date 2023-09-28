@@ -12,7 +12,6 @@ import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:mime/mime.dart';
 import 'package:salmon/controllers/notifs/notifs_controller.dart';
 import 'package:salmon/controllers/submissions/submissions_controller.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
