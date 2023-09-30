@@ -84,7 +84,7 @@ class _SubmissionPreview extends HookConsumerWidget {
                                       child: FittedBox(
                                         child: CachedNetworkImage(
                                           imageUrl: e.logo ??
-                                              SalmonImages.agencyPlacholder,
+                                              SalmonImages.agencyPlaceholder,
                                           placeholder: (context, url) =>
                                               const SalmonLoadingIndicator(),
                                         ),

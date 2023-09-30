@@ -28,11 +28,11 @@ class _SubmissionReviewStepper extends HookWidget {
           title: context.sl.submitted,
         ),
         EasyStep(
-          customStep: const Icon(Icons.ac_unit),
+          customStep: const Icon(FontAwesomeIcons.magnifyingGlass),
           title: context.sl.underReview,
         ),
         EasyStep(
-          customStep: const Icon(Icons.ac_unit),
+          customStep: const Icon(FontAwesomeIcons.check),
           title: context.sl.resolved,
         ),
       ],

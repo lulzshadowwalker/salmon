@@ -10,6 +10,7 @@ import 'package:salmon/views/issues/components/general_submission/components/gen
 import 'package:salmon/views/issues/components/issue_submission/components/issue_submission_components.dart';
 import 'package:salmon/views/issues/components/submisison_review.dart';
 import 'package:salmon/views/onboarding/onboarding.dart';
+import 'package:salmon/views/salmon_webview/salmon_webview.dart';
 import 'package:salmon/views/settings/comps/settings_comps.dart';
 import 'package:salmon/views/shared/salmon_screen/salmon_screen.dart';
 import 'package:salmon/views/splash/splash.dart';
@@ -141,6 +142,19 @@ class SalmonRouter {
               //   path: SalmonRoutes.locationPicker,
               //   builder: (context, state) => const SalmonLocationPicker(),
               // )
+              GoRoute(
+                name: SalmonRoutes.webview,
+                path: SalmonRoutes.webview,
+                builder: (context, state) {
+                  final title = (state.extra as Map<String, String>)['title']!;
+                  final url = (state.extra as Map<String, String>)['url']!;
+
+                  return SalmonWebview(
+                    title: title,
+                    url: url,
+                  );
+                },
+              )
             ],
           ),
           GoRoute(

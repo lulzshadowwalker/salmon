@@ -21,7 +21,7 @@ final class PostsController {
   Stream<List<Post>> get posts {
     return _db
         .collection('posts')
-        .orderBy('date_created', descending: true)
+        // .orderBy('date_created', descending: true)
         .snapshots()
         .map(
           (query) => query.docs

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
+import 'package:salmon/helpers/salmon_images.dart';
 
 import '../../shared/salmon_loading_indicator/salmon_loading_indicator.dart';
 
@@ -27,9 +28,13 @@ class ChatAvatar extends StatelessWidget {
         widthFactor: 0.5,
         child: CachedNetworkImage(
           imageUrl: imageUrl,
-          placeholder: (context, url) => const Center(
-            child:
-                SalmonLoadingIndicator(),
+          placeholder: (context, url) => CachedNetworkImage(
+            imageUrl: SalmonImages.agencyPlaceholder,
+            memCacheHeight: 256,
+          ),
+          errorWidget: (context, url, error) => CachedNetworkImage(
+            imageUrl: SalmonImages.agencyPlaceholder,
+            memCacheHeight: 256,
           ),
           memCacheHeight: 256,
         ),

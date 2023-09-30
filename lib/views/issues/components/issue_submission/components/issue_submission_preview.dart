@@ -59,7 +59,8 @@ class _SubmissionPreview extends HookConsumerWidget {
                 const SizedBox(height: 12),
                 Consumer(
                   builder: (context, ref, child) {
-                    final agencies = ref.watch(agenciesProvider(context.sl.localeName));
+                    final agencies =
+                        ref.watch(agenciesProvider(context.sl.localeName));
 
                     return agencies.when(
                       data: (data) => DropdownButton(
@@ -83,7 +84,7 @@ class _SubmissionPreview extends HookConsumerWidget {
                                       child: FittedBox(
                                         child: CachedNetworkImage(
                                           imageUrl: e.logo ??
-                                              SalmonImages.agencyPlacholder,
+                                              SalmonImages.agencyPlaceholder,
                                           imageBuilder:
                                               (context, imageProvider) =>
                                                   Padding(

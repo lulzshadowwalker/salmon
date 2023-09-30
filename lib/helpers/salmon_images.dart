@@ -19,6 +19,6 @@ final class SalmonImages {
   static const invalid =
       'https://abc.nasldansldandaldnladnslfknsdflkdsnfowrnsfdlfkn.com/akjsdnakdjnaskdnsasdasdadadadasdsadadasdasdasdwqdasdasdfljanfda.jpg';
 
-  static const agencyPlacholder =
+  static const agencyPlaceholder =
       'https://upload.wikimedia.org/wikipedia/ar/0/01/Jordan_coat_of_arms.png';
 }

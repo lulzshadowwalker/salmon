@@ -87,7 +87,6 @@ class GeneralSubmissionStep3 extends HookConsumerWidget {
                           size: _cardSize,
                           child: const FaIcon(
                             FontAwesomeIcons.solidImage,
-                            color: SalmonColors.blue,
                           ),
                         );
                       },
@@ -118,7 +117,6 @@ class GeneralSubmissionStep3 extends HookConsumerWidget {
                           size: _cardSize,
                           child: const FaIcon(
                             FontAwesomeIcons.camera,
-                            color: Colors.deepPurple,
                           ),
                         );
                       },
@@ -147,9 +145,8 @@ class GeneralSubmissionStep3 extends HookConsumerWidget {
                           title: context.sl.record,
                           backgroundColor: SalmonColors.orange,
                           size: _cardSize,
-                          child: FaIcon(
+                          child: const FaIcon(
                             FontAwesomeIcons.video,
-                            color: SalmonColors.orange,
                           ),
                         );
                       },
@@ -184,9 +181,8 @@ class GeneralSubmissionStep3 extends HookConsumerWidget {
                           title: context.sl.location,
                           backgroundColor: SalmonColors.green,
                           size: _cardSize,
-                          child: FaIcon(
+                          child: const FaIcon(
                             FontAwesomeIcons.locationDot,
-                            color: SalmonColors.green,
                           ),
                         );
                       },
@@ -216,7 +212,6 @@ class GeneralSubmissionStep3 extends HookConsumerWidget {
                           size: _cardSize,
                           child: const FaIcon(
                             FontAwesomeIcons.solidFile,
-                            color: SalmonColors.brown,
                           ),
                         );
                       },

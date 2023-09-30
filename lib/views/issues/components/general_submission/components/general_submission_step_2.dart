@@ -85,9 +85,19 @@ class GeneralSubmissionStep2 extends HookConsumerWidget {
                                       child: FittedBox(
                                         child: CachedNetworkImage(
                                           imageUrl: e.logo ??
-                                              SalmonImages.agencyPlacholder,
+                                              SalmonImages.agencyPlaceholder,
                                           placeholder: (context, url) =>
-                                              const SalmonLoadingIndicator(),
+                                              CachedNetworkImage(
+                                            imageUrl:
+                                                SalmonImages.agencyPlaceholder,
+                                            memCacheHeight: 256,
+                                          ),
+                                          errorWidget: (context, url, error) =>
+                                              CachedNetworkImage(
+                                            imageUrl:
+                                                SalmonImages.agencyPlaceholder,
+                                            memCacheHeight: 256,
+                                          ),
                                         ),
                                       ),
                                     ),

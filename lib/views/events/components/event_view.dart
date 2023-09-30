@@ -126,7 +126,7 @@ class EventView extends StatelessWidget {
                                                           imageUrl: data
                                                                   ?.logo ??
                                                               SalmonImages
-                                                                  .agencyPlacholder,
+                                                                  .agencyPlaceholder,
                                                           height: 24,
                                                           width: 24,
                                                           imageBuilder: (context,

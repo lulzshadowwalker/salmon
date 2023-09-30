@@ -12,13 +12,12 @@ part 'content_filter_provider.g.dart';
 const _allAgency = Agency(
   enName: 'all',
   arName: 'الجميع',
-  logo: SalmonImages.agencyPlacholder,
+  logo: SalmonImages.agencyPlaceholder,
 );
 
 final contentTagsProvider = Provider.family<List<Agency>, String>((ref, lang) {
   final agencies = ref.watch(agenciesProvider(lang)).value;
 
-  
   return UnmodifiableListView(
     (List.from(agencies ?? []))
       ..insert(

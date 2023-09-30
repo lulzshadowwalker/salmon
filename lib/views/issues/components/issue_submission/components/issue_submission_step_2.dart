@@ -89,9 +89,20 @@ class IssueSubmissionStep2 extends HookConsumerWidget {
                                               child: CachedNetworkImage(
                                                 imageUrl: e.logo ??
                                                     SalmonImages
-                                                        .agencyPlacholder,
+                                                        .agencyPlaceholder,
                                                 placeholder: (context, url) =>
-                                                    const SalmonLoadingIndicator(),
+                                                    CachedNetworkImage(
+                                                  imageUrl: SalmonImages
+                                                      .agencyPlaceholder,
+                                                  memCacheHeight: 256,
+                                                ),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        CachedNetworkImage(
+                                                  imageUrl: SalmonImages
+                                                      .agencyPlaceholder,
+                                                  memCacheHeight: 256,
+                                                ),
                                               ),
                                             ),
                                           ),

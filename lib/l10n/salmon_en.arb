@@ -145,5 +145,9 @@
     "issuesIntroDescription": "Share your thoughts, complaints, or suggestions with us. Track the progress of your submissions here",
     "chatIntroTitle": "Let's Chat!",
     "chatIntroDescription": "Connect with us for inquiries, assistance, or just a friendly chat. Share attachments and links seamlessly",
-    "search": "Search"
+    "search": "Search",
+    "aboutUs": "About Us",
+    "fullPotential": "Full Potential!",
+    "authorizedFeatures": "some features are only accessible when you have an account",
+    "iUnderstand": "I Understand"
 }

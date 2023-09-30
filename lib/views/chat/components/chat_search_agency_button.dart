@@ -43,7 +43,7 @@ class ChatSearchAgencyButton extends ConsumerWidget {
                 final agency = agencies.value![index];
                 return ListTile(
                   leading: ChatAvatar(
-                    imageUrl: agency.logo ?? SalmonImages.agencyPlacholder,
+                    imageUrl: agency.logo ?? SalmonImages.agencyPlaceholder,
                   ),
                   minLeadingWidth: 8,
                   title: Text(
@@ -59,7 +59,7 @@ class ChatSearchAgencyButton extends ConsumerWidget {
                       'messaging',
                       '$uid${agency.id}',
                       name: context.isEn ? agency.enName : agency.arName,
-                      image: agency.logo ?? SalmonImages.agencyPlacholder,
+                      image: agency.logo ?? SalmonImages.agencyPlaceholder,
                       extraData: {
                         'members': [uid, agency.id]
                       },
@@ -87,13 +87,38 @@ class ChatSearchAgencyButton extends ConsumerWidget {
             ],
             builder: (agency) => ListTile(
               leading: ChatAvatar(
-                imageUrl: agency.logo ?? SalmonImages.agencyPlacholder,
+                imageUrl: agency.logo ?? SalmonImages.agencyPlaceholder,
               ),
               minLeadingWidth: 8,
               title: Text(
                 (context.isEn ? agency.enName : agency.arName) ??
                     context.sl.liveChat,
               ),
+              onTap: () async {
+                final uid = ref.read(a12nProvider).userId;
+                final client = ref.read(chatClientProvider);
+
+                final channel = Channel(
+                  client,
+                  'messaging',
+                  '$uid${agency.id}',
+                  name: context.isEn ? agency.enName : agency.arName,
+                  image: agency.logo ?? SalmonImages.agencyPlaceholder,
+                  extraData: {
+                    'members': [uid, agency.id]
+                  },
+                );
+
+                await channel.create();
+                await channel.watch();
+
+                context.goNamed(
+                  SalmonRoutes.chat,
+                  extra: channel,
+                );
+
+                Navigator.of(context).pop();
+              },
             ),
           ),
         );

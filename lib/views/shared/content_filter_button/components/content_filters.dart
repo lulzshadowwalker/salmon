@@ -123,7 +123,7 @@ class _ContentFiltersState extends ConsumerState<ContentFilters> {
                                   children: [
                                     CachedNetworkImage(
                                       imageUrl: tag.logo ??
-                                          SalmonImages.agencyPlacholder,
+                                          SalmonImages.agencyPlaceholder,
                                       height: 36,
                                       width: 36,
                                       imageBuilder: (context, imageProvider) =>
@@ -137,7 +137,23 @@ class _ContentFiltersState extends ConsumerState<ContentFilters> {
                                         ),
                                       ),
                                       errorWidget: (context, url, error) =>
-                                          const SizedBox.shrink(),
+                                          CachedNetworkImage(
+                                        imageUrl:
+                                            SalmonImages.agencyPlaceholder,
+                                        height: 36,
+                                        width: 36,
+                                        imageBuilder:
+                                            (context, imageProvider) => Padding(
+                                          padding:
+                                              const EdgeInsetsDirectional.only(
+                                            end: 16,
+                                          ),
+                                          child: Image(
+                                            image: imageProvider,
+                                          ),
+                                        ),
+                                        memCacheHeight: 256,
+                                      ),
                                     ),
                                     Expanded(
                                       child: Text(

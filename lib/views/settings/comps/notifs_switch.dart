@@ -36,7 +36,7 @@ class _NotifSwitchState extends ConsumerState<_NotifSwitch> {
       },
       child: _SettingsOption(
         leading: CachedNetworkImage(
-          imageUrl: widget.agency.logo ?? SalmonImages.agencyPlacholder,
+          imageUrl: widget.agency.logo ?? SalmonImages.agencyPlaceholder,
           imageBuilder: (context, imageProvider) => Padding(
             padding: const EdgeInsetsDirectional.only(
               end: 16,
@@ -47,6 +47,20 @@ class _NotifSwitchState extends ConsumerState<_NotifSwitch> {
             ),
           ),
           placeholder: (context, url) => const SizedBox.shrink(),
+          errorWidget: (context, url, error) => CachedNetworkImage(
+            imageUrl: SalmonImages.agencyPlaceholder,
+            height: 36,
+            width: 36,
+            imageBuilder: (context, imageProvider) => Padding(
+              padding: const EdgeInsetsDirectional.only(
+                end: 16,
+              ),
+              child: Image(
+                image: imageProvider,
+              ),
+            ),
+            memCacheHeight: 256,
+          ),
           memCacheHeight: 56,
         ),
         margin: const EdgeInsets.symmetric(horizontal: 16),

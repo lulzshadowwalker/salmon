@@ -30,7 +30,7 @@ class SalmonPoll extends HookConsumerWidget {
                 data: (data) => Row(
                   children: [
                     CachedNetworkImage(
-                      imageUrl: data?.logo ?? SalmonImages.agencyPlacholder,
+                      imageUrl: data?.logo ?? SalmonImages.agencyPlaceholder,
                       imageBuilder: (context, img) => Padding(
                           padding: const EdgeInsetsDirectional.only(end: 6),
                           child: Image(image: img)),

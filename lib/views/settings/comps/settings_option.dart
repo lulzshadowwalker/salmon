@@ -40,7 +40,13 @@ class _SettingsOption extends StatelessWidget {
           children: [
             leading,
             SizedBox(width: leading == null ? 0 : 8),
-            Expanded(child: title),
+            Expanded(
+              child: FractionallySizedBox(
+                alignment: AlignmentDirectional.centerStart,
+                widthFactor: 0.75,
+                child: title,
+              ),
+            ),
             trailing ??
                 Icon(
                   Directionality.of(context) == TextDirection.ltr

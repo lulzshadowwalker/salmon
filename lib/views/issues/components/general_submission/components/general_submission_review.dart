@@ -37,6 +37,18 @@ class GeneralSubmissionReview extends HookConsumerWidget {
                     start: 24,
                   ),
                   child: Text(
+                    context.sl.status,
+                    style: context.textTheme.headlineSmall,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                const _SubmissionReviewStepper(),
+                const SizedBox(height: 8),
+                Padding(
+                  padding: const EdgeInsetsDirectional.only(
+                    start: 24,
+                  ),
+                  child: Text(
                     '${context.sl.refNo}: ${submission.id?.split('-')[0]}',
                     style: TextStyle(
                       color: SalmonColors.muted,
@@ -66,7 +78,7 @@ class GeneralSubmissionReview extends HookConsumerWidget {
                           children: [
                             CachedNetworkImage(
                               imageUrl:
-                                  data?.logo ?? SalmonImages.agencyPlacholder,
+                                  data?.logo ?? SalmonImages.agencyPlaceholder,
                               height: 28,
                               width: 28,
                               imageBuilder: (context, imageProvider) => Padding(
@@ -287,18 +299,6 @@ class GeneralSubmissionReview extends HookConsumerWidget {
                     ),
                   ),
                 ],
-                const SizedBox(height: 48),
-                Padding(
-                  padding: const EdgeInsetsDirectional.only(
-                    start: 24,
-                  ),
-                  child: Text(
-                    context.sl.status,
-                    style: context.textTheme.headlineSmall,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                const _SubmissionReviewStepper(),
               ],
             ),
           ),

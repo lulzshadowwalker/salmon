@@ -13,6 +13,7 @@ import 'package:salmon/helpers/salmon_const.dart';
 import 'package:dash_flags/dash_flags.dart';
 import 'package:salmon/helpers/salmon_extensions.dart';
 import 'package:salmon/l10n/l10n_imports.dart';
+import 'package:salmon/local/salmon_local.dart';
 import 'package:salmon/models/agency.dart';
 import 'package:salmon/models/enums/notif_type.dart';
 import 'package:salmon/providers/a12n/a12n_provider.dart';
@@ -35,6 +36,7 @@ import 'package:salmon/views/shared/salmon_unfocusable_wrapper/salmon_unfocusabl
 import 'package:salmon/views/shared/salmon_unknown_error/salmon_unknown_error.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:validators/validators.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../../helpers/salmon_images.dart';
 import '../../../models/salmon_user_credentials.dart';
@@ -56,3 +58,4 @@ part './dark_mode_switch.dart';
 part 'account_details.dart';
 part './notifs_details.dart';
 part './notifs_switch.dart';
+part './about_section.dart';

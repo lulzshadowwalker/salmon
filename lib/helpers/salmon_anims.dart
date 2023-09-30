@@ -115,4 +115,7 @@ final class SalmonAnims {
 
   /// https://lottiefiles.com/animations/help-desk-transparent-Kffuum9oNc
   static const String helpDesk = 'assets/anims/help-desk.json';
+
+  /// https://lottiefiles.com/animations/rocket-bamcOb3vBV
+  static const String rocket = 'assets/anims/rocket.json';
 }

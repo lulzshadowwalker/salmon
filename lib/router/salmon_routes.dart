@@ -16,6 +16,7 @@ final class SalmonRoutes {
   // static const String locationPicker = 'location-picker';
   static const String chat = 'chat';
   static const String eventView = 'event-view';
+  static const String webview = 'webview';
 
   static const all = <String>[
     home,
@@ -31,6 +32,7 @@ final class SalmonRoutes {
     generalSubmission,
     submissionReview,
     screen,
+    webview,
   ];
 
   static bool validate(String route) => all.contains(route);
